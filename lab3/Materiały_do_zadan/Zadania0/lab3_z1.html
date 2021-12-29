@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <body style="margin: 10%; font-size: 20px;">
+        Hi, 
+        <p id="name_holder"></p>
+        Nice to meet you!
+        <br>
+        <button onClick="showPrompt();">Click to enter you name</button>
+    </body>
+    <script>
+        function showPrompt(){
+            var name = prompt("What's your name?");
+            if(name != null){
+                document.getElementById("name_holder").innerHTML = name + ",";
+            }
+        };
+    </script>
+        
+</html>

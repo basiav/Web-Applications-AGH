@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="addItem()">add item</button>
+    <button onclick="removeItem()">remove item</button>
+    <br>
+    <ul id="dynamic-list"></ul>
+</body>
+<script >
+    var current = 1;
+    function addItem(){
+    var ul = document.getElementById("dynamic-list");
+    var le = document.getElementById("data")
+    if(le != null){
+    current ++;
+    }
+    else{
+      current = 1;
+    }
+    var li = document.createElement("li");
+    li.setAttribute('name',current);
+    li.setAttribute('id', 'data');
+    li.appendChild(document.createTextNode("item" + current));
+    ul.appendChild(li)
+  }
+  
+  function removeItem(){
+    var ul = document.getElementById("dynamic-list");
+    var lis = document.getElementById("dynamic-list").getElementsByTagName("li");
+    var item = document.getElementById(lis[0].id);
+    ul.removeChild(item);
+  }
+  </script>
+</html>

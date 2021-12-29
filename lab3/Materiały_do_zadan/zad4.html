@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+	Number of clicks: <p id="number">  0</p> 
+	<button id="add">Click me</button> 
+    <button onClick="disableEnable();"> Disable/Enable Click button</button>
+</body>
+<script>
+    function getElement(elm){
+        return document.getElementById(elm);
+    }
+
+    var a = 0;
+    var add = function(valueToAdd) {
+        a += valueToAdd;
+        document.getElementById('number').innerHTML = a;
+    }
+
+    var reset = function() {
+        a = 0;
+        document.getElementById('number').innerHTML = 0;
+    }
+
+    var addButton = document.querySelector("#add");
+    var resetButton = document.querySelector("#reset");
+
+    addButton.addEventListener("click", function() {
+        add(1);
+    })
+
+    function disable(elm){
+        return getElement(elm).setAttribute("disabled", true);
+    }
+    function enable(elm){
+        return getElement(elm).removeAttribute("disabled");
+    }
+    function disableEnable(){
+        if(getElement("add").disabled){
+                enable("add");
+        }
+        else{
+            reset();
+            disable("add");
+        } 
+    }
+</script>
+</html>

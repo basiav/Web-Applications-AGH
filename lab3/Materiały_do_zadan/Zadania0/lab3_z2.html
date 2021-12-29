@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img style="width: 600px; height: 500px; border:solid blue 4px" id="photo" src="https://ocdn.eu/pulscms-transforms/1/ZtOktkqTURBXy83MDllZjI1NTcyMjE3NDAzNmYxYTM5MWQ4YjA3YTMwNi5qcGVnkZMFzQSwzQJz" width="107" height="98">
+    <br><br>
+    <button onclick="changePhoto()">Click to change photo</button>
+    <script>
+        photos= new Array('https://ocdn.eu/pulscms-transforms/1/ZtOktkqTURBXy83MDllZjI1NTcyMjE3NDAzNmYxYTM5MWQ4YjA3YTMwNi5qcGVnkZMFzQSwzQJz', 'https://ocdn.eu/pulscms-transforms/1/RVik9kpTURBXy9kNTJiNDBmOWNjZjg4NTliZDAwNDAwMTFkYTMzNTlmMy5qcGeTlQPNBFkAzRaOzQywkwXNAxTNAbyTCaZlNGU0OWUGgaEwAQ/jesien-w-zakopanem.jpg');
+        styles = new Array("width: 600px; height: 500px; border:solid blue 4px", "width: 600px; height: 500px; border:solid red 4px")
+        i=0;
+        function changePhoto() {
+            i++;
+            document.getElementById("photo").src = photos[i];
+            document.getElementById("photo").style = styles[i];
+            if(i == photos.length-1) {
+                i=-1; 
+             }
+    
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+       h1{
+            margin-left: 50px;
+        }
+        body{
+            background-color: azure;
+            font-size: 20px;
+            font-family:'Courier New', Courier, monospace;
+        }
+
+        input{
+            background-color: white;
+            border: 1px solid #ccc;
+            width: 250px;
+            height: 40px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin-right: 10px;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        }
+
+        form{
+            margin-left: 50px;
+            background-color: rgb(255, 255, 255);
+            width:700px;
+            padding: 50px;
+            color: rgb(109, 105, 105);
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+            display: flex;
+        }
+
+        li{
+            color: white;
+            background-color: rgb(93, 168, 253);
+            margin: 50px 0;
+            list-style: none;
+            padding: 30px;
+            width: 500px;
+        }
+
+        .remove-button{ 
+            color:white;
+            float: right;
+            width: 60px;
+            height: 60px;
+            border-radius: 50px;
+            cursor:pointer;
+            border: none;
+            background-color: transparent;
+            margin-right: 10px;
+            margin-top: -14px;
+        }
+
+        .remove-button:hover{
+            background-color:red;
+        }
+        .add-button{
+            position: relative;
+            float: left;
+            margin-left: 20px;
+            margin-top: 33px;
+            background-color: green;
+            border:none;
+            height: 40px;
+            width: 150px;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .add-button:hover{
+            color: green;
+            background-color: rgba(218, 213, 213, 0.966);
+        }
+    </style>
+</head>
+<body>
+    <h1>KSIĄŻKA TELEFONICZNA</h1>
+    <ul id="dynamic-list">
+    </ul>
+    <br><br><br>
+    <form>
+        <div>
+            <label for="names">Name and Surname:</label>
+            <input id="names" type="text" class="input-box"/>
+        </div>
+        <div>
+            <label for="phone">Phone:</label><br>
+            <input id="phone" type="text" class="input-box"/>
+        </div>
+        <div>
+            <button type="button" class="add-button" onclick="addItem()">Dodaj</button>
+        </div>
+    </form>
+
+
+
+    <script>
+        var ul = document.getElementById("dynamic-list");
+        
+        function addItem(){
+            let dataNames = document.getElementById("names").value;
+            let dataPhone = document.getElementById("phone").value;
+            
+            if(dataNames !== "" && dataPhone !== ""){
+                if(validateNames(dataNames) && validatePhone(dataPhone)){
+                    let remove = document.createElement("button");
+                    remove.setAttribute('class', 'remove-button');
+                    remove.setAttribute('id', dataPhone);
+                    remove.setAttribute('onclick', 'removeItem(this.id)');
+                    remove.innerHTML='<i class="fa fa-trash-o fa-3x" aria-hidden="true"></i>';
+                    
+                    let li = document.createElement("li");
+                    li.setAttribute('id', dataPhone + 'position');
+                    li.appendChild(document.createTextNode(dataNames + "   " + dataPhone));
+                    li.append(remove);
+                    ul.appendChild(li);
+
+                    document.getElementById("names").value = "";
+                    document.getElementById("phone").value = "";
+                }
+            }else{
+                alert("Wpisz wymagane dane!");
+            }     
+
+        }
+
+        function removeItem(id){
+            let item = document.getElementById(id+'position');
+            ul.removeChild(item);
+        }
+
+        function validateNames(name){
+            let names = name.split(" ");
+            let pattern = /^[A-Za-z]+$/;
+
+            if(names.length == 2){
+                let flag = true;
+                names.forEach(element => {
+                    if(!element.match(pattern)){
+                        alert("W polu [ IMIE I NAZWISKO ] dozwolone sa jedynie litery "+element);
+                        flag = false;
+                    }
+                    if(!isUpperCase(element.charAt(0))){
+                        alert("Imię oraz nazwisko muszą zaczynać się z dużych liter "+element);
+                        flag = false;
+                    }
+                });
+                return flag;
+            }else{
+                alert("Podaj Imie i Nazwisko rozdzielone spacja!");
+                return false;
+            }
+        }
+
+        function isUpperCase(character){
+            return character == character.toUpperCase();
+        }
+
+        function validatePhone(dataPhone) {
+            if(/^[0-9]{9}$/.test(dataPhone)) {
+                return true;
+            }else{
+                alert("Wprowadzono niepoprawny numer telefonu");
+                return false;
+            };
+        }
+    </script>
+</body>
+</html>
