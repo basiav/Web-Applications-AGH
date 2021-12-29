@@ -37,23 +37,25 @@
         }
 
         li{
-            color: white;
-            background-color: rgb(93, 168, 253);
+            background-color: white;
             margin: 50px 0;
             list-style: none;
-            padding: 30px;
-            width: 500px;
+            padding: 50px;
+            width: 700px;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+            font-weight: bolder;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .remove-button{ 
-            color:white;
+            color: white;
             float: right;
-            width: 60px;
-            height: 60px;
-            border-radius: 50px;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
             cursor:pointer;
             border: none;
-            background-color: transparent;
+            background-color: green;
             margin-right: 10px;
             margin-top: -14px;
         }
@@ -114,11 +116,13 @@
                     remove.setAttribute('class', 'remove-button');
                     remove.setAttribute('id', dataPhone);
                     remove.setAttribute('onclick', 'removeItem(this.id)');
-                    remove.innerHTML='<i class="fa fa-trash-o fa-3x" aria-hidden="true"></i>';
+                    remove.innerHTML='<i class="fa fa-trash-o fa-3x" aria-hidden="false"></i>';
                     
                     let li = document.createElement("li");
                     li.setAttribute('id', dataPhone + 'position');
-                    li.appendChild(document.createTextNode(dataNames + "   " + dataPhone));
+                    li.appendChild(document.createTextNode(dataNames));
+                    li.appendChild(document.createElement("br"));
+                    li.appendChild(document.createTextNode(dataPhone));
                     li.append(remove);
                     ul.appendChild(li);
 
