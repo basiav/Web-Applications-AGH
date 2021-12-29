@@ -1,0 +1,225 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{
+            background-color:antiquewhite;
+        }
+        div{
+            padding: 10px;
+            width: 400px;
+            background-color:bisque;
+            color:navy;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Zadanie 7</h1>
+    <p>Launch server:<br> json-server --watch cities.json </p>
+    <div id="fetchSuccessMsg"></div>
+    <br>
+    <div id="lesserPoland"></div><br>
+    <div id="doubleACities"></div><br>
+    <div id="fifthDensityCity"></div><br>
+    <div id="bigCities"></div><br>
+    <div id="mediumCities"></div><br>
+    <div id="avgArea"></div>
+    <br><br>
+    
+    <script>
+       var fetchSuccess;
+       const http = `http://localhost:3000/cities`;
+       const lesser = "lesserPoland";
+       const doubleA = "doubleACities";
+       const fifth = "fifthDensityCity";
+       const big = "bigCities";
+       const medium = "mediumCities";
+       const avg = "avgArea";
+       const fetchMsg = "fetchSuccessMsg";
+
+       var City = function() {
+                this.name = "";
+                this.density = 0;
+                return this;
+        }
+
+       fetch(http)
+       .then(response => {
+            if(response.ok) {
+                fetchSuccess = true;
+                return response.json();
+            }else{
+                fetchSuccess = false;
+            }
+
+        })
+        .then(data => {
+            showData(data)
+        });
+
+
+        // wyświetli na stronie tylko miasta z województwa małopolskiego
+        function getLesserPoland(json){
+            let cities = `<br><br>` + "Cities in Małopolskie: " + `<br><br>`;
+            json.forEach(element => {
+                if(element.province.localeCompare("małopolskie") == 0){
+                    cities += "City: " + element.name + `<br>`;
+                }
+            });
+            return cities;
+        }
+
+        // wyświetli miasta które w swojej nazwie posiadają dwa znaki ‘a’ 
+        function getDoubleA(json){
+            let cities = `<br><br>` + "Cities with two 'a' letters in their names: " + `<br><br>`;
+            json.forEach(city => {
+                ctr = 0;
+                Array.from(city.name).forEach((letter) => {
+                    if(letter == 'a' || letter == 'A') {
+                        ctr += 1;
+                    }
+                })
+                if(ctr == 2){
+                    cities += "City: " + city.name + `<br>`;
+                }
+            });
+            return cities;
+        }
+
+        function sortObjectArr(objectArr){
+            var objValues = [];
+            var results = [];
+
+            objectArr.forEach(obj => {
+                objVal = obj.density;
+                if(objVal != null){
+                    objValues.push(objVal);
+                }
+            });
+
+            objValues.sort(function(a, b) {
+                return a - b;
+            });
+
+            var i, j;
+            i = 0;
+            for(var val of objValues){
+                j = 0;
+                for(var obj of objectArr){
+                    if(obj.density == val){
+                        results[i] = new City();
+                        results[i].name = objectArr[j].name;
+                        results[i].density = objectArr[j].density;
+                    }
+                    j += 1;
+                }
+                i += 1;
+            }
+            
+            while(results.length > 5){
+                results.shift();
+            }
+
+            return results;
+        }
+
+        // wyświetli piate pod kątem gęstości zaludnienia miasto w Polsce.
+        function getFifthGreatestDensity(json){
+            let res = `<br><br>` + "City with fifth greatest density: " + `<br><br>`;
+            
+            var cities = [];
+            for(let i = 0; i < 5; i++){
+                cities.push(new City());
+            }
+
+            json.forEach(city => {
+                var lowerBound = cities[0].density;
+                var upperBound = cities[4].density;
+                let density = city.dentensity;
+                if(lowerBound <= density || density <= upperBound){
+                    var c = new City();
+                    c.name = city.name;
+                    c.density = city.dentensity;
+                    cities.push(c);
+                    cities = sortObjectArr(cities);
+                }
+            });
+            
+            res += cities[0].name;
+            return res;
+        }
+
+        // dla wszystkich miast powyżej 100000 dodać ( na końcu) city do nazwy.
+        function addCitySuffix(json) {
+            let cities = `<br><br>` + "Cities over 100 000: " + `<br><br>`;
+            json.forEach(city => {
+                if(city.people > 100000){
+                    city.name += "City"
+                    cities += "City: " + city.name + `<br>`;
+                }
+            });
+            return cities;
+        }
+
+        // wyliczyć czy więcej jest miast powyżej 80000 mieszkańców czy poniżej wraz z informacją o ich liczbie
+        function mediumCitiesCount(json){
+            let cities = `<br><br>` + "Cities over 80 000: ";
+            let citiesUnder = 0;
+            let citiesOver = 0;
+            json.forEach(city => {
+                if(city.people < 80000){
+                    citiesUnder++;
+                }
+                if(city.people > 80000){
+                    citiesOver++;
+                }
+            });
+
+            cities += citiesOver  + `<br>` + "Cities under 80 000: " + citiesUnder + `<br>`;
+            cities += "More cities: " + (citiesUnder > citiesOver ? "under" : "over") + `<br><br>`;
+            return cities;
+        }
+
+        // jaka jest średnia powierzchnia miast z powiatów zaczynających się na literkę „P”
+        function avgArea(json){
+            let cities = `<br><br>` + "Avg area of cities from townships starting with the letter P: " + `<br>`;
+            let pCitiesCount = 0;
+            let areaSum = 0;
+            
+            json.forEach(city => {
+                if(city.township.charAt(0) == 'p' || city.township.charAt(0) == 'P'){
+                    pCitiesCount++;
+                    areaSum += city.area;
+                }
+            });
+
+            cities += Math.round(areaSum/pCitiesCount);
+            return cities;
+        }
+
+        function showData(json){
+            let lesserParagraph = document.getElementById(lesser);
+            let doubleAParagraph = document.getElementById(doubleA);
+            let fifthDensityParagraph = document.getElementById(fifth);
+            let bigCitiesParagraph = document.getElementById(big);
+            let mediumCitiesParagraph = document.getElementById(medium);
+            let avgParagraph = document.getElementById(avg);
+
+            document.getElementById("fetchSuccessMsg").innerHTML = fetchSuccess == true ? "Fetching succeeded." : "Fetching failed! :(";
+
+            lesserParagraph.innerHTML = getLesserPoland(json); // a
+            doubleAParagraph.innerHTML = getDoubleA(json); // b
+            fifthDensityParagraph.innerHTML = getFifthGreatestDensity(json); // c
+            bigCitiesParagraph.innerHTML = addCitySuffix(json); // d
+            mediumCitiesParagraph.innerHTML = mediumCitiesCount(json); // e
+            avgParagraph.innerHTML = avgArea(json); // f
+        }
+
+    </script>
+</body>
+
+</html>
