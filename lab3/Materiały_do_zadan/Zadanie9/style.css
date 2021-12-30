@@ -1,0 +1,166 @@
+/* * {box-sizing:border-box} */
+
+body {
+    background-color:rgb(252, 247, 223);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 20px;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+#logo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  width: 400px;
+  max-width: 500px;
+  height: 370px;
+  position: relative;
+  margin: auto;
+  background-color:rgb(87, 141, 143);
+}
+
+.card {
+    background-color:antiquewhite;
+    /* max-height: 500px; */
+    width: fit-content;
+    height: 450px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  /* display: flex;
+  align-items: center;
+  flex-direction: column; */
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: rgb(252, 247, 223);
+  font-weight: bold;
+  font-size: 30px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: beige;
+}
+
+/* Caption text */
+.text {
+  font-size: 14px;
+  padding: 10px;
+  position: absolute;
+  bottom: 8px;
+  /* width: 100%; */
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.name {
+    text-align: center;
+    font-size: large;
+    text-shadow: #717171;
+    color:rgb(201, 232, 233);
+}
+
+.position {
+    text-align: center;
+    text-shadow: #717171;
+    color:rgb(0, 2, 2);
+
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 13px;
+  width: 13px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+.button-div {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button {
+    color: whitesmoke;
+    background-color:rgba(87, 141, 143, 0.692);
+    border: none;
+    border-radius: 5%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
+  }
+  
+  .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
