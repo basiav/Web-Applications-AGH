@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Title of the document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    p {
+      font-size: 50px;
+    }
+    #instructions {
+        font-size: 20px;
+    }
+    body {
+        font-family:"Open Sans",sans-serif;
+        background-color:blanchedalmond;
+    }
+    #context-menu {
+        position:fixed;
+        z-index: index 10000;
+        width:250px;
+        background: #1b1a1a;
+        transform: scale(0);
+        transform-origin: top left;
+        cursor: pointer;
+    }
+    #context-menu.active {
+        transform:scale(1);
+        transition: transform 200ms ease-in-out;
+    }
+    #context-menu #item {
+        padding: 8px 10px;
+        font-size:15px;
+        color:#eee;
+    }
+    #context-menu #item:hover {
+        background: #555;
+    }
+    #context-menu #item i {
+        display: inline-block;
+        margin-right: 5px;
+    }
+    #context-menu hr {
+        margin: 2px 0px;
+        border-color: #555;
+    }
+  </style>
+</head>
+
+<body>
+    <p id="instructions">
+        Use the up and down arrows to blow the balloon up, <br>
+        ctrl + right click to show the context-menu up and see the current balloon's size. <br>
+        Be careful, once the balloon explodes, nothing can be done!
+    </p>
+    <p id="balloon">🎈</p>
+    <div id="context-menu">
+        <div id="item">Current Balloon Size: starting size (50px).</div>
+    </div>
+
+    <script>
+        const balloon = "🎈";
+        const explosion = "💥";
+        const EmojiEnum = Object.freeze({"balloon": 1, "explosion": 2});
+        const explosionBound = 350;
+        let block = false;
+
+        let para = document.querySelector('p#balloon');
+
+        function setParaEmoji(emoji){
+            switch(emoji){
+                case EmojiEnum.balloon:
+                    para.innerHTML = balloon;
+                case EmojiEnum.explosion:
+                    para.innerHTML = explosion;
+            }
+        }
+
+        window.addEventListener("keydown", e => {
+            if(!block){
+                let currentSize = parseInt(para.style.fontSize);
+
+                // If unable to determine current fontSize, default to 50
+                if (isNaN(currentSize)) {
+                    currentSize = 50;
+                }
+
+                // Define the rate of change
+                let changeAmount = 5;
+
+                if (e.key == "ArrowUp") {
+                    para.style.fontSize = currentSize + changeAmount + 'px';
+                } else if(e.key == "ArrowDown") {
+                    // Protect againt zero or negative font sizes via Math.max() 
+                    para.style.fontSize = Math.max(changeAmount * 3, currentSize - changeAmount) + 'px';
+                }
+
+                currentSize = parseInt(para.style.fontSize);
+                if(currentSize > explosionBound){
+                    setParaEmoji(EmojiEnum.explosion);
+                    block = true;
+                }
+            }
+        });
+
+        // Open context-menu with ctrl + right click
+        window.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            if(event.ctrlKey){
+                let contextElement = document.getElementById("context-menu");
+                contextElement.style.top = event.offsetY + "px";
+                contextElement.style.left = event.offsetX + "px";
+                contextElement.classList.add("active");
+
+                let currentSize = parseInt(para.style.fontSize);
+                if (isNaN(currentSize)) {
+                    currentSize = 50;
+                }
+                document.getElementById('item').innerHTML = "ℹ️ Current Balloon Size: " + currentSize;
+            }
+        });
+
+        window.addEventListener("click", function(e) {
+            document.getElementById("context-menu").classList.remove("active");
+        })
+
+        // Disable arrow key scrolling in users browser
+        window.addEventListener("keydown", function(e) {
+            if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+                e.preventDefault();
+            }
+        }, false);
+    </script>
+
+</body>
+
+</html>
