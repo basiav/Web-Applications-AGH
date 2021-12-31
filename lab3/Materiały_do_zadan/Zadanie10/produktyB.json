@@ -1,0 +1,257 @@
+{ "produktyB":[
+    {
+        "name": "Samochody",
+        "items": [
+        {
+            "id":1,
+            "name": "Toyota"
+        },
+        {
+            "id":2,
+            "name": "Subaru"
+        },
+        {
+            "id":3,
+            "name": "Mercedes"
+        },
+        {
+            "id":4,
+            "name": "Lexus"
+        },
+        {
+            "id":5,
+            "name": "Dacia"
+        },
+        {
+            "id":6,
+            "name": "Renault"
+        },
+        {
+            "id":7,
+            "name": "Subaru"
+        },    
+        {
+            "id":8,
+            "name": "Mercedes"
+        }
+    ]},
+    {
+        "name": "Słodycze",
+        "items": [
+        {
+            "id":1,
+            "name": "Czekolada gorzka"
+        },
+        {
+            "id":2,
+            "name": "Czekolada mleczna"
+        },
+        {
+            "id":3,
+            "name": "Czekolada biała"
+        },
+        {
+            "id":4,
+            "name": "Czekolada mleczna"
+        }
+    ]},
+    {
+        "name": "Soki",
+        "items": [
+        {
+            "id":1,
+            "name": "Tymbark"
+        },
+        {
+            "id":2,
+            "name": "Sok jabłkowy"
+        },
+        {
+            "id":3,
+            "name": "Owoce leśne"
+        },
+        {
+            "id":4,
+            "name": "Sok porzeczkowy"
+        },
+        {
+            "id":5,
+            "name": "Sok pomarańczowy"
+        },
+        {
+            "id":6,
+            "name": "Sok marchwiowy"
+        },
+        {
+            "id":7,
+            "name": "Kubuś"
+        },    
+        {
+            "id":8,
+            "name": "Sok jabłkowy"
+        }
+    ]},
+    {
+        "name": "Sprzęt komputerowy",
+        "items": [
+        {
+            "id":1,
+            "name": "Komputer"
+        },
+        {
+            "id":2,
+            "name": "Wiatrak"
+        },
+        {
+            "id":3,
+            "name": "Karta graficzna"
+        },
+        {
+            "id":4,
+            "name": "Procesor intel"
+        },
+        {
+            "id":5,
+            "name": "Procesor AMD"
+        },
+        {
+            "id":6,
+            "name": "Monitor"
+        },
+        {
+            "id":7,
+            "name": "Laptop"
+        },    
+        {
+            "id":8,
+            "name": "Zasilacz"
+        }
+    ]},
+    {
+        "name": "Akcesora komputerowe",
+        "items": [
+        {
+            "id":1,
+            "name": "Mysz"
+        },
+        {
+            "id":2,
+            "name": "Dyskietka"
+        },
+        {
+            "id":3,
+            "name": "Klawiatura"
+        },
+        {
+            "id":4,
+            "name": "Drukarka"
+        },
+        {
+            "id":5,
+            "name": "Kamera"
+        },
+        {
+            "id":6,
+            "name": "Mikrofon"
+        },
+        {
+            "id":7,
+            "name": "Mikrofon"
+        },    
+        {
+            "id":8,
+            "name": "Mikrofon"
+        }
+    ]},
+    {
+        "name": "Rowery",
+        "items": [
+        {
+            "id":1,
+            "name": "Giant"
+        },
+        {
+            "id":2,
+            "name": "Kross"
+        },
+        {
+            "id":3,
+            "name": "Scott"
+        }
+    ]},
+    { 
+        "name": "Skutery",
+        "items": []},
+    {
+        "name": "Owoce",
+        "items": [
+        {
+            "id":1,
+            "name": "Gruszka"
+        },
+        {
+            "id":2,
+            "name": "Arbuz"
+        },
+        {
+            "id":3,
+            "name": "Truskawka"
+        },
+        {
+            "id":4,
+            "name": "Pomarańcza"
+        },
+        {
+            "id":5,
+            "name": "Melon"
+        },
+        {
+            "id":6,
+            "name": "Malina"
+        },
+        {
+            "id":7,
+            "name": "Jeżyna"
+        },    
+        {
+            "id":8,
+            "name": "Poziomka"
+        }
+    ]},
+    {
+        "name": "Warzywa",
+        "items": [
+        {
+            "id":1,
+            "name": "Pomidor"
+        },
+        {
+            "id":2,
+            "name": "Por"
+        },
+        {
+            "id":3,
+            "name": "Ziemniak"
+        },
+        {
+            "id":4,
+            "name": "Papryka zielona"
+        },
+        {
+            "id":5,
+            "name": "Czosnek"
+        },
+        {
+            "id":6,
+            "name": "Papryka czerwona"
+        },
+        {
+            "id":7,
+            "name": "Cebula"
+        },    
+        {
+            "id":8,
+            "name": "Papryka żółta"
+        }
+    ]}
+]}

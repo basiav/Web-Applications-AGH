@@ -1,0 +1,247 @@
+{"produktyA": [
+    {
+        "name": "Samochody",
+        "items": [
+        {
+            "id":1,
+            "name": "Toyota"
+        },
+        {
+            "id":2,
+            "name": "Kia"
+        },
+        {
+            "id":3,
+            "name": "Fiat"
+        },
+        {
+            "id":4,
+            "name": "BMW"
+        },
+        {
+            "id":5,
+            "name": "BMW"
+        },
+        {
+            "id":6,
+            "name": "Fiat"
+        },
+        {
+            "id":7,
+            "name": "Fiat"
+        },    
+        {
+            "id":8,
+            "name": "Mercedes"
+        }
+        ]
+    },
+    { 
+        "name": "Hulajnogi", 
+        "items": []
+    },
+    {
+        "name": "Słodycze",
+        "items": [
+        {
+            "id":1,
+            "name": "Czekolada gorzka"
+        },
+        {
+            "id":2,
+            "name": "Czekolada mleczna"
+        },
+        {
+            "id":3,
+            "name": "Czekolada biała"
+        },
+        {
+            "id":4,
+            "name": "Czekolada mleczna"
+        },
+        {
+            "id":5,
+            "name": "Lizaki"
+        },
+        {
+            "id":6,
+            "name": "Lizaki"
+        },
+        {
+            "id":7,
+            "name": "Ciasteczka"
+        },    
+        {
+            "id":8,
+            "name": "Czekolada gorzka"
+        }
+    ]},
+    {
+        "name": "Soki",
+        "items": [
+        {
+            "id":1,
+            "name": "Tymbark"
+        },
+        {
+            "id":2,
+            "name": "Sok jabłkowy"
+        },
+        {
+            "id":3,
+            "name": "Owoce leśne"
+        },
+        {
+            "id":4,
+            "name": "Sok porzeczkowy"
+        },
+        {
+            "id":5,
+            "name": "Sok pomarańczowy"
+        },
+        {
+            "id":6,
+            "name": "Sok marchwiowy"
+        },
+        {
+            "id":7,
+            "name": "Kubuś"
+        },    
+        {
+            "id":8,
+            "name": "Sok jabłkowy"
+        }
+    ]},
+    {
+        "name": "Sprzęt komputerowy",
+        "items": [
+        {
+            "id":1,
+            "name": "Komputer"
+        },
+        {
+            "id":2,
+            "name": "Monitor"
+        },
+        {
+            "id":3,
+            "name": "Karta sieciowa"
+        },
+        {
+            "id":4,
+            "name": "Procesor intel"
+        },
+        {
+            "id":5,
+            "name": "Procesor AMD"
+        },
+        {
+            "id":6,
+            "name": "Monitor"
+        },
+        {
+            "id":7,
+            "name": "Laptop"
+        },    
+        {
+            "id":8,
+            "name": "Zasilacz"
+        }
+    ]},
+    {
+        "name": "Akcesora komputerowe",
+        "items": [
+        {
+            "id":1,
+            "name": "Mysz"
+        },
+        {
+            "id":2,
+            "name": "Klawiatura"
+        },
+        {
+            "id":3,
+            "name": "Klawiatura"
+        },
+        {
+            "id":4,
+            "name": "Drukarka"
+        },
+        {
+            "id":5,
+            "name": "Kamera"
+        },
+        {
+            "id":6,
+            "name": "Mikrofon"
+        },
+        {
+            "id":7,
+            "name": "Mikrofon"
+        },    
+        {
+            "id":8,
+            "name": "Mikrofon"
+        }
+    ]},
+    {
+        "name": "Rowery",
+        "items": [
+        {
+            "id":1,
+            "name": "Giant"
+        },
+        {
+            "id":2,
+            "name": "Kross"
+        },
+        {
+            "id":3,
+            "name": "Scott"
+        },
+        {
+            "id":4,
+            "name": "Giant"
+        }
+    ]},
+    { 
+        "name": "Skutery",
+        "items": []
+    },
+    {
+        "name": "Owoce",
+        "items": [
+        {
+            "id":1,
+            "name": "Gruszka"
+        },
+        {
+            "id":2,
+            "name": "Figa"
+        },
+        {
+            "id":3,
+            "name": "Jabłko"
+        },
+        {
+            "id":4,
+            "name": "Pomarańcza"
+        },
+        {
+            "id":5,
+            "name": "Banan"
+        },
+        {
+            "id":6,
+            "name": "Śliwka"
+        },
+        {
+            "id":7,
+            "name": "Banan"
+        },    
+        {
+            "id":8,
+            "name": "Poziomka"
+        }
+    ]}
+]}

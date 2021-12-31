@@ -1,0 +1,29 @@
+body{
+    background-color:antiquewhite;
+}
+
+div{
+    background-color: beige;
+    border-color: black;
+    border-width: 5px;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+}
+
+#main-section {
+    padding: 10px;
+    width: 400px;
+    background-color:azure;
+    color:navy; 
+}
+
+#menu-section {
+    padding: 10px;
+    width: 400px;
+    background-color:bisque;
+    color:navy; 
+}
+
