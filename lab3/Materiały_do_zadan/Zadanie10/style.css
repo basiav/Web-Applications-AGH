@@ -31,11 +31,6 @@ ul {
     cursor: pointer;
 }
 
-/* .lvlOne {
-    cursor: pointer;
-} */
-
-
 .treeView::before {
     content: "\2610";
     display: inline-block;

@@ -5,7 +5,7 @@ const fetchMsgAParagraph = document.getElementById("fetchSuccessMsgA");
 const fetchMsgBParagraph = document.getElementById("fetchSuccessMsgB");
 
 const menuSection = document.getElementById("menuSection");
-const mainListUl = document.getElementById("mainList");
+var mainListUl = document.getElementById("mainList");
 
 var selectAllCheckboxs = new Map();
 
@@ -18,6 +18,7 @@ Promise.all([
         return response.json();
     }));
 }).then(function (data) {
+    
     console.log(data);
     var produktyA = data[0].produktyA;
     var produktyB = data[1].produktyB;
@@ -84,21 +85,68 @@ Promise.all([
         menuSection.appendChild(liToggler);
     });
 
-    function setOnMainPage(liId, state){};
+    function addElementToMainList(elementName){
+        var li = document.getElementById("elementName");
+        console.log("Trying to add..." + elementName + " " + li + " body contains it? " + document.body.contains(li) +
+         " mainListUl contains it? " + mainListUl.contains(li));
+        // if(li == null || !li || li === null ){
+        if(!document.body.contains(li)){
+            var li = document.createElement("li");
+            li.setAttribute("id", elementName);
+            li.append(elementName);
+            var a = mainListUl.appendChild(li);
+            console.log("Append: " + a.innerHTML);
+        } else {
+            console.log("[addElementToMainList] Error: this element already exists " + elementName);
+        }
+    };
+
+    function removeElementFromMainList(elementName){
+        var li = document.getElementById(elementName);
+        try {
+            var r = mainListUl.removeChild(li);
+            r.remove();
+            li.remove();
+            li.parentElement.removeChild(li);
+            console.log("Remove: " + r.innerHTML);
+        }
+        catch(error) {
+            console.log("[REMOVE] ERROR: " + error);
+        };
+    }
+
+    function updateMainList(element){
+        if(!element.classList.contains("selectAll")){
+            if(element.classList.contains("active")) {
+                addElementToMainList(element.innerHTML);
+            } else {
+                removeElementFromMainList(element.innerHTML);
+            }
+        }
+    }
+
+    function toggleTreeViewElement(element){
+        element.classList.toggle("active");
+        updateMainList(element);
+    }
+
+    function setTreeViewElement(element, activate){
+        if(activate){
+            element.classList.add("active");
+        } else {
+            element.classList.remove("active");
+        }
+        updateMainList(element);
+    }
+
+
 
     function toggleTreeViews(){
+        console.log("toggleTreeViews");
         var treeViews = document.querySelectorAll(".treeView");
         treeViews.forEach((treeView) => {
             treeView.addEventListener("click", () => {
-                treeView.classList.toggle("active");
-                if(!treeView.classList.contains("selectAll")){
-                    if(treeView.classList.contains("active")) {
-                        mainListUl.innerHTML;
-                    } else {
-
-                    }
-                }
-                console.log("!!!" + treeView.classList)
+                toggleTreeViewElement(treeView);
             })
         });
     }
@@ -123,10 +171,10 @@ Promise.all([
             if(treeView.getAttribute("class").includes(liId)){
                 switch(state){
                     case "enable":
-                        treeView.classList.add("active");
+                        setTreeViewElement(treeView, true);
                         break;
                     case "disable":
-                        treeView.classList.remove("active");
+                        setTreeViewElement(treeView, false);
                         break;
                 }
             }
@@ -135,13 +183,10 @@ Promise.all([
 
     function toggleSelectAlls() {
         var selectAlls = document.querySelectorAll(".selectAll");
-        var i = 0;
         selectAlls.forEach((selectAll) => {
             var id = selectAll.getAttribute("id");
             selectAll.addEventListener("click", () => {
-                console.log(id);
                 var selected = selectAllCheckboxs.get(id);
-                console.log("[id: " + id + "] [selected: " + selected +"]")
                 var state;
                 switch(selected){
                     case true:
@@ -153,20 +198,12 @@ Promise.all([
                 }
                 selectAllCheckboxs.set(id, !selected);
                 setTreeViewsWithinUl(id, state);
-                console.log(i++);
             });
         });
     }
 
     toggleSelectAlls();
 
-
-
-
-
-
 }).catch(function (error) {
-    console.log("ERROR: " + error);
+    console.log("[FETCH] ERROR: " + error);
 });
-
-console.log("--------------------------------");
