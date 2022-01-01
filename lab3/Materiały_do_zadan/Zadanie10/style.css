@@ -1,4 +1,6 @@
 body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 5rem;
     background-color:antiquewhite;
 }
 
@@ -6,6 +8,10 @@ div{
     background-color: beige;
     border-color: black;
     border-width: 5px;
+}
+
+ul {
+    /* list-style-type: none; */
 }
 
 #container {
@@ -20,10 +26,54 @@ div{
     color:navy; 
 }
 
-#menu-section {
+#menuSection {
     padding: 10px;
     width: 400px;
     background-color:bisque;
     color:navy; 
+    cursor: pointer;
 }
 
+/* .lvlOne {
+    cursor: pointer;
+} */
+
+
+.treeView::before {
+    content: "\2610";
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.treeView.active {
+    text-overflow: ellipsis;
+    text-shadow: darkslategray;
+    text-decoration: line-through;
+}
+
+.treeView.active::before {
+    content: "\2705";
+}
+
+.lvlTwo {
+    margin-left: 2rem;
+}
+
+.toggler::before {
+    content: "\25B6";
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.toggler.active::before {
+    transform: rotate(90deg);
+}
+
+.toggler-target {
+    display: none;
+}
+
+.toggler-target.active {
+    display: block;
+}

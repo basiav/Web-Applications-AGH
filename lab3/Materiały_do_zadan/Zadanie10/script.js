@@ -1,10 +1,9 @@
-var fetchSuccessA;
-var fetchSuccessB;
 const httpA = `http://localhost:3000/produktyA`;
 const httpB = `http://localhost:3000/produktyB`;
 const fetchMsgA = "fetchSuccessMsgA";
 const fetchMsgB = "fetchSuccessMsgB";
 
+const menuSection = document.getElementById("menuSection");
 
 Promise.all([
     fetch('http://localhost:3000/produktyA'),
@@ -15,39 +14,89 @@ Promise.all([
         return response.json();
     }));
 }).then(function (data) {
-    // Log the data to the console
-    // You would do something with both sets of data here
     console.log(data);
     var produktyA = data[0].produktyA;
     var produktyB = data[1].produktyB;
-    console.log("--------------")
-    productList = [produktyA, produktyB]
-    productList.forEach(category => {
-        console.log(category)
-        category.forEach(c => {
-            console.log("<<<<<<<<<<<<<<<<<<<<<<<<<")
-            console.log(c)
-            c.items.forEach(product => {
-                console.log(product.name)
-            })
+    console.log("--------------");
+    var categoryNames = [];
+    var productNames = [];
+    var productCategories = [];
+
+    // Get all the distinc category and product names from productListA
+    produktyA.forEach(category => {
+        categoryNames.push(category.name);
+        category.items.forEach(product => {
+            if(!productNames.includes(product.name)){
+                productNames.push(product.name);
+                productCategories.push(category.name);
+            }
+        });
+    });
+
+    // Add all the distinct category and product names from productListB
+    produktyB.forEach(category => {
+        if(!categoryNames.includes(category.name)){
+            categoryNames.push(category.name);
+        }
+        category.items.forEach(product => {
+            if(!productNames.includes(product.name)){
+                productNames.push(product.name);
+                productCategories.push(category.name);
+            }
+        });
+    });
+
+    categoryNames.forEach(categoryName => {
+        var liToggler = document.createElement("li");
+
+        var toggler = document.createElement("div");
+        toggler.setAttribute("class", "toggler");
+        toggler.append(categoryName);
+
+        var ulCat = document.createElement("ul");
+        ulCat.setAttribute("class", "lvlOne toggler-target");
+
+        var liSelectAll = document.createElement("li");
+        liSelectAll.append("Select all");
+        liSelectAll.setAttribute("class", "treeView selectAll");
+
+        ulCat.appendChild(liSelectAll);
+
+        productCategories.forEach((category, idx) => {
+            if(categoryName == category){
+                var prodName = productNames[idx];
+                var liProd = document.createElement("li");
+                liProd.setAttribute("class", "treeView lvlTwo");
+                liProd.appendChild(document.createTextNode(prodName));
+                ulCat.appendChild(liProd);
+            }
+        });
+
+        liToggler.appendChild(toggler);
+        liToggler.appendChild(ulCat);
+        menuSection.appendChild(liToggler);
+    });
+
+    // event.stopPropagation();
+
+    var treeViews = document.querySelectorAll(".treeView");
+    treeViews.forEach((treeView) => {
+        treeView.addEventListener("click", () => {
+            treeView.classList.toggle("active");
         })
     });
 
-    // produktyA.forEach(category => {
-    //     console.log(category)
-    //     category.items.forEach(item => {
-    //         console.log(item)
-    //     })
-    // });
-
-    // produktyB.forEach(category => {
-    //     console.log(category)
-    // });
+    var togglers = document.querySelectorAll(".toggler");
+    togglers.forEach((toggler) => {
+        toggler.addEventListener("click", () => {
+            toggler.classList.toggle("active");
+            toggler.nextElementSibling.classList.toggle("active");
+        })
+    });
 
 
 }).catch(function (error) {
-    // if there's an error, log it
-    console.log(error);
+    console.log("ERROR: " + error);
 });
 
-console.log("--------------------------------")
+console.log("--------------------------------");
