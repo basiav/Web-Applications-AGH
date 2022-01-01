@@ -1,15 +1,17 @@
 const httpA = `http://localhost:3000/produktyA`;
 const httpB = `http://localhost:3000/produktyB`;
-const fetchMsgA = "fetchSuccessMsgA";
-const fetchMsgB = "fetchSuccessMsgB";
+
+const fetchMsgAParagraph = document.getElementById("fetchSuccessMsgA");
+const fetchMsgBParagraph = document.getElementById("fetchSuccessMsgB");
 
 const menuSection = document.getElementById("menuSection");
+const mainListUl = document.getElementById("mainList");
 
 var selectAllCheckboxs = new Map();
 
 Promise.all([
-    fetch('http://localhost:3000/produktyA'),
-    fetch('http://localhost:3000/produktyB')
+    fetch(httpA),
+    fetch(httpB)
 ]).then(function (responses) {
     // Get a JSON object from each of the responses
     return Promise.all(responses.map(function (response) {
@@ -82,11 +84,21 @@ Promise.all([
         menuSection.appendChild(liToggler);
     });
 
+    function setOnMainPage(liId, state){};
+
     function toggleTreeViews(){
         var treeViews = document.querySelectorAll(".treeView");
         treeViews.forEach((treeView) => {
             treeView.addEventListener("click", () => {
                 treeView.classList.toggle("active");
+                if(!treeView.classList.contains("selectAll")){
+                    if(treeView.classList.contains("active")) {
+                        mainListUl.innerHTML;
+                    } else {
+
+                    }
+                }
+                console.log("!!!" + treeView.classList)
             })
         });
     }

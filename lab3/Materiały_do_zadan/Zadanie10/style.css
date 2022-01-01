@@ -8,29 +8,26 @@ div{
     background-color: beige;
     border-color: black;
     border-width: 5px;
+    color:navy; 
 }
 
 ul {
-    /* list-style-type: none; */
+    list-style-type: none;
 }
 
-#container {
+.container {
     display: flex;
-    align-items: center;
 }
 
-#main-section {
+.main-section {
     padding: 10px;
     width: 400px;
-    background-color:azure;
-    color:navy; 
 }
 
 #menuSection {
     padding: 10px;
     width: 400px;
     background-color:bisque;
-    color:navy; 
     cursor: pointer;
 }
 
