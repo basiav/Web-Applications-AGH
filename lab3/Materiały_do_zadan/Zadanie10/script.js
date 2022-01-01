@@ -77,8 +77,6 @@ Promise.all([
         menuSection.appendChild(liToggler);
     });
 
-    // event.stopPropagation();
-
     var treeViews = document.querySelectorAll(".treeView");
     treeViews.forEach((treeView) => {
         treeView.addEventListener("click", () => {
@@ -93,6 +91,8 @@ Promise.all([
             toggler.nextElementSibling.classList.toggle("active");
         })
     });
+
+    var selectAll
 
 
 }).catch(function (error) {
