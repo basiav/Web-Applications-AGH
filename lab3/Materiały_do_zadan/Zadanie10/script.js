@@ -20,37 +20,45 @@ Promise.all([
 }).then(function (data) {
 
     console.log(data);
+
     var produktyA = data[0].produktyA;
     var produktyB = data[1].produktyB;
-    console.log("--------------");
+
     var categoryNames = [];
     var productNames = [];
     var productCategories = [];
 
     // Get all the distinc category and product names from productListA
     produktyA.forEach(category => {
-        categoryNames.push(category.name);
-        category.items.forEach(product => {
-            if(!productNames.includes(product.name)){
-                productNames.push(product.name);
-                productCategories.push(category.name);
-            }
-        });
+        // Only nonempty categories
+        if(category.items.length > 0){
+            categoryNames.push(category.name);
+            category.items.forEach(product => {
+                if(!productNames.includes(product.name)){
+                    productNames.push(product.name);
+                    productCategories.push(category.name);
+                }
+            });
+        }
     });
 
     // Add all the distinct category and product names from productListB
     produktyB.forEach(category => {
-        if(!categoryNames.includes(category.name)){
-            categoryNames.push(category.name);
-        }
-        category.items.forEach(product => {
-            if(!productNames.includes(product.name)){
-                productNames.push(product.name);
-                productCategories.push(category.name);
+        // Only nonempty categories
+        if(category.items.length > 0){
+            if(!categoryNames.includes(category.name)){
+                categoryNames.push(category.name);
             }
-        });
+            category.items.forEach(product => {
+                if(!productNames.includes(product.name)){
+                    productNames.push(product.name);
+                    productCategories.push(category.name);
+                }
+            });
+        }
     });
 
+    // Create DOM fragment - a tree set to display categories and products in the Menu Section
     categoryNames.forEach(categoryName => {
         var liToggler = document.createElement("li");
 
@@ -85,19 +93,18 @@ Promise.all([
         menuSection.appendChild(liToggler);
     });
 
+    // Add selected products to Main Section
     function addElementToMainList(elementName){
         var li = document.getElementById("elementName");
-        console.log("Trying to add..." + elementName + " " + li + " body contains it? " + document.body.contains(li) +
-         " mainListUl contains it? " + mainListUl.contains(li));
-        // if(li == null || !li || li === null ){
+        
         if(!document.body.contains(li)){
             var li = document.createElement("li");
             li.setAttribute("id", elementName);
             li.append(elementName);
             var a = mainListUl.appendChild(li);
-            console.log("Append: " + a.innerHTML);
+            console.log("Appended: " + a.innerHTML);
         } else {
-            console.log("[addElementToMainList] Error: this element already exists " + elementName);
+            console.log("[addElementToMainList] ERROR: this element already exists " + elementName);
         }
     };
 
@@ -108,10 +115,10 @@ Promise.all([
             r.remove();
             li.remove();
             li.parentElement.removeChild(li);
-            console.log("Remove: " + r.innerHTML);
+            console.log("Removed: " + r.innerHTML);
         }
         catch(error) {
-            console.log("[REMOVE] ERROR: " + error);
+            console.log("[removeElementFromMainList] ERROR: " + error);
         };
     }
 
@@ -139,8 +146,6 @@ Promise.all([
             updateMainList(element);
         }
     }
-
-
 
     function toggleTreeViews(){
         console.log("toggleTreeViews");
