@@ -18,7 +18,7 @@ Promise.all([
         return response.json();
     }));
 }).then(function (data) {
-    
+
     console.log(data);
     var produktyA = data[0].produktyA;
     var produktyB = data[1].produktyB;
@@ -131,12 +131,13 @@ Promise.all([
     }
 
     function setTreeViewElement(element, activate){
-        if(activate){
+        if(activate && !element.classList.contains("active")){
             element.classList.add("active");
-        } else {
+            updateMainList(element);
+        } else if(!activate) {
             element.classList.remove("active");
+            updateMainList(element);
         }
-        updateMainList(element);
     }
 
 
