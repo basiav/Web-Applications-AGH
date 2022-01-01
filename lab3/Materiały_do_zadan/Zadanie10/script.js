@@ -5,6 +5,8 @@ const fetchMsgB = "fetchSuccessMsgB";
 
 const menuSection = document.getElementById("menuSection");
 
+var selectAllCheckboxs = new Map();
+
 Promise.all([
     fetch('http://localhost:3000/produktyA'),
     fetch('http://localhost:3000/produktyB')
@@ -59,14 +61,17 @@ Promise.all([
         var liSelectAll = document.createElement("li");
         liSelectAll.append("Select all");
         liSelectAll.setAttribute("class", "treeView selectAll");
+        liSelectAll.setAttribute("id", categoryName);
 
         ulCat.appendChild(liSelectAll);
+
+        selectAllCheckboxs.set(categoryName, false);
 
         productCategories.forEach((category, idx) => {
             if(categoryName == category){
                 var prodName = productNames[idx];
                 var liProd = document.createElement("li");
-                liProd.setAttribute("class", "treeView lvlTwo");
+                liProd.setAttribute("class", `treeView lvlTwo ${categoryName}`);
                 liProd.appendChild(document.createTextNode(prodName));
                 ulCat.appendChild(liProd);
             }
@@ -77,22 +82,75 @@ Promise.all([
         menuSection.appendChild(liToggler);
     });
 
-    var treeViews = document.querySelectorAll(".treeView");
-    treeViews.forEach((treeView) => {
-        treeView.addEventListener("click", () => {
-            treeView.classList.toggle("active");
-        })
-    });
+    function toggleTreeViews(){
+        var treeViews = document.querySelectorAll(".treeView");
+        treeViews.forEach((treeView) => {
+            treeView.addEventListener("click", () => {
+                treeView.classList.toggle("active");
+            })
+        });
+    }
 
-    var togglers = document.querySelectorAll(".toggler");
-    togglers.forEach((toggler) => {
-        toggler.addEventListener("click", () => {
-            toggler.classList.toggle("active");
-            toggler.nextElementSibling.classList.toggle("active");
-        })
-    });
+    function toggleTogglers() {
+        var togglers = document.querySelectorAll(".toggler");
+        togglers.forEach((toggler) => {
+            toggler.addEventListener("click", () => {
+                toggler.classList.toggle("active");
+                toggler.nextElementSibling.classList.toggle("active");
+            })
+        });
+    }
 
-    var selectAll
+    toggleTreeViews();
+
+    toggleTogglers();
+
+    function setTreeViewsWithinUl(liId, state){
+        var treeViews = document.querySelectorAll(".treeView");
+        treeViews.forEach((treeView) => {
+            if(treeView.getAttribute("class").includes(liId)){
+                switch(state){
+                    case "enable":
+                        treeView.classList.add("active");
+                        break;
+                    case "disable":
+                        treeView.classList.remove("active");
+                        break;
+                }
+            }
+        });
+    }
+
+    function toggleSelectAlls() {
+        var selectAlls = document.querySelectorAll(".selectAll");
+        var i = 0;
+        selectAlls.forEach((selectAll) => {
+            var id = selectAll.getAttribute("id");
+            selectAll.addEventListener("click", () => {
+                console.log(id);
+                var selected = selectAllCheckboxs.get(id);
+                console.log("[id: " + id + "] [selected: " + selected +"]")
+                var state;
+                switch(selected){
+                    case true:
+                        state = "disable";
+                        break;
+                    case false:
+                        state = "enable";
+                        break;
+                }
+                selectAllCheckboxs.set(id, !selected);
+                setTreeViewsWithinUl(id, state);
+                console.log(i++);
+            });
+        });
+    }
+
+    toggleSelectAlls();
+
+
+
+
 
 
 }).catch(function (error) {

@@ -48,7 +48,6 @@ ul {
 .treeView.active {
     text-overflow: ellipsis;
     text-shadow: darkslategray;
-    text-decoration: line-through;
 }
 
 .treeView.active::before {
