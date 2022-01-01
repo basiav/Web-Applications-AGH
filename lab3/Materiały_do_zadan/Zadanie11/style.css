@@ -1,0 +1,22 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 5rem;
+    background-color:antiquewhite;
+}
+
+div{
+    background-color: beige;
+    border-color: black;
+    border-width: 5px;
+    color:navy; 
+}
+
+#canvas1 {
+    border: 3px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 500px;
+}
