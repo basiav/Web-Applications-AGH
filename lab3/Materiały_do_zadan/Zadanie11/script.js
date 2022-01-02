@@ -1,9 +1,9 @@
 /**@type {HTMLCanvasElement} */
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
-CANVAS_WIDTH = canvas.width = 500;
+CANVAS_WIDTH = canvas.width = 600;
 CANVAS_HEIGHT = canvas.height = 400;
-const numberOfEnemies = 100;
+const numberOfEnemies = 10;
 const enemiesArray = [];
 
 const enemyImage = new Image();
@@ -22,25 +22,56 @@ const scorePosition = [200, 200];
 
 // alert('Element is ' + offset + ' vertical pixels from <body>');
 
+const rect = canvas.getBoundingClientRect();
+
+function getOffset(el) {
+    return {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        right: rect.right,
+        bottom: rect.bottom
+    };
+}
+
+function getRelativePositionToCanvas(xAbsolute, yAbsolute) {
+    let rect = canvas.getBoundingClientRect();
+    let xRelative = xAbsolute - rect.left;
+    let yRelative = yAbsolute - rect.top;
+    if(xRelative < 0 || yRelative < 0){
+        console.log("ERROR: X or Y is negative! " + xRelative + " " + yRelative);
+    }
+    return xRelative, yRelative;
+}
+
+function getRandomNumberInBounds(lower, upper){
+    return Math.random() * (upper - lower) + lower;
+}
+
+function getRandomXInCanvasBounds(){
+    return getRandomNumberInBounds(rect.left, rect.right);
+}
+
+function getRandomYInCanvasBounds(){
+    console.log(rect)
+    return getRandomNumberInBounds(rect.top, rect.bottom);
+}
+
 class VisualProperties {
     static spriteWidth = parseInt(enemyImage.width / numberOfFrames);
     static spriteHeight = parseInt(enemyImage.height);
     static scale = 2.5;
 }
 
-// OLD CODE
-// this.spriteWidth = parseInt(enemyImage.width / numberOfFrames);
-// this.spriteHeight = parseInt(enemyImage.height);
-// this.width = this.spriteWidth / 2.5;
-// this.height = this.spriteHeight / 2.5;
 class Enemy {
     constructor(){
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        let x = getRandomXInCanvasBounds(), y = getRandomYInCanvasBounds();
+        this.x = getRelativePositionToCanvas(x);
+        this.y = getRelativePositionToCanvas(y);
         this.speed = Math.random() * 4 - 2;
         this.setVisualProperties();
         this.frame = 0;
         this.flapSpeed = Math.floor(Math.random() * 5 + 1);
+        this.dead = false;
     }
 
     setVisualProperties(){
@@ -51,12 +82,34 @@ class Enemy {
         this.height = this.spriteHeight / vp.scale;
     }
 
-    update(){
-        this.x += this.speed;
-        this.y += this.speed;
-        // animate sprites
+    isHeadShot(xShotCoord, yShotCoord) {
+        let scale = 4 / 10;
+        let headRadius = this.height * scale / 2;
+        let xCenter = this.width / 2;
+        let yCenter = headRadius;
+        let isShot = (Math.pow(xCenter - xShotCoord, 2) + Math.pow(yCenter - yShotCoord, 2) <= headRadius);
+        if(isShot) {
+            this.dead = true;
+        }
+        return isShot;
+    }
+
+    makeMove() {
+        // this.x += this.speed;
+        // this.y += this.speed;
+    }
+
+    // animate sprites
+    moveFrame() {
         if(gameFrame % this.flapSpeed === 0){
             this.frame >= numberOfFrames ? this.frame = 0 : this.frame++;
+        }
+    }
+
+    update(){
+        if(!this.dead){
+            this.makeMove();
+            this.moveFrame();
         }
     }
 
@@ -69,6 +122,24 @@ class Enemy {
 for(let i = 0; i < numberOfEnemies; i++){
     enemiesArray.push(new Enemy());
 }
+
+function shootEnemy(enemy) {
+    enemy.dead = true;
+}
+
+function updateEnemy(enemy) {
+    enemy.update();
+    enemy.draw();
+}
+
+let mouseX = 0, mouseY = 0;
+
+window.addEventListener("click", e => {
+    x = e.offsetX;
+    y = e.offsetY;
+})
+
+
 
 var score = 0;
 const scoreX = scorePosition[0], scoreY = scorePosition[1];
