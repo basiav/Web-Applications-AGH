@@ -1,10 +1,11 @@
 /**@type {HTMLCanvasElement} */
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
-CANVAS_WIDTH = canvas.width = 600;
-CANVAS_HEIGHT = canvas.height = 400;
+const CANVAS_WIDTH = canvas.width = 600;
+const CANVAS_HEIGHT = canvas.height = 400;
 const numberOfEnemies = 10;
 const enemiesArray = [];
+var enemiesMap = new Map();
 
 const enemyImage = new Image();
 enemyImage.src = 'images/walkingdead.png';
@@ -47,14 +48,14 @@ function getRandomNumberInBounds(lower, upper){
     return Math.random() * (upper - lower) + lower;
 }
 
-function getRandomXInCanvasBounds(){
-    return getRandomNumberInBounds(rect.left, rect.right);
-}
+// function getRandomXInCanvasBounds(){
+//     return getRandomNumberInBounds(0, canvas.width);
+// }
 
-function getRandomYInCanvasBounds(){
-    console.log(rect)
-    return getRandomNumberInBounds(rect.top, rect.bottom);
-}
+// function getRandomYInCanvasBounds(){
+//     console.log(rect)
+//     return getRandomNumberInBounds(0, canvas.height - );
+// }
 
 class VisualProperties {
     static spriteWidth = parseInt(enemyImage.width / numberOfFrames);
@@ -64,11 +65,10 @@ class VisualProperties {
 
 class Enemy {
     constructor(){
-        let x = getRandomXInCanvasBounds(), y = getRandomYInCanvasBounds();
-        this.x = getRelativePositionToCanvas(x);
-        this.y = getRelativePositionToCanvas(y);
-        this.speed = Math.random() * 4 - 2;
         this.setVisualProperties();
+        this.x = getRandomNumberInBounds(0, canvas.width);
+        this.y = getRandomNumberInBounds(canvas.height * 1 / 2, canvas.height - this.height);
+        this.speed = Math.random() * 4 - 2;
         this.frame = 0;
         this.flapSpeed = Math.floor(Math.random() * 5 + 1);
         this.dead = false;
@@ -119,8 +119,19 @@ class Enemy {
     }
 }
 
+function addEnemyToMap(enemy) {
+    if(enemiesMap.has(enemy.y)) {
+        enemiesMap.get(enemy.y).push(enemy);
+    } else {
+        enemiesMap.set(enemy.y, []);
+        enemiesMap.get(enemy.y).push(enemy);
+    }
+}
+
 for(let i = 0; i < numberOfEnemies; i++){
-    enemiesArray.push(new Enemy());
+    var enemy = new Enemy();
+    // enemiesArray.push(enemy);
+    addEnemyToMap(enemy);
 }
 
 function shootEnemy(enemy) {
@@ -159,10 +170,14 @@ function drawScore() {
 
 function animate(){
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    enemiesArray.forEach(enemy => {
-        enemy.update();
-        enemy.draw();
-    });
+    var mapAsc = new Map([...enemiesMap.entries()].sort((a,b) => a[0] > b[0]));
+    mapAsc.forEach((value, key) => { 
+        value.forEach(enemy => {
+            enemy.update();
+            enemy.draw();
+        })
+     });
+
     gameFrame = (gameFrame % 100) + 1;
 
     drawScore();
@@ -171,4 +186,3 @@ function animate(){
 }
 
 animate();
-
