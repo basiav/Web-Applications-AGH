@@ -3,8 +3,7 @@ const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = canvas.width = 600;
 const CANVAS_HEIGHT = canvas.height = 400;
-const numberOfEnemies = 10;
-const enemiesArray = [];
+const numberOfEnemies = 15;
 var enemiesMap = new Map();
 
 const enemyImage = new Image();
@@ -13,15 +12,6 @@ const numberOfFrames = 10;
 let gameFrame = 0;
 
 const scorePosition = [200, 200]; 
-// console.log("---------DIMS---------");
-// // var rect = canvas.getBoundingClientRect();
-// var rect = document.body.getBoundingClientRect();
-// console.log(rect.top, rect.right, rect.bottom, rect.left);
-// var bodyRect = document.body.getBoundingClientRect(),
-//     elemRect = element.getBoundingClientRect(),
-//     offset   = elemRect.top - bodyRect.top;
-
-// alert('Element is ' + offset + ' vertical pixels from <body>');
 
 const rect = canvas.getBoundingClientRect();
 
@@ -48,15 +38,6 @@ function getRandomNumberInBounds(lower, upper){
     return Math.random() * (upper - lower) + lower;
 }
 
-// function getRandomXInCanvasBounds(){
-//     return getRandomNumberInBounds(0, canvas.width);
-// }
-
-// function getRandomYInCanvasBounds(){
-//     console.log(rect)
-//     return getRandomNumberInBounds(0, canvas.height - );
-// }
-
 class VisualProperties {
     static spriteWidth = parseInt(enemyImage.width / numberOfFrames);
     static spriteHeight = parseInt(enemyImage.height);
@@ -67,7 +48,7 @@ class Enemy {
     constructor(){
         this.setVisualProperties();
         this.x = getRandomNumberInBounds(0, canvas.width);
-        this.y = getRandomNumberInBounds(canvas.height * 1 / 2, canvas.height - this.height);
+        this.y = getRandomNumberInBounds(canvas.height * 1 / 2, canvas.height - this.height / 2);
         this.speed = Math.random() * 4 - 2;
         this.frame = 0;
         this.flapSpeed = Math.floor(Math.random() * 5 + 1);
@@ -85,9 +66,9 @@ class Enemy {
     isHeadShot(xShotCoord, yShotCoord) {
         let scale = 4 / 10;
         let headRadius = this.height * scale / 2;
-        let xCenter = this.width / 2;
-        let yCenter = headRadius;
-        let isShot = (Math.pow(xCenter - xShotCoord, 2) + Math.pow(yCenter - yShotCoord, 2) <= headRadius);
+        let xCenter = this.x + this.width / 2;
+        let yCenter = this.y + headRadius;
+        let isShot = (Math.pow(xCenter - xShotCoord, 2) + Math.pow(yCenter - yShotCoord, 2) <= Math.pow(headRadius, 2));
         if(isShot) {
             this.dead = true;
         }
@@ -130,7 +111,6 @@ function addEnemyToMap(enemy) {
 
 for(let i = 0; i < numberOfEnemies; i++){
     var enemy = new Enemy();
-    // enemiesArray.push(enemy);
     addEnemyToMap(enemy);
 }
 
@@ -146,8 +126,10 @@ function updateEnemy(enemy) {
 let mouseX = 0, mouseY = 0;
 
 window.addEventListener("click", e => {
-    x = e.offsetX;
-    y = e.offsetY;
+    // mouseX = getRelativePositionToCanvas(e.offsetX);
+    // mouseY = getRelativePositionToCanvas(e.offsetY);
+    mouseX = e.offsetX;
+    mouseY = e.offsetY;
 })
 
 
@@ -170,10 +152,15 @@ function drawScore() {
 
 function animate(){
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    console.log("Mouse x, y: " + mouseX + " " + mouseY);
     var mapAsc = new Map([...enemiesMap.entries()].sort((a,b) => a[0] > b[0]));
     mapAsc.forEach((value, key) => { 
         value.forEach(enemy => {
             enemy.update();
+            var isShot = enemy.isHeadShot(mouseX, mouseY);
+            if(isShot){
+                console.log("Is shot! " + isShot);
+            }
             enemy.draw();
         })
      });
