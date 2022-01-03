@@ -31,8 +31,15 @@ var gameEnd = false;
 var gameStatus;
 var nickName;
 
+const highscores = JSON.parse(localStorage.getItem('highscores')) || [];
+const scoreList = document.querySelector('.scoretable');
+
 const rect = canvas.getBoundingClientRect();
 let mouseX = 0, mouseY = -1;
+
+const clearButton = document.getElementById("clear-button");;
+const newGameButton = document.getElementById("new-game");
+const a1 = document.getElementById("a1");
 
 function getOffset() {
     return {
@@ -295,7 +302,7 @@ function animate(){
     resetMouseCoords();
 
     if(checkIfGameEnded()){
-        document.location.reload();
+        checkScores();
         return;
     }
 
@@ -311,12 +318,80 @@ function showPropmt(){
         showPropmt();
     } else if (nick) {
         // user typed something and hit OK
+        nickName = nick;
         document.getElementById("nick-holder").innerHTML = "Nickname: " + nick;
     } else {
         // user hit cancel
         alert("It is required to enter a nickname.");
         showPropmt();
     }
+}
+
+function resetSettings() {
+    enemiesMap = new Map();
+    gameFrame = 0;
+    score = 0;
+    winningZombies = 0;
+    zombiesCount = 0;
+    gameEnd = false;
+    resetMouseCoords();
+}
+
+function newGame() {
+    console.log("New game");
+    resetSettings();
+    showPropmt();
+    initialiseEnemies();
+    animate();
+}
+
+function clearScores() {
+    highscores.splice(0, highscores.length);
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+    populateTable();
+}
+
+newGameButton.addEventListener('click', newGame);
+clearButton.addEventListener('click', clearScores);
+
+function getFullDate(){
+    var today = new Date();
+    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+","+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+}
+
+function populateTable() {
+    scoreList.innerHTML = highscores.map((row) => {
+        return `<tr><td>${row.nick}</td><td>${row.score}<td>${row.date}</td></tr>`;
+    }).join('');
+}
+
+function checkScores() {
+    let worstScore = 0;
+    if (highscores.length > 6) {
+        worstScore = highscores[highscores.length - 1].score;
+    }
+    if (score > worstScore) {
+        highscores.push({nick: nickName, score: score, date: getFullDate()});
+    }
+
+    highscores.sort((a, b) => a.score > b.score ? -1 : 1);
+
+    while (highscores.length > 6) {
+        highscores.pop();
+    }
+
+    highscores.sort((a, b) => a.score > b.score ? -1 : 1);
+
+    populateTable();
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+    var myBlob = createBlob([JSON.stringify(highscores)]);
+    console.log(myBlob);
+}
+
+function createBlob(data) {
+    let blob = new Blob(data, {type: "text/html"});
+    a1.href = URL.createObjectURL(blob);
+    return blob;
 }
 
 showPropmt();

@@ -39,3 +39,29 @@ div{
     text-align: center;
     text-transform: uppercase;
 }
+
+#menu-section {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+#a1 {
+    /* position: relative;
+    top: 100%;
+    left:100%; */
+}
+
+.scoretable {
+    /* position: absolute;
+    top: 30%;
+    left: 10%; */
+    width: 100px;
+    font-size: 3rem;
+    margin: 10px auto;
+    background-color: #2e062c;
+    font-size: 10px;
+}

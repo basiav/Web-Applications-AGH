@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farma Zoombie</title>
     <link rel="stylesheet" href="style.css">
@@ -10,6 +10,17 @@
 <body>
     <canvas id="canvas1"></canvas>
     <div id="nick-holder">NickName</div>
+    <div id="menu-section">
+        <div class="hiscore">
+            <h2>Top 7 players</h2>
+            <h3>(on this device)</h3>
+            <button id="clear-button">Clear</button>
+            <button id="new-game">New Game</button>
+            <table class="scoretable">
+            </table>
+            <a id="a1">Open Ranking</a>
+        </div>
+    </div>
 
     <script type="module" src="script.js"></script>
 </body>
