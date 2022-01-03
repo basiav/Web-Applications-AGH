@@ -3,7 +3,7 @@ const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = canvas.width = 600;
 const CANVAS_HEIGHT = canvas.height = 400;
-const numberOfEnemies = 15;
+const numberOfEnemies = 10;
 var enemiesMap = new Map();
 
 const enemyImage = new Image();
@@ -18,6 +18,18 @@ const scorePosition = [200, 200];
 const scoreX = scorePosition[0], scoreY = scorePosition[1];
 const plusScore = 12;
 const minusScore = -6;
+
+var winningZombies = 0;
+var zombiesCount = 0;
+const zombiesOnMap = numberOfEnemies;
+const loser = 3;
+const gameRounds = 5;
+const enemiesToSpawn = 15;
+const minSpawningTime = 0;
+const maxSpawningTime = 10; // in seconds
+
+var gameEnd = false;
+var gameStatus;
 
 const rect = canvas.getBoundingClientRect();
 let mouseX = 0, mouseY = -1;
@@ -50,13 +62,15 @@ class VisualProperties {
 class Enemy {
     constructor(){
         this.setVisualProperties();
-        this.x = getRandomNumberInBounds(0, canvas.width);
-        this.y = getRandomNumberInBounds(canvas.height * 1 / 2, canvas.height - this.height / 2);
-        this.speed =getRandomNumberInBounds(0.2, 1.5);
+        this.x = canvas.width + 10;
+        this.y = getRandomNumberInBounds(canvas.height * 2 / 5, canvas.height - this.height / 2);
+        this.speed =getRandomNumberInBounds(0.5, 2.5);
         this.frame = 0;
-        this.flapSpeed = Math.floor(getRandomNumberInBounds(0, 4));
+        this.flapSpeed = Math.floor(getRandomNumberInBounds(1, 4));
         this.dead = false;
         this.disappear = false;
+        this.started = false;
+        this.reachedTheEnd = false;
     }
 
     setVisualProperties(){
@@ -70,7 +84,9 @@ class Enemy {
 
     makeDisappear() {
         if(this.dead && !this.disappear){
-            setInterval(() => this.disappear = true, 1500);
+            setTimeout(() => {
+                this.disappear = true;
+            }, 1500);
         }
     }
 
@@ -82,6 +98,7 @@ class Enemy {
         let isShot = (Math.pow(xCenter - xShotCoord, 2) + Math.pow(yCenter - yShotCoord, 2) <= Math.pow(headRadius, 2));
         if(!this.dead && isShot) {
             this.dead = true;
+            zombiesCount--;
         }
         return isShot;
     }
@@ -105,6 +122,10 @@ class Enemy {
         }
     }
 
+    won(){
+        return this.x <= 0;
+    }
+
     draw() {
         if(!this.dead){
             ctx.drawImage(enemyImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, 
@@ -123,11 +144,6 @@ function addEnemyToMap(enemy) {
         enemiesMap.set(enemy.y, []);
         enemiesMap.get(enemy.y).push(enemy);
     }
-}
-
-for(let i = 0; i < numberOfEnemies; i++){
-    var enemy = new Enemy();
-    addEnemyToMap(enemy);
 }
 
 function updateEnemy(enemy) {
@@ -200,9 +216,9 @@ function drawScore() {
     ctx.shadowColor =  "#400d40";
     ctx.shadowBlur = 10;
     ctx.lineWidth = 5;
-    ctx.strokeText("Score: " + score, scoreX, scoreY);
+    ctx.strokeText("Score: " + zombiesCount, scoreX, scoreY);
     ctx.shadowBlur = 0;
-    ctx.fillText("Score: " + score, scoreX, scoreY);
+    ctx.fillText("Score: " + zombiesCount, scoreX, scoreY);
     ctx.shadowBlur = 10;
 }
 
@@ -210,21 +226,81 @@ function updateEnemies() {
     var mapAsc = new Map([...enemiesMap.entries()].sort((a,b) => a[0] > b[0]));
     mapAsc.forEach((value, key) => { 
         value.forEach(enemy => {
-            updateEnemy(enemy);
+            if(enemy.started){
+                updateEnemy(enemy);
+                if(!enemy.reachedTheEnd && enemy.won()) {
+                    enemy.reachedTheEnd = true;
+                    winningZombies++;
+                }
+            }
         })
      });
+}
+
+function activateEnemy(enemy) {
+    addEnemyToMap(enemy);
+    enemy.started = true;
+}
+
+function spawnNewEnemy(counted) {
+    if(!counted) {
+        zombiesCount++;
+    }
+    var enemy = new Enemy();
+    var msToWait = getRandomNumberInBounds(minSpawningTime, maxSpawningTime) * 1000;
+    setTimeout(activateEnemy, msToWait, enemy);
+}
+
+function initialiseEnemies() {
+    for(let i = 0; i < enemiesToSpawn; i++){
+        zombiesCount++;
+        setTimeout(spawnNewEnemy, getRandomNumberInBounds(500, 6000), true);
+    }
+}
+
+function gameEngineStep() {
+    updateEnemies();
+    if(winningZombies >= loser){
+        gameEnd = true;
+        gameStatus = "lost";
+    }
+    else if(zombiesCount < zombiesOnMap){
+        spawnNewEnemy(false);
+    }
+}
+
+function checkIfGameEnded() {
+    if(gameEnd){
+        let msgToShow;
+        switch(gameStatus){
+            case "lost":
+                msgToShow = "You've lost :(. Try again!";
+                break;
+            default:
+                msgToShow = "You've won!";
+                break;
+        }
+        alert(msgToShow);
+        return true;
+    }
+    return false;
 }
 
 function animate(){
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    updateEnemies();
+    gameEngineStep();
 
     drawScore();
     resetMouseCoords();
+
+    if(checkIfGameEnded()){
+        return;
+    }
 
     gameFrame = (gameFrame % 100) + 1;
     requestAnimationFrame(animate);
 }
 
+initialiseEnemies();
 animate();
