@@ -16,6 +16,8 @@ let gameFrame = 0;
 var score = 0;
 const scorePosition = [200, 200];
 const scoreX = scorePosition[0], scoreY = scorePosition[1];
+const plusScore = 12;
+const minusScore = -6;
 
 const rect = canvas.getBoundingClientRect();
 let mouseX = 0, mouseY = -1;
@@ -66,7 +68,7 @@ class Enemy {
         this.height = this.spriteHeight / scale;
     }
 
-    killAndDisappear() {
+    makeDisappear() {
         if(this.dead && !this.disappear){
             setInterval(() => this.disappear = true, 1500);
         }
@@ -78,7 +80,7 @@ class Enemy {
         let xCenter = this.x + this.width / 2;
         let yCenter = this.y + headRadius;
         let isShot = (Math.pow(xCenter - xShotCoord, 2) + Math.pow(yCenter - yShotCoord, 2) <= Math.pow(headRadius, 2));
-        if(isShot) {
+        if(!this.dead && isShot) {
             this.dead = true;
         }
         return isShot;
@@ -96,7 +98,7 @@ class Enemy {
         }
     }
 
-    update(){
+    step(){
         if(!this.dead){
             this.makeMove();
             this.moveFrame();
@@ -128,23 +130,13 @@ for(let i = 0; i < numberOfEnemies; i++){
     addEnemyToMap(enemy);
 }
 
-function checkIfEnemyDead(enemy) {
-    return enemy.isHeadShot(mouseX, mouseY);
-}
-
 function updateEnemy(enemy) {
-    // Check if enemy dead at the very moment
-    var enemyDead = enemy.dead;
-    // If enemy is alive for the time being, check whether it's been shot now
-    if(!enemyDead) {
-        enemyDead = checkIfEnemyDead(enemy);
-    }
-    // If it hasn't been shot - update it,
-    // if it has - let it hang around for a few seconds and make it disappear.
+    // If enemy hasn't been shot - update it,
+    // if it has - let it hang around for a few seconds and then make it disappear.
     if(!enemy.dead) {
-        enemy.update();
-    } else {
-        enemy.killAndDisappear();
+        enemy.step();
+    } else if(!enemy.disappear){
+        enemy.makeDisappear();
     }
 
     // Draw it
@@ -153,9 +145,49 @@ function updateEnemy(enemy) {
     }
 }
 
+function checkIfKilled(enemy){
+    // if(!enemy.dead) prevents from counting as killed those that have been killed earlier
+    if(!enemy.dead) {
+        return enemy.isHeadShot(mouseX, mouseY);
+    }
+    return false;
+}
+
+function lookForDeads() {
+    var targetKilled = false;
+    var deadCount = 0;
+    var mapDesc = new Map([...enemiesMap.entries()].sort((a,b) => a[0] < b[0]));
+    mapDesc.forEach((value, key) => { 
+        value.forEach(enemy => {
+            let killed = checkIfKilled(enemy);
+            if(killed){
+                targetKilled = true;
+                deadCount++;
+            }
+        })
+     });
+     return [targetKilled, deadCount];
+}
+
+function updateScore(value){
+    score += value;
+}
+
+function manageShooting(){
+    var killed = lookForDeads();
+    var targetKilled = killed[0];
+    var deadCount = killed[1];
+    if(!targetKilled) {
+        updateScore(minusScore);
+    } else {
+        updateScore(plusScore * deadCount);
+    }
+}
+
 canvas.addEventListener('mousedown', e => {
     mouseX = e.offsetX;
     mouseY = e.offsetY;
+    manageShooting();
 });
 
 function resetMouseCoords() {
@@ -165,7 +197,6 @@ function resetMouseCoords() {
 function drawScore() {
     ctx.font = "35px Arial";
     ctx.fillStyle = "#FFFFFF";
-    // ctx.shadowColor =  "#ab58ac";
     ctx.shadowColor =  "#400d40";
     ctx.shadowBlur = 10;
     ctx.lineWidth = 5;
@@ -174,8 +205,6 @@ function drawScore() {
     ctx.fillText("Score: " + score, scoreX, scoreY);
     ctx.shadowBlur = 10;
 }
-
-function updateScore(){}
 
 function updateEnemies() {
     var mapAsc = new Map([...enemiesMap.entries()].sort((a,b) => a[0] > b[0]));
