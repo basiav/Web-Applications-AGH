@@ -20,7 +20,7 @@ const scoreX = scorePosition[0], scoreY = scorePosition[1];
 const rect = canvas.getBoundingClientRect();
 let mouseX = 0, mouseY = -1;
 
-function getOffset(el) {
+function getOffset() {
     return {
         left: rect.left + window.scrollX,
         top: rect.top + window.scrollY,
@@ -29,11 +29,11 @@ function getOffset(el) {
     };
 }
 
-function getRelativePositionToCanvas(xAbsolute, yAbsolute) {
-    let rect = canvas.getBoundingClientRect();
-    let xRelative = xAbsolute - rect.left;
-    let yRelative = yAbsolute - rect.top;
-    return xRelative, yRelative;
+function mouseInCanvasBounds(mouseX, mouseY) {
+    if(mouseX >= 0 && mouseX <= canvas.width && mouseY >= 0 && mouseY <= canvas.height){
+        return true;
+    }
+    return false;
 }
 
 function getRandomNumberInBounds(lower, upper){
@@ -153,7 +153,7 @@ function updateEnemy(enemy) {
     }
 }
 
-window.addEventListener("click", e => {
+canvas.addEventListener('mousedown', e => {
     mouseX = e.offsetX;
     mouseY = e.offsetY;
 });
