@@ -8,12 +8,17 @@ var enemiesMap = new Map();
 
 const enemyImage = new Image();
 enemyImage.src = 'images/walkingdead.png';
+const deadEnemyImage = new Image();
+deadEnemyImage.src = 'images/walkingdead-dead.png';
 const numberOfFrames = 10;
 let gameFrame = 0;
 
-const scorePosition = [200, 200]; 
+var score = 0;
+const scorePosition = [200, 200];
+const scoreX = scorePosition[0], scoreY = scorePosition[1];
 
 const rect = canvas.getBoundingClientRect();
+let mouseX = 0, mouseY = -1;
 
 function getOffset(el) {
     return {
@@ -28,9 +33,6 @@ function getRelativePositionToCanvas(xAbsolute, yAbsolute) {
     let rect = canvas.getBoundingClientRect();
     let xRelative = xAbsolute - rect.left;
     let yRelative = yAbsolute - rect.top;
-    if(xRelative < 0 || yRelative < 0){
-        console.log("ERROR: X or Y is negative! " + xRelative + " " + yRelative);
-    }
     return xRelative, yRelative;
 }
 
@@ -49,10 +51,11 @@ class Enemy {
         this.setVisualProperties();
         this.x = getRandomNumberInBounds(0, canvas.width);
         this.y = getRandomNumberInBounds(canvas.height * 1 / 2, canvas.height - this.height / 2);
-        this.speed = Math.random() * 4 - 2;
+        this.speed =getRandomNumberInBounds(0.2, 1.5);
         this.frame = 0;
-        this.flapSpeed = Math.floor(Math.random() * 5 + 1);
+        this.flapSpeed = Math.floor(getRandomNumberInBounds(0, 4));
         this.dead = false;
+        this.disappear = false;
     }
 
     setVisualProperties(){
@@ -61,6 +64,12 @@ class Enemy {
         this.spriteHeight = vp.spriteHeight;
         this.width = this.spriteWidth / vp.scale;
         this.height = this.spriteHeight / vp.scale;
+    }
+
+    killAndDisappear() {
+        if(this.dead && !this.disappear){
+            setInterval(() => this.disappear = true, 1500);
+        }
     }
 
     isHeadShot(xShotCoord, yShotCoord) {
@@ -76,11 +85,11 @@ class Enemy {
     }
 
     makeMove() {
-        // this.x += this.speed;
-        // this.y += this.speed;
+        this.x -= this.speed;
+        this.y += getRandomNumberInBounds(-this.speed, this.speed);
     }
 
-    // animate sprites
+    // Animate sprites
     moveFrame() {
         if(gameFrame % this.flapSpeed === 0){
             this.frame >= numberOfFrames ? this.frame = 0 : this.frame++;
@@ -95,8 +104,13 @@ class Enemy {
     }
 
     draw() {
-        ctx.drawImage(enemyImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, 
-            this.x, this.y, this.width, this.height);
+        if(!this.dead){
+            ctx.drawImage(enemyImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, 
+                this.x, this.y, this.width, this.height);
+        } else if(!this.disappear){
+            ctx.drawImage(deadEnemyImage, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, 
+                this.x, this.y, this.width, this.height);
+        }
     }
 }
 
@@ -114,28 +128,39 @@ for(let i = 0; i < numberOfEnemies; i++){
     addEnemyToMap(enemy);
 }
 
-function shootEnemy(enemy) {
-    enemy.dead = true;
+function checkIfEnemyDead(enemy) {
+    return enemy.isHeadShot(mouseX, mouseY);
 }
 
 function updateEnemy(enemy) {
-    enemy.update();
-    enemy.draw();
+    // Check if enemy dead at the very moment
+    var enemyDead = enemy.dead;
+    // If enemy is alive for the time being, check whether it's been shot now
+    if(!enemyDead) {
+        enemyDead = checkIfEnemyDead(enemy);
+    }
+    // If it hasn't been shot - update it,
+    // if it has - let it hang around for a few seconds and make it disappear.
+    if(!enemy.dead) {
+        enemy.update();
+    } else {
+        enemy.killAndDisappear();
+    }
+
+    // Draw it
+    if(!enemy.disappear){
+        enemy.draw();
+    }
 }
 
-let mouseX = 0, mouseY = 0;
-
 window.addEventListener("click", e => {
-    // mouseX = getRelativePositionToCanvas(e.offsetX);
-    // mouseY = getRelativePositionToCanvas(e.offsetY);
     mouseX = e.offsetX;
     mouseY = e.offsetY;
-})
+});
 
-
-
-var score = 0;
-const scoreX = scorePosition[0], scoreY = scorePosition[1];
+function resetMouseCoords() {
+    mouseX = mouseY = -1;
+}
 
 function drawScore() {
     ctx.font = "35px Arial";
@@ -150,25 +175,26 @@ function drawScore() {
     ctx.shadowBlur = 10;
 }
 
-function animate(){
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    console.log("Mouse x, y: " + mouseX + " " + mouseY);
+function updateScore(){}
+
+function updateEnemies() {
     var mapAsc = new Map([...enemiesMap.entries()].sort((a,b) => a[0] > b[0]));
     mapAsc.forEach((value, key) => { 
         value.forEach(enemy => {
-            enemy.update();
-            var isShot = enemy.isHeadShot(mouseX, mouseY);
-            if(isShot){
-                console.log("Is shot! " + isShot);
-            }
-            enemy.draw();
+            updateEnemy(enemy);
         })
      });
+}
 
-    gameFrame = (gameFrame % 100) + 1;
+function animate(){
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    updateEnemies();
 
     drawScore();
+    resetMouseCoords();
 
+    gameFrame = (gameFrame % 100) + 1;
     requestAnimationFrame(animate);
 }
 
