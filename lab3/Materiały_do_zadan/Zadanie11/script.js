@@ -14,7 +14,7 @@ const numberOfFrames = 10;
 let gameFrame = 0;
 
 var score = 0;
-const scorePosition = [200, 200];
+const scorePosition = [canvas.width * 40/100, canvas.height / 6];
 const scoreX = scorePosition[0], scoreY = scorePosition[1];
 const plusScore = 12;
 const minusScore = -6;
