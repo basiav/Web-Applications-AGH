@@ -29,7 +29,7 @@ function getOffset() {
     };
 }
 
-function mouseInCanvasBounds(mouseX, mouseY) {
+function getRenvasBounds(mouseX, mouseY) {
     if(mouseX >= 0 && mouseX <= canvas.width && mouseY >= 0 && mouseY <= canvas.height){
         return true;
     }
@@ -43,7 +43,6 @@ function getRandomNumberInBounds(lower, upper){
 class VisualProperties {
     static spriteWidth = parseInt(enemyImage.width / numberOfFrames);
     static spriteHeight = parseInt(enemyImage.height);
-    static scale = 2.5;
 }
 
 class Enemy {
@@ -59,11 +58,12 @@ class Enemy {
     }
 
     setVisualProperties(){
-        var vp = VisualProperties;
+        let vp = VisualProperties;
+        let scale = getRandomNumberInBounds(1.9, 2.5);
         this.spriteWidth = vp.spriteWidth;
         this.spriteHeight = vp.spriteHeight;
-        this.width = this.spriteWidth / vp.scale;
-        this.height = this.spriteHeight / vp.scale;
+        this.width = this.spriteWidth / scale;
+        this.height = this.spriteHeight / scale;
     }
 
     killAndDisappear() {
