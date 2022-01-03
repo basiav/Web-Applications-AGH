@@ -24,12 +24,12 @@ var zombiesCount = 0;
 const zombiesOnMap = numberOfEnemies;
 const loser = 3;
 const gameRounds = 5;
-const enemiesToSpawn = 15;
 const minSpawningTime = 0;
 const maxSpawningTime = 10; // in seconds
 
 var gameEnd = false;
 var gameStatus;
+var nickName;
 
 const rect = canvas.getBoundingClientRect();
 let mouseX = 0, mouseY = -1;
@@ -64,7 +64,7 @@ class Enemy {
         this.setVisualProperties();
         this.x = canvas.width + 10;
         this.y = getRandomNumberInBounds(canvas.height * 2 / 5, canvas.height - this.height / 2);
-        this.speed =getRandomNumberInBounds(0.5, 2.5);
+        this.speed =getRandomNumberInBounds(1, 2.7);
         this.frame = 0;
         this.flapSpeed = Math.floor(getRandomNumberInBounds(1, 4));
         this.dead = false;
@@ -216,9 +216,9 @@ function drawScore() {
     ctx.shadowColor =  "#400d40";
     ctx.shadowBlur = 10;
     ctx.lineWidth = 5;
-    ctx.strokeText("Score: " + zombiesCount, scoreX, scoreY);
+    ctx.strokeText("Score: " + score, scoreX, scoreY);
     ctx.shadowBlur = 0;
-    ctx.fillText("Score: " + zombiesCount, scoreX, scoreY);
+    ctx.fillText("Score: " + score, scoreX, scoreY);
     ctx.shadowBlur = 10;
 }
 
@@ -252,7 +252,7 @@ function spawnNewEnemy(counted) {
 }
 
 function initialiseEnemies() {
-    for(let i = 0; i < enemiesToSpawn; i++){
+    for(let i = 0; i < zombiesOnMap; i++){
         zombiesCount++;
         setTimeout(spawnNewEnemy, getRandomNumberInBounds(500, 6000), true);
     }
@@ -295,6 +295,7 @@ function animate(){
     resetMouseCoords();
 
     if(checkIfGameEnded()){
+        document.location.reload();
         return;
     }
 
@@ -302,5 +303,22 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
+function showPropmt(){
+    var nick = prompt("Please enter your nick:");
+    if (nick === "") {
+        // user pressed OK, but the input field was empty
+        alert("It is required to enter a nickname.");
+        showPropmt();
+    } else if (nick) {
+        // user typed something and hit OK
+        document.getElementById("nick-holder").innerHTML = "Nickname: " + nick;
+    } else {
+        // user hit cancel
+        alert("It is required to enter a nickname.");
+        showPropmt();
+    }
+}
+
+showPropmt();
 initialiseEnemies();
 animate();

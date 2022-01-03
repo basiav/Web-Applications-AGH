@@ -5,7 +5,6 @@ body{
 }
 
 div{
-    background-color: beige;
     border-color: black;
     border-width: 5px;
     color:navy; 
@@ -14,15 +13,29 @@ div{
 #canvas1 {
     border: 3px solid black;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
     height: 400px;
-
     background-image: url(./images/board-bg.jpg);
     background-size: cover;
     background-position: bottom;
     cursor: crosshair;
+}
 
+#nick-holder {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    color: #2e062c;
+    text-shadow: 2px 2px 8px #b97cbe;
+    font-family: 'Raleway',sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 72px;
+    margin: 0 0 24px;
+    text-align: center;
+    text-transform: uppercase;
 }
