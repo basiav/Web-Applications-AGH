@@ -1,0 +1,6 @@
+<h2>Parent Component</h2>
+<div>
+    <p>Count: {{count}}</p>
+    <p>Is disabled: {{disable}}</p>
+</div>
+<app-child [isDisabled]="disable" (countEvent)="updateClicksNumber($event)" (resetEvent)="reset()"></app-child>
