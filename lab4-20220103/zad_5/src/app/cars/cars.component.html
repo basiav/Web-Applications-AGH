@@ -1,0 +1,27 @@
+<div class="form">
+    <div class="brandList">
+        <label for="brands">Choose a car brand</label>
+        <select [(ngModel)]="selectedBrand" name="brands">
+            <option *ngFor="let brand of getDistinctBrands()" [value]="brand">{{brand}}</option>
+        </select>
+        <h3 *ngIf="selectedBrand">Selected brand: {{selectedBrand}}</h3>
+    </div>
+
+    <div *ngIf="selectedBrand" class="modelList">
+        <label for="models">Choose a model</label>
+        <select [(ngModel)]="selectedModel" name="models">
+            <option *ngFor="let model of getDistinctModels()" [value]="model">{{model}}</option>
+        </select>
+        <h3 *ngIf="selectedModel">Selected model: {{selectedModel}}</h3>
+    </div>
+
+    <div *ngIf="selectedModel" class="colourList">
+        <label for="colours">Choose the car's colour</label>
+        <select [(ngModel)]="selectedColour" name="colours">
+            <option *ngFor="let colour of getDistinctColours()" [value]="colour" style="background-color: {{colour}}; colour: (255, 255, 255)">
+                {{colour}}
+            </option>
+        </select>
+        <h3 *ngIf="selectedColour">Selected colour: {{selectedColour}}</h3>
+    </div>
+</div>
