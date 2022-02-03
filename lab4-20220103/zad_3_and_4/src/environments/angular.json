@@ -1,0 +1,9 @@
+# Query: angular.json
+# ContextLines: 1
+
+1 result - 1 file
+
+zad_3_and_4\src\environments\environment.ts:
+  2  // `ng build` replaces `environment.ts` with `environment.prod.ts`.
+  3: // The list of file replacements can be found in `angular.json`.
+  4  

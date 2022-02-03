@@ -10,6 +10,9 @@ import { Actor } from '../actor';
 })
 export class ActorComponent implements OnInit {
   actor?: Actor;
+  tabStr: string[] = ["Ala", "ma", "kota"];
+  tabNo: number[] = [0, 1, 2, 3];
+  tabRes?: any[];
 
   constructor(public router: Router) { }
 
@@ -29,6 +32,26 @@ export class ActorComponent implements OnInit {
       window.alert("All three values are required to register you actor!");
     }
 
+  }
+
+  tabliczka(tabStr: string[], tabNo: number[]): any[] {
+    var res = tabStr.map(function(str, i) {
+      if(tabNo.length > 0){
+        let arr = [];
+        for (let no in tabNo){
+          arr.push(str+no);
+        }
+        return arr;
+      } else {
+        return str;
+      }
+    });
+    console.log("Tabliczka result: ", res);
+    return res;
+  }
+
+  showTabliczka(): void {   
+    this.tabRes = this.tabliczka(this.tabStr, this.tabNo);
   }
 
 }
