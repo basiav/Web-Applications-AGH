@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CalculatorComponent implements OnInit {
   result: number;
   inputNumber?: number;
-  equation?: string;
+  equation: string = "";
   digits: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   ops: string[] = ["+", "-", "x", ":", "="];
   opToDo?: string;
@@ -48,48 +48,50 @@ export class CalculatorComponent implements OnInit {
     this.inputNumber = res;
   }
 
+  updateEquation(op: string): void {
+    if (!this.equation || this.equation.length <= 1 || this.equation === ""){
+      this.equation = "" + this.result;
+    }
+    if (op === "=") {
+      this.equation = "" + this.result;
+    } else {
+      this.equation += op;
+    }
+  }
+
   calculate(): void {
-    console.log("INPUT: ", this.inputNumber);
     switch(this.opToDo){
       case "+":
         if (!this.inputNumber){
           this.inputNumber = 0;
-          console.log("CHANGE");
         }
         this.result = this.result + this.inputNumber;
         break;
       case "-":
         if (!this.inputNumber){
           this.inputNumber = 0;
-          console.log("CHANGE");
         }
         this.result = this.result - this.inputNumber;
         break;
       case "x":
         if (!this.inputNumber){
           this.inputNumber = 1;
-          console.log("CHANGE");
         }
         this.result = this.result * this.inputNumber;
         break;
       case ":":
         if (!this.inputNumber){
           this.inputNumber = 1;
-          console.log("CHANGE");
         }
         this.result = ~~(this.result / this.inputNumber);
         break;
     }
 
     this.inputNumber = 0;
-    console.log("res: ", this.result, " input: ", this.inputNumber);
   }
 
   handleOp(op: string): void {
-    console.log("this result: ", this.result);
-
     if(op === "=" || op == "=") {
-      console.log("calculate!");
       this.calculate();
     } else {
       if (!this.opToDo) {
@@ -97,9 +99,8 @@ export class CalculatorComponent implements OnInit {
         this.inputNumber = 0;
       }
       this.opToDo = op;
-
     }
 
-    console.log("INPUT: ", this.inputNumber);
+    this.updateEquation(op);
   }
 }
