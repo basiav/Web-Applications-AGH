@@ -1,0 +1,22 @@
+<p>calculator works!</p>
+<div class="calculator">
+    <div class="screen">
+        <div id="result">{{result}}</div>
+        <div id="input-number">{{inputNumber}}</div>
+        <div id="equation">{{equation}}</div>
+    </div>
+
+    <div class="calculator-body">
+        <div class="wrapper">
+            <div class="digits-area">
+                <button *ngFor="let digit of digits" class="digits" (click)="registerDigit(digit)">{{digit}}</button>
+            </div>
+            <button class="reset" (click)="reset()">Clear</button>
+        </div>
+        <div class="operation-area">
+            <button *ngFor="let op of ops" class="ops" (click)="handleOp(op)">{{op}}</button>
+        </div>
+    </div>
+</div>
+
+
