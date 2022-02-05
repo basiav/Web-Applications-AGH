@@ -23,6 +23,10 @@ export class DishesComponent implements OnInit {
   getDishes(): void {
     this.dishService.getDishes()
     .subscribe(dishes => this.dishes = dishes);
+    console.log("Dishes: ", this.dishes)
+    this.dishes.forEach(dish => {
+      console.log("Dish: ", dish)
+    })
   }
 
 }

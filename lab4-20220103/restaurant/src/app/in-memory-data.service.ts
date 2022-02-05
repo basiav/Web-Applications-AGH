@@ -205,7 +205,7 @@ export class InMemoryDataService implements InMemoryDbService {
         price: 9.90,
         description: "Rosół! Temat rzeka! W naszym kraju to danie traktowane jest jako dobro narodowe! Leczy smutki, niestrawność, grypę i przeziębienie. Polecana jest w każdym wieku.",
         photos: [
-          "https://cdn.aniagotuje.com/pictures/articles/2021/08/18112286-v-1080x1080.jpg",
+          "https://ocdn.eu/pulscms-transforms/1/Ofqk9kpTURBXy85MDI1NjNmMTljNzFmYTI2ZGE4Y2E4MzA1YjZjZThkNS5qcGeTlQMAJ80E5s0CwZMFzQMUzQG8kwmmNjEwYjEzBoGhMAU/rosol.webp",
           "https://kuron.com.pl/wp-content/uploads/2017/11/PA311594-ma%C5%82e-1.jpg.webp"
         ]
       }
