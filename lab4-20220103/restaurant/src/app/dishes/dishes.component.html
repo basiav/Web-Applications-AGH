@@ -1,1 +1,9 @@
 <p>dishes works!</p>
+<ul class="dishes">
+    <li *ngFor="let dish of dishes">
+        <a routerLink="/detail/{{dish.id}}">
+            <span class="badge">{{ dish.id }}</span>{{ dish.name }}
+        </a>
+        <!-- <button class="delete" title="delete hero" (click)="delete(hero)">x</button> -->
+    </li>
+</ul>

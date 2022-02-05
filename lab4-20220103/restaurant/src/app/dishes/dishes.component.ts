@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DishService } from '../dish.service';
+import { Dish } from '../dish';
+
 
 @Component({
   selector: 'app-dishes',
@@ -7,12 +10,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dishes.component.css']
 })
 export class DishesComponent implements OnInit {
-  menu!: Map<string, number>;
+  dishes: Dish[] = [];
+  // menu!: Map<string, number>;
 
-  constructor() { }
+  constructor(private dishService: DishService) { }
 
   ngOnInit(): void {
-    this.menu = new Map<string, number>();
+    // this.menu = new Map<string, number>();
+    this.getDishes();
+  }
+
+  getDishes(): void {
+    this.dishService.getDishes()
+    .subscribe(dishes => this.dishes = dishes);
   }
 
 }
