@@ -144,14 +144,71 @@ export class InMemoryDataService implements InMemoryDbService {
         description: "Francja słynie z doskonałej jakości sera. Oficjalnie wyróżnia się ponad 400 różnych gatunków sera. Każdy region ma przy tym swoje specjały. Najsłynniejsze francuskie sery to camembert, brie i roquefort (ser z niebieską pleśnią z mleka owczego). Podawane są na półmiskach z dodatkiem orzechów, fig, winogron, bagietek i wina.",
         photos: [
           "https://zwiedzamyparyz.pl/wp-content/uploads/2018/12/sery-francuskie.jpg",
-          
+          "https://blog.placfrancuski.pl/wp-content/uploads/2021/04/francuskie-sery-sklep.png",
+          "https://i0.wp.com/madameberet.com/wp-content/uploads/2019/10/Francuskie-sery-na-talerzu.jpg?w=700&ssl=1"
+
         ]
       },
-      { id: 11, name: 'RubberMan' },
-      { id: 12, name: 'Dynama' },
-      { id: 13, name: 'Dr IQ' },
-      { id: 14, name: 'Magma' },
-      { id: 15, name: 'Tornado' }
+      { 
+        id: 11, 
+        name: 'Eklerki',
+        cuisine: ["francuska"],
+        category: ["deser", "na słodko"],
+        ingredients: ["krem bezowy", "krem budyniowy", "krem śmietankowy", "czekolada deserowa", "czekolada biała", "czekolada gorzka", "bita śmietana"],
+        maxDailyAmount: 40,
+        price: 10.90,
+        description: "Te podłużne ciastka, wykonane z parzonego ciasta i wypełnione smacznym kremem, pochodzą właśnie z Francji. Ich nazwa wywodzi się od słowa „eclair” – błyskawica. Nic dziwnego – są one tak smakowite, że błyskawicznie znikają ze stołów.",
+        photos: [
+          "https://zwiedzamyparyz.pl/wp-content/uploads/2018/12/eklerki.jpg",
+          "https://ciastkozercy.pl/wp-content/uploads/2016/10/eklerki-16.jpg",
+          "https://static.mojewypieki.com/wp-content/uploads/2020/03/Eklerki_tiramisu_1.jpg"
+
+        ]
+      },
+      { 
+        id: 12, 
+        name: 'Stek wołowy z antrykotu',
+        cuisine: ["międzynarodowa", "amerykańska"],
+        category: ["danie główne", "danie mięsne"],
+        ingredients: ["stek wołowy z antrykotu", "masło klarowane", "tymianek", "rozmaryn"],
+        maxDailyAmount: 10,
+        price: 52.00,
+        description: "Najwyższej jakości mięso wołowe z antrykotu podane w asyście ziołowej. Delikatny smak wydobyty dzięki dodatkowi masła klarowanego. Wyjątkowo pożywne.",
+        photos: [
+          "https://media.kaufland.com/images/PPIM/AP_Content_1010/std.lang.all/71/16/Asset_9007116.jpg",
+          "https://ocdn.eu/pulscms-transforms/1/pGBk9kqTURBXy9kMTA5YTdiMjgyMmY4MzEzYzQyMTAxNzgwNjU3N2JkMC5qcGVnk5UDAMzCzQPozQIzkwXNAxTNAbyTCaY0ZTY4MzAGgaEwBQ/jak-przygotowac-perfekcyjny-stek-z-kratka-oto-przepis.webp",
+          "https://cdn.galleries.smcloud.net/t/galleries/gf-33d7-byRj-XLaB_steki-664x442-nocrop.jpg"
+        ]
+      },
+      { 
+        id: 13, 
+        name: 'Śniadanie angielskie',
+        cuisine: ["międzynarodowa", "angielskie"],
+        category: ["śniadanie"],
+        ingredients: ["jajka sadzone", "fasolka biała", "pieczywo pszenne", "pieczywo w formie tostowej", "szalotka", "ketchup", "frankfuterki", "kiełbasa z szynki", "pomidor", "przecier pomidorowy"],
+        maxDailyAmount: 100,
+        price: 25.90,
+        description: "Śniadanie angielskie to tradycyjnie kiełbaski, bekon, kaszanka, grzyby, połówka pomidora, fasolka w sosie pomidorowym i jajka sadzone lub jajecznica. Do tego tosty z masłem.",
+        photos: [
+          "https://cdn.aniagotuje.com/pictures/articles/2021/08/18112286-v-1080x1080.jpg",
+          "https://praktykulinarni.com/wp-content/uploads/2018/11/sniadanie-angielskie.jpg",
+          "https://akademiasmaku.pl/upload/vademecums/764/big/desktop/jak-zrobic-angielskie-sniadanie-764.webp"
+        ]
+      },
+      { 
+        id: 14, 
+        name: 'Rosół z kury',
+        cuisine: ["polska"],
+        category: ["zupa"],
+        ingredients: ["mięso z kury", "marchewki", "ziemniaki", "seler", "włoszczyzna", "przypalona cebula", "natka pietruszki", "liść laurowy", "ziele angielskie", "por"],
+        maxDailyAmount: 15,
+        price: 9.90,
+        description: "Rosół! Temat rzeka! W naszym kraju to danie traktowane jest jako dobro narodowe! Leczy smutki, niestrawność, grypę i przeziębienie. Polecana jest w każdym wieku.",
+        photos: [
+          "https://cdn.aniagotuje.com/pictures/articles/2021/08/18112286-v-1080x1080.jpg",
+          "https://kuron.com.pl/wp-content/uploads/2017/11/PA311594-ma%C5%82e-1.jpg.webp"
+        ]
+      }
     ];
     return {dishes};
   }
