@@ -53,4 +53,13 @@ export class DishService {
       catchError(this.handleError<Dish>(`getDish id=${id}`)))
     );
   }
+
+  deleteDish(id: number): Observable<Dish> {
+    const url = `${this.dishesUrl}/${id}`;
+    return this.http.delete<Dish>(url, this.httpOptions)
+    .pipe(
+      tap(_ => this.log(`deleted dish id=${id}`)),
+      catchError(this.handleError<Dish>('deleteDish'))
+    );
+  }
 }

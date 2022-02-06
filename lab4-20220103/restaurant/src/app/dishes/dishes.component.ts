@@ -94,4 +94,10 @@ export class DishesComponent implements OnInit {
     .reduce((sum, current) => sum + current, 0);
   }
 
+  deleteDish(dish: Dish): void {
+    this.dishes = this.dishes.filter(d => d!== dish);
+    this.dishService.deleteDish(dish.id)
+    .subscribe();
+  }
+
 }

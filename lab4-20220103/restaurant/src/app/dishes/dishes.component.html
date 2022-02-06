@@ -5,8 +5,10 @@
     <div class="cards-container">
         <li *ngFor="let dish of dishes; let rowIndex = index">
             <span class="badge" [ngStyle]="{
-                'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
-            }">{{ rowIndex + 1 }} {{ dish.name }}</span>
+                    'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
+                }">{{ rowIndex + 1 }} {{ dish.name }}</span>
+                <button class="button delete" title="delete dish" (click)="deleteDish(dish)">Usuń</button>
+            
             <!-- <a routerLink="/detail/{{dish.id}}"> -->
                 <!-- <div class="dishlist-element">
                     <span class="badge">{{ dish.id }}</span>{{ dish.name }}
@@ -34,7 +36,6 @@
                 </div>
             </div>
             <!-- </a> -->
-            <!-- <button class="delete" title="delete hero" (click)="delete(hero)">x</button> -->
         </li>
     </div>
 </ul>
