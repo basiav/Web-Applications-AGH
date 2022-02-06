@@ -89,4 +89,9 @@ export class DishesComponent implements OnInit {
     return "0px";
   }
 
+  getAllReservationsNumber(): number {
+    return Array.from(this.reservations.values())
+    .reduce((sum, current) => sum + current, 0);
+  }
+
 }

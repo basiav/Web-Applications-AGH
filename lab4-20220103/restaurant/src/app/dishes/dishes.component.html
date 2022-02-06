@@ -1,4 +1,6 @@
-<p>dishes works!</p>
+<h2 [ngStyle]="{
+    'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
+    Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}</h2>
 <ul class="dishes">
     <div class="cards-container">
         <li *ngFor="let dish of dishes; let rowIndex = index">
@@ -17,12 +19,6 @@
                     'border-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                 }">
                     <h2>{{dish.name | uppercase}}</h2>
-                    <!-- <p>kuchnia:
-                    <span *ngFor="let c of dish.cuisine">{{c}}, </span></p>
-                    <p>kategorie:
-                    <span *ngFor="let c of dish.category">{{c}}, </span></p>
-                    <p>{{dish.description}}</p>
-                    <p><span>Cena: {{dish.price | currency}}</span></p> -->
                     <p>{{"kuchnia" | uppercase}}:
                     <span *ngFor="let c of dish.cuisine">{{c | uppercase}}, </span>
                     <br>kategorie:
