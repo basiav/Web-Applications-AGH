@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddDishFormComponent } from './add-dish-form/add-dish-form.component';
 import { DishesComponent } from './dishes/dishes.component';
 
 const routes: Routes = [

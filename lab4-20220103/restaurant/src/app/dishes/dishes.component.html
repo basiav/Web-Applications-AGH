@@ -1,3 +1,9 @@
+<nav>
+    <button (click)="onClickForm()">Dodaj danie</button>
+</nav>
+<div class="form-class" *ngIf="showForm">
+    <app-add-dish-form></app-add-dish-form>
+</div>
 <h2 [ngStyle]="{
     'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
     Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}</h2>

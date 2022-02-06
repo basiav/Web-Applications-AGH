@@ -12,6 +12,7 @@ import { Dish } from '../dish';
 export class DishesComponent implements OnInit {
   dishes: Dish[] = [];
   reservations!: Map<Dish, number>;
+  showForm: boolean = false;
 
   constructor(private dishService: DishService) { }
 
@@ -98,6 +99,10 @@ export class DishesComponent implements OnInit {
     this.dishes = this.dishes.filter(d => d!== dish);
     this.dishService.deleteDish(dish.id)
     .subscribe();
+  }
+
+  onClickForm(): void {
+    this.showForm = !this.showForm;
   }
 
 }
