@@ -32,7 +32,7 @@ export class InMemoryDataService implements InMemoryDbService {
         ingredients: ["mąka", "gluten", "ser twaróg", "ziemniaki", "cebula"],
         maxDailyAmount: 15,
         price: 24.90,
-        description: "popularny w Polsce i na Ukrainie rodzaj pierogów, których nazwa wywodzi się od Rusi Czerwonej. Nie należy jej mylić, jak to często jest robione, z Rosją, gdzie ten typ pierogów nie jest zbyt dobrze znany, ponieważ były bardzo popularne wśród Polaków mieszkających na terenach Rusi",
+        description: "Popularny w Polsce i na Ukrainie rodzaj pierogów, których nazwa wywodzi się od Rusi Czerwonej. Nie należy jej mylić, jak to często jest robione, z Rosją, gdzie ten typ pierogów nie jest zbyt dobrze znany, ponieważ były bardzo popularne wśród Polaków mieszkających na terenach Rusi",
         photos: [
           "https://static.smaker.pl/photos/3/c/0/3c0a896d87c9bfb62984235bcdfdf685_350177_618fbfaa19d26_wm.jpg",
           "https://www.przyslijprzepis.pl/media/cache/gallery_view/uploads/media/recipe/0008/16/pierogi-ruskie.jpeg"

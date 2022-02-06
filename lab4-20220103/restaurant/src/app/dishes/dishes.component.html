@@ -2,18 +2,34 @@
 <ul class="dishes">
     <div class="cards-container">
         <li *ngFor="let dish of dishes; let rowIndex = index">
-            <!-- {{rowIndex+1}} -->
+            <span class="badge">{{ rowIndex + 1 }} {{ dish.name }}</span>
             <!-- <a routerLink="/detail/{{dish.id}}"> -->
                 <!-- <div class="dishlist-element">
                     <span class="badge">{{ dish.id }}</span>{{ dish.name }}
                 </div> -->
             <div class="card">
-                <img src={{dish.photos[0]}} alt={{dish.name}} style="width: 100%">
-                <h1>{{dish.name}}</h1>
-                <p *ngFor="let c of dish.cuisine">kuchnia {{c}}</p> 
-                <p>{{dish.category}}</p>
-                <p>{{dish.description}}</p>
-                <button class="button add-button">Read more</button>
+                <img src={{dish.photos[0]}} alt={{dish.name}}>
+                <div class="text-container">
+                    <h2>{{dish.name | uppercase}}</h2>
+                    <!-- <p>kuchnia:
+                    <span *ngFor="let c of dish.cuisine">{{c}}, </span></p>
+                    <p>kategorie:
+                    <span *ngFor="let c of dish.category">{{c}}, </span></p>
+                    <p>{{dish.description}}</p>
+                    <p><span>Cena: {{dish.price | currency}}</span></p> -->
+                    <p>{{"kuchnia" | uppercase}}:
+                    <span *ngFor="let c of dish.cuisine">{{c | uppercase}}, </span>
+                    <br>kategorie:
+                    <span *ngFor="let c of dish.category">{{c}}, </span>
+                    <br><br>{{dish.description}}
+                    <br><br><span>Cena: {{dish.price | currency}}</span></p>
+                    <div class="button-box">
+                        <button class="button" (click)="addToReservation(dish)">+</button>
+                        currently available dishes: {{getCurrentlyAvailableDishAmount(dish)}}<br>
+                        reservations for this dish: {{getCurrentReservedNumber(dish)}}
+                        <button class="button" (click)="deleteFromReservation(dish)">-</button>
+                    </div>
+                </div>
             </div>
             <!-- </a> -->
             <!-- <button class="delete" title="delete hero" (click)="delete(hero)">x</button> -->

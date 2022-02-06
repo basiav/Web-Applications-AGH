@@ -41,8 +41,8 @@ export class DishService {
   }
 
   /** Log a DishService message with the MessageService */
-  private log(message: string) {
-  this.messageService.add(`DishService: ${message}`);
+  public log(message: string) {
+    this.messageService.add(`DishService: ${message}`);
   }
 
   getDish(id: number): Observable<Dish> {
