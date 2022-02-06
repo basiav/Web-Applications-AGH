@@ -40,7 +40,8 @@ ul {
 
 .dishes .badge {
     display: inline-block;
-    font-size: small;
+    /* font-size: small; */
+    font-size: large;
     color: white;
     padding: 0.8em 0.7em 0 0.7em;
     background-color:#405061;
@@ -103,6 +104,8 @@ button:hover {
     align-content: unset;
     display: flex;
     flex-direction: column;
+    border-style: solid;
+    border-width: 0;
 }
 
 img {
@@ -121,4 +124,5 @@ h2, h3, h4 {
 * {
     font-family: Arial, Helvetica, sans-serif;
     text-shadow: #2c3a41;
-  }
+}
+

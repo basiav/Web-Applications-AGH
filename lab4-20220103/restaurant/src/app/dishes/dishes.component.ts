@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { DishService } from '../dish.service';
 import { Dish } from '../dish';
-import { MessageService } from '../message.service';
 
 
 @Component({
@@ -65,6 +64,29 @@ export class DishesComponent implements OnInit {
     }
   }
 
+  getHighestPrice(): number {
+    return Math.max.apply(Math, this.dishes.map(function(dish) { return dish.price; }));
+  }
 
+  getLowestPrice(): number {
+    return Math.min.apply(Math, this.dishes.map(function(dish) { return dish.price; }));
+  }
+
+  getPriceColour(dish: Dish): string {
+    if(dish.price === this.getHighestPrice()){
+      return "green";
+    }
+    if (dish.price === this.getLowestPrice()) {
+      return "red";
+    }
+    return "none";
+  }
+
+  getBorderWidth(dish: Dish): string {
+    if(dish.price === this.getHighestPrice() || dish.price === this.getLowestPrice()){
+      return "5px";
+    }
+    return "0px";
+  }
 
 }

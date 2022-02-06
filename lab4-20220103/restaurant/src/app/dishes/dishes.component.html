@@ -2,14 +2,20 @@
 <ul class="dishes">
     <div class="cards-container">
         <li *ngFor="let dish of dishes; let rowIndex = index">
-            <span class="badge">{{ rowIndex + 1 }} {{ dish.name }}</span>
+            <span class="badge" [ngStyle]="{
+                'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
+            }">{{ rowIndex + 1 }} {{ dish.name }}</span>
             <!-- <a routerLink="/detail/{{dish.id}}"> -->
                 <!-- <div class="dishlist-element">
                     <span class="badge">{{ dish.id }}</span>{{ dish.name }}
                 </div> -->
-            <div class="card">
+            <div class="card" [ngStyle]="{
+                'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgba(228, 92, 87, 0.52)' : 'beige'
+            }">
                 <img src={{dish.photos[0]}} alt={{dish.name}}>
-                <div class="text-container">
+                <div class="text-container" [ngStyle]="{
+                    'border-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
+                }">
                     <h2>{{dish.name | uppercase}}</h2>
                     <!-- <p>kuchnia:
                     <span *ngFor="let c of dish.cuisine">{{c}}, </span></p>
@@ -25,8 +31,8 @@
                     <br><br><span>Cena: {{dish.price | currency}}</span></p>
                     <div class="button-box">
                         <button class="button" (click)="addToReservation(dish)">+</button>
-                        currently available dishes: {{getCurrentlyAvailableDishAmount(dish)}}<br>
-                        reservations for this dish: {{getCurrentReservedNumber(dish)}}
+                        Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
+                        Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
                         <button class="button" (click)="deleteFromReservation(dish)">-</button>
                     </div>
                 </div>
