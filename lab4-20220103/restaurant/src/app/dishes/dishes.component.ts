@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { DishService } from '../dish.service';
 import { Dish } from '../dish';
+import { CartService } from '../cart.service';
 
 
 @Component({
@@ -14,7 +15,10 @@ export class DishesComponent implements OnInit {
   reservations!: Map<Dish, number>;
   showForm: boolean = false;
 
-  constructor(private dishService: DishService) { }
+  constructor(
+    private dishService: DishService,
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
     this.reservations = new Map<Dish, number>();
@@ -47,6 +51,7 @@ export class DishesComponent implements OnInit {
     let reservationsNo = this.getCurrentReservedNumber(dish)
     if (reservationsNo < dish.maxDailyAmount){
       this.reservations.set(dish, reservationsNo + 1);
+      this.addToCart(dish);
       return true;
     } else {
       this.dishService.log("[dishes | addToReservation] Cannot make more reservations than available dishes. Reservation denied");
@@ -58,7 +63,7 @@ export class DishesComponent implements OnInit {
     let reservationsNo = this.getCurrentReservedNumber(dish);
     if (reservationsNo > 0) {
       this.reservations.set(dish, reservationsNo - 1);
-      return true;
+      return this.deleteFromCart(dish);
     } else {
       this.dishService.log("[dishes | deleteFromReservation] Cannot delete this dish from the reservation, it has not been reserved");
       return false;
@@ -118,6 +123,14 @@ export class DishesComponent implements OnInit {
 
   addNewDish(e: Dish): void {
     this.addDish(e);
+  }
+
+  addToCart(dish: Dish): void {
+    this.cartService.addToCart(dish);
+  }
+
+  deleteFromCart(dish: Dish): boolean {
+    return this.cartService.deleteFromCart(dish);
   }
 
 

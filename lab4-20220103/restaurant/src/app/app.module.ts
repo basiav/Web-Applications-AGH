@@ -13,6 +13,7 @@ import { DishesComponent } from './dishes/dishes.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AddDishFormComponent } from './dishes/add-dish-form/add-dish-form.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     DishesComponent,
     MessagesComponent,
     AddDishFormComponent,
-    TopBarComponent
+    TopBarComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
