@@ -54,30 +54,39 @@
   }
   
   /* Navigation link styles */
-  nav a {
-    padding: 5px 10px;
-    text-decoration: none;
-    margin-right: 10px;
-    margin-top: 10px;
-    display: inline-block;
-    background-color: #e8e8e8;
-    color: #3d3d3d;
-    border-radius: 4px;
-  }
+
+
+* {
+  box-sizing: border-box;
+}
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #e8e8e8;
+  color: #3d3d3d;
+  border-radius: 4px;
+}
   
-  nav a:hover {
-    color: white;
-    background-color:  #42545C;
-  }
-  nav a.active {
-    background-color: black;
-    color: white;
-  } */
-  hr {
-    margin: 1.5rem 0;
-  }
-  input[type="text"] {
-    box-sizing: border-box;
-    width: 100%;
-    padding: .5rem;
-  }
+nav a:hover {
+  color: white;
+  background-color:  #42545C;
+}
+nav a.active {
+  background-color: black;
+  color: white;
+}
+hr {
+  margin: 1.5rem 0;
+}
+input[type="text"] {
+  box-sizing: border-box;
+  width: 100%;
+  padding: .5rem;
+}
+
+/* router-outlet + *  {
+  padding: 0 16px;
+} */

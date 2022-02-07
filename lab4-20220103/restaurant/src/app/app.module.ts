@@ -12,6 +12,7 @@ import { MainComponent } from './main/main.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AddDishFormComponent } from './dishes/add-dish-form/add-dish-form.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AddDishFormComponent } from './dishes/add-dish-form/add-dish-form.compo
     MainComponent,
     DishesComponent,
     MessagesComponent,
-    AddDishFormComponent
+    AddDishFormComponent,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,
