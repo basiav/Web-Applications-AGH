@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { MessagesComponent } from './messages/messages.component';
-import { AddDishFormComponent } from './add-dish-form/add-dish-form.component';
+import { AddDishFormComponent } from './dishes/add-dish-form/add-dish-form.component';
 
 @NgModule({
   declarations: [

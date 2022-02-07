@@ -95,6 +95,17 @@ export class DishesComponent implements OnInit {
     .reduce((sum, current) => sum + current, 0);
   }
 
+  addDish(dish: Dish): void {
+    // name = name.trim();
+    // if (!name) { 
+    //   return; 
+    // }
+    this.dishService.addDish(dish)
+    .subscribe(d => {
+      this.dishes.push(d);
+    })
+  }
+
   deleteDish(dish: Dish): void {
     this.dishes = this.dishes.filter(d => d!== dish);
     this.dishService.deleteDish(dish.id)
@@ -104,5 +115,7 @@ export class DishesComponent implements OnInit {
   onClickForm(): void {
     this.showForm = !this.showForm;
   }
+
+
 
 }

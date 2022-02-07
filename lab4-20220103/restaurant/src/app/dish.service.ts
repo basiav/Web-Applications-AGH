@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 
 import { Dish } from './dish';
 import { MessageService } from './message.service';
@@ -61,5 +61,22 @@ export class DishService {
       tap(_ => this.log(`deleted dish id=${id}`)),
       catchError(this.handleError<Dish>('deleteDish'))
     );
+  }
+
+  addDish(dish: Dish): Observable<Dish> {
+    return this.http.post<Dish>(this.dishesUrl, dish, this.httpOptions)
+    .pipe(
+      tap((newDish: Dish) => this.log(`added dish id=${newDish.id}`)),
+      catchError(this.handleError<Dish>('addDish')));
+  }
+
+  genId(): Observable<Number> {
+    return this.http.get<Dish[]>(this.dishesUrl)
+      .pipe(
+        mergeMap(dishes => {
+          return of(dishes.length > 0 ? Math.max(...dishes.map(dish => dish.id)) + 1 : 1);
+        })
+      );
+    
   }
 }

@@ -1,0 +1,35 @@
+form {
+    padding-top: 1rem;
+  }
+  
+label {
+    display: block;
+    margin: .5em 0;
+    font-weight: bold;
+}
+
+body, input[text] {
+    color: #333;
+    font-family: Cambria, Georgia, serif;
+  }
+  a {
+    cursor: pointer;
+  }
+  button {
+    /* width: 1em; */
+    height: 1.5em;
+    font-size: 1rem;
+    background-color: white;
+    color:  #525252;
+    margin: auto;
+}
+
+button:hover {
+    background-color: #52525241;
+    color: white;
+}
+  button:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+  }
