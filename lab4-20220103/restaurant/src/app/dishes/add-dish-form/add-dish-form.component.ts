@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Dish } from 'src/app/dish';
 import { DishService } from 'src/app/dish.service';
@@ -9,7 +9,8 @@ import { DishService } from 'src/app/dish.service';
   styleUrls: ['./add-dish-form.component.css']
 })
 export class AddDishFormComponent implements OnInit {
-  @Output() dish?: Dish;
+  // @Output() dish?: Dish;
+  @Output() newDishNotify = new EventEmitter();
   
   constructor(
     private fb: FormBuilder,
@@ -134,7 +135,7 @@ export class AddDishFormComponent implements OnInit {
           photos: this.photos.getRawValue(),
         };
 
-        console.log("Printing dish: ", d);
+        this.newDishNotify.emit(d);
     }
   
   }

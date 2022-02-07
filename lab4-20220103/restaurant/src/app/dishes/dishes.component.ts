@@ -116,6 +116,10 @@ export class DishesComponent implements OnInit {
     this.showForm = !this.showForm;
   }
 
+  addNewDish(e: Dish): void {
+    this.addDish(e);
+  }
+
 
 
 }
