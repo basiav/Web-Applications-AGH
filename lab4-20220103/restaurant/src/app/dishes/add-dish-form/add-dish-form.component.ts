@@ -32,8 +32,8 @@ export class AddDishFormComponent implements OnInit {
     ingredients: this.fb.array([
       this.fb.control('')
     ]),
-    maxDailyAmount: ['', Validators.required],
-    price: ['', Validators.required],
+    maxDailyAmount: ['', [Validators.required, Validators.pattern(/[0-9]+/)]],
+    price: ['', [Validators.required, Validators.pattern(/[\d|,|.|e|E|\+]+/)]],
     description: ['', Validators.required],
     photos: this.fb.array([
       this.fb.control('')
@@ -105,6 +105,10 @@ export class AddDishFormComponent implements OnInit {
     this.photos.push(this.fb.control(''));
   }
 
+  resetForm(): void {
+    this.dishForm.reset();
+  }
+
   // Has to be async with setTimeout
   async genId(): Promise<number>{
     var id = 0;
@@ -118,7 +122,7 @@ export class AddDishFormComponent implements OnInit {
   }
 
   async onSubmit() {
-    // TODO: Use EventEmitter with form value
+    // Use EventEmitter with form value
     console.warn(this.dishForm.value);
     if (this.name && this.cuisines && this.categories &&
       this.ingredients && this.maxDailyAmount && this.price && this.description
@@ -136,10 +140,22 @@ export class AddDishFormComponent implements OnInit {
         };
 
         this.newDishNotify.emit(d);
+
+        this.resetForm();
     }
-  
   }
 
+  public invalidFormControls() { 
+    const invalidList = []; 
+    const controls = this.dishForm.controls; 
+    for (const name in controls) { 
+      if(controls[name].invalid) { 
+        invalidList.push(name);
+        console.log("invalid name: ", name)
+      } 
+    }
+    return invalidList;
+    }
 
 
 }

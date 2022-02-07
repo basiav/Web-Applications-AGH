@@ -1,20 +1,20 @@
-<p>add-dish-form works!</p>
-<form [formGroup]="dishForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nazwa dania</label>
+<div class="form-wrapper">
+  <form [formGroup]="dishForm" (ngSubmit)="onSubmit()">
+    <label for="name" class="big">Nazwa dania</label>
     <input id="name" type="text" formControlName="name">
   
     <div formArrayName="cuisines">
-      <h2>Typ kuchni</h2>
+      <h3>Typ kuchni</h3>
       <button type="button" (click)="addCuisine()" type="button">+ Dodaj tag typu kuchni</button>
   
       <div *ngFor="let cuisine of cuisines.controls; let i=index">
-        <label for="cuisine-{{ i }}">Kuchnia:</label>
-        <input id="cuisine-{{ i }}" type="text" [formControlName]="i">
+        <span><label for="cuisine-{{ i }}">Kuchnia:</label>
+        <input id="cuisine-{{ i }}" type="text" [formControlName]="i"></span>
       </div>
     </div>
 
     <div formArrayName="categories">
-        <h2>Kategoria kuchni</h2>
+        <h3>Kategoria kuchni</h3>
         <button type="button" (click)="addCategory()" type="button">+ Dodaj tag kategorii kuchni</button>
     
         <div *ngFor="let category of categories.controls; let i=index">
@@ -24,44 +24,43 @@
     </div>
 
     <div formArrayName="ingredients">
-      <h2>Składniki</h2>
+      <h3>Składniki</h3>
       <button type="button" (click)="addIngredient()" type="button">+ Dodaj składnik</button>
   
       <div *ngFor="let ingredient of ingredients.controls; let i=index">
         <label for="ingredient-{{ i }}">Składnik:</label>
         <input id="ingredient-{{ i }}" type="text" [formControlName]="i">
       </div>
-  </div>
-
-  <label for="maxDailyAmount">Maksymalna dzienna liczba porcji</label>
-  <input id="maxDailyAmount" type="text" formControlName="maxDailyAmount">
-
-  <label for="price">Cena</label>
-  <input id="price" type="text" formControlName="price">
-
-  <label for="description">Krótki opis</label>
-  <input id="description" type="text" formControlName="description">
-
-  <div formArrayName="photos">
-    <h2>Zdjęcia</h2>
-    <button type="button" (click)="addPhoto()" type="button">+ Dodaj link do zdjęcia</button>
-
-    <div *ngFor="let photo of photos.controls; let i=index">
-      <label for="photo-{{ i }}">URL:</label>
-      <input id="photo-{{ i }}" type="text" [formControlName]="i">
     </div>
-</div>
+
+    <label for="maxDailyAmount" class="big">Maksymalna dzienna liczba porcji</label>
+    <input id="maxDailyAmount" type="text" formControlName="maxDailyAmount">
+
+    <label for="price" class="big">Cena</label>
+    <input id="price" type="text" formControlName="price">
+
+    <label for="description" class="big">Krótki opis</label>
+    <input id="description" type="text" formControlName="description">
+
+    <div formArrayName="photos">
+      <h3>Zdjęcia</h3>
+      <button type="button" (click)="addPhoto()" type="button">+ Dodaj link do zdjęcia</button>
+
+      <div *ngFor="let photo of photos.controls; let i=index">
+        <label for="photo-{{ i }}">URL:</label>
+        <input id="photo-{{ i }}" type="text" [formControlName]="i">
+      </div>
+    </div>
   
-  
-    <p>Complete the form to enable button.</p>
+    <p class="form-status-font">Wypełnij poprawnie wszystkie pola według poniższych wskazówek, by dodać danie.</p>
     <button type="submit" [disabled]="!dishForm.valid">Submit</button>
   </form>
-  
-  <hr>
-  
-  <p>Form Value: {{ dishForm.value | json }}</p>
-  
-  <p>Form Status: {{ dishForm.status }}</p>
-  
-  <button type="button" (click)="updateProfile()">Update Profile</button>
+  <div class="form-status ">
+    <p>Status wypełnienia formularza: {{ dishForm.status }}</p>
+    Źle wypełnione pola: 
+    <span *ngFor="let i of invalidFormControls()">{{i}}, </span>
+  </div>
 
+  <!-- <button type="button" (click)="updateProfile()">Update Profile</button> -->
+
+</div>
