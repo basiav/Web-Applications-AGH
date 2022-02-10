@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Dish } from 'src/app/dish';
-import { DishService } from 'src/app/dish.service';
+import { DishService } from 'src/app/services/dish.service';
 
 @Component({
   selector: 'app-add-dish-form',
