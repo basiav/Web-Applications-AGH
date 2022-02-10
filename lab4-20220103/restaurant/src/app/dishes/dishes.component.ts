@@ -51,7 +51,6 @@ export class DishesComponent implements OnInit {
   addToReservation(dish: Dish): boolean {
     let reservationsNo = this.getCurrentReservedNumber(dish)
     if (reservationsNo < dish.maxDailyAmount){
-      // this.reservations.set(dish, reservationsNo + 1);
       this.cartService.addToCart(dish);
       return true;
     } else {
@@ -63,8 +62,7 @@ export class DishesComponent implements OnInit {
   deleteFromReservation(dish: Dish): boolean {
     let reservationsNo = this.getCurrentReservedNumber(dish);
     if (reservationsNo > 0) {
-      // this.reservations.set(dish, reservationsNo - 1);
-      return this.cartService.deleteFromCart(dish);
+      return this.cartService.decrementInCart(dish);
     } else {
       this.dishService.log("[dishes | deleteFromReservation] Cannot delete this dish from the reservation, it has not been reserved");
       return false;
@@ -77,10 +75,6 @@ export class DishesComponent implements OnInit {
   }
 
   addDish(dish: Dish): void {
-    // name = name.trim();
-    // if (!name) { 
-    //   return; 
-    // }
     this.dishService.addDish(dish)
     .subscribe(d => {
       this.dishes.push(d);
@@ -89,6 +83,7 @@ export class DishesComponent implements OnInit {
 
   deleteDish(dish: Dish): void {
     this.dishes = this.dishes.filter(d => d!== dish);
+    this.cartService.deleteFromCart(dish);
     this.dishService.deleteDish(dish.id)
     .subscribe();
   }
@@ -100,14 +95,6 @@ export class DishesComponent implements OnInit {
   addNewDish(e: Dish): void {
     this.addDish(e);
   }
-
-  // addToCart(dish: Dish): void {
-  //   this.cartService.addToCart(dish);
-  // }
-
-  // deleteFromCart(dish: Dish): boolean {
-  //   return this.cartService.deleteFromCart(dish);
-  // }
 
   getHighestPrice(): number {
     return Math.max.apply(Math, this.dishes.map(function(dish) { return dish.price; }));

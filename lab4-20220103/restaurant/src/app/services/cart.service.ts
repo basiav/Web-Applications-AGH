@@ -18,13 +18,6 @@ export class CartService {
   }
 
   getCurrentItemsNumber(dish: Dish): number {
-    // let itemsNo = this.items.get(dish);
-    // if (itemsNo && itemsNo > 0) {
-    //   return itemsNo;
-    // } else {
-    //   return 0;
-    // }
-
     let itemsNo = this.items.get(dish.id);
     if (this.items.has(dish.id) && itemsNo) {
       return itemsNo;
@@ -57,7 +50,7 @@ export class CartService {
     this.items.set(dish.id, itemsNo + 1);
   }
 
-  deleteFromCart(dish: Dish): boolean {
+  decrementInCart(dish: Dish): boolean {
     let itemsNo = this.getCurrentItemsNumber(dish);
     if (itemsNo > 0) {
       this.items.set(dish.id, itemsNo - 1);
@@ -66,6 +59,10 @@ export class CartService {
       this.dishService.log("[cart | deleteFromCart] Cannot delete this dish from the shopping cart, it hasn't been here");
       return false;
     }
+  }
+
+  deleteFromCart(dish: Dish): boolean {
+    return this.items.delete(dish.id);
   }
 
   getItems() {

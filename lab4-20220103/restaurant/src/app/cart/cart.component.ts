@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
-import { Dish } from '../shared/dish';
-import { Reservations } from '../shared/reservations';
+import { CartReservations } from '../shared/reservations';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +8,7 @@ import { Reservations } from '../shared/reservations';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  items!: Map<Dish, number>;
+  items!: CartReservations;
 
   constructor(
     private cartService: CartService,
