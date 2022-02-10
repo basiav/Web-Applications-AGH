@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Dish } from 'src/app/dish';
+import { Dish } from 'src/app/shared/dish';
 import { DishService } from 'src/app/services/dish.service';
 
 @Component({

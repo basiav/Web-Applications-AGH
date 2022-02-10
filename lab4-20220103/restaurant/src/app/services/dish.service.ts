@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 
-import { Dish } from '../dish';
+import { Dish } from '../shared/dish';
 import { MessageService } from './message.service';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class DishService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    // private messageService: MessageService
     ) { }
 
   getDishes(): Observable<Dish[]> { 
@@ -42,7 +42,8 @@ export class DishService {
 
   /** Log a DishService message with the MessageService */
   public log(message: string) {
-    this.messageService.add(`DishService: ${message}`);
+    // this.messageService.add(`DishService: ${message}`);
+    console.log(message);
   }
 
   getDish(id: number): Observable<Dish> {

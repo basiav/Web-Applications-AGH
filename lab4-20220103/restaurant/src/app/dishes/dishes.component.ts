@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DishService } from '../services/dish.service';
-import { Dish } from '../dish';
+import { Dish } from '../shared/dish';
 import { CartService } from '../services/cart.service';
+import { Reservations } from '../shared/reservations';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { CartService } from '../services/cart.service';
 })
 export class DishesComponent implements OnInit {
   dishes: Dish[] = [];
-  reservations!: Map<Dish, number>;
+  reservations: Reservations = this.cartService.getItems();
   showForm: boolean = false;
 
   constructor(
@@ -21,8 +22,9 @@ export class DishesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.reservations = new Map<Dish, number>();
+    // this.reservations = new Map<Dish, number>();
     this.getDishes();
+    // this.getReservationsFromService();
   }
 
   getDishes(): void {
@@ -34,24 +36,23 @@ export class DishesComponent implements OnInit {
     })
   }
 
+  getReservationsFromService(): void {
+    this.reservations = this.cartService.getItems();
+  }
+
   getCurrentReservedNumber(dish: Dish): number {
-    let reservationsNo = this.reservations.get(dish);
-    if (reservationsNo && reservationsNo > 0) {
-      return reservationsNo;
-    } else {
-      return 0;
-    }
+    return this.cartService.getCurrentItemsNumber(dish);
   }
 
   getCurrentlyAvailableDishAmount(dish: Dish): number {
-    return dish.maxDailyAmount - this.getCurrentReservedNumber(dish);
+    return this.cartService.getCurrentlyAvailableDishAmount(dish);
   }
 
   addToReservation(dish: Dish): boolean {
     let reservationsNo = this.getCurrentReservedNumber(dish)
     if (reservationsNo < dish.maxDailyAmount){
-      this.reservations.set(dish, reservationsNo + 1);
-      this.addToCart(dish);
+      // this.reservations.set(dish, reservationsNo + 1);
+      this.cartService.addToCart(dish);
       return true;
     } else {
       this.dishService.log("[dishes | addToReservation] Cannot make more reservations than available dishes. Reservation denied");
@@ -62,37 +63,12 @@ export class DishesComponent implements OnInit {
   deleteFromReservation(dish: Dish): boolean {
     let reservationsNo = this.getCurrentReservedNumber(dish);
     if (reservationsNo > 0) {
-      this.reservations.set(dish, reservationsNo - 1);
-      return this.deleteFromCart(dish);
+      // this.reservations.set(dish, reservationsNo - 1);
+      return this.cartService.deleteFromCart(dish);
     } else {
       this.dishService.log("[dishes | deleteFromReservation] Cannot delete this dish from the reservation, it has not been reserved");
       return false;
     }
-  }
-
-  getHighestPrice(): number {
-    return Math.max.apply(Math, this.dishes.map(function(dish) { return dish.price; }));
-  }
-
-  getLowestPrice(): number {
-    return Math.min.apply(Math, this.dishes.map(function(dish) { return dish.price; }));
-  }
-
-  getPriceColour(dish: Dish): string {
-    if(dish.price === this.getHighestPrice()){
-      return "green";
-    }
-    if (dish.price === this.getLowestPrice()) {
-      return "red";
-    }
-    return "none";
-  }
-
-  getBorderWidth(dish: Dish): string {
-    if(dish.price === this.getHighestPrice() || dish.price === this.getLowestPrice()){
-      return "5px";
-    }
-    return "0px";
   }
 
   getAllReservationsNumber(): number {
@@ -125,12 +101,37 @@ export class DishesComponent implements OnInit {
     this.addDish(e);
   }
 
-  addToCart(dish: Dish): void {
-    this.cartService.addToCart(dish);
+  // addToCart(dish: Dish): void {
+  //   this.cartService.addToCart(dish);
+  // }
+
+  // deleteFromCart(dish: Dish): boolean {
+  //   return this.cartService.deleteFromCart(dish);
+  // }
+
+  getHighestPrice(): number {
+    return Math.max.apply(Math, this.dishes.map(function(dish) { return dish.price; }));
   }
 
-  deleteFromCart(dish: Dish): boolean {
-    return this.cartService.deleteFromCart(dish);
+  getLowestPrice(): number {
+    return Math.min.apply(Math, this.dishes.map(function(dish) { return dish.price; }));
+  }
+
+  getPriceColour(dish: Dish): string {
+    if(dish.price === this.getHighestPrice()){
+      return "green";
+    }
+    if (dish.price === this.getLowestPrice()) {
+      return "red";
+    }
+    return "none";
+  }
+
+  getBorderWidth(dish: Dish): string {
+    if(dish.price === this.getHighestPrice() || dish.price === this.getLowestPrice()){
+      return "5px";
+    }
+    return "0px";
   }
 
 
