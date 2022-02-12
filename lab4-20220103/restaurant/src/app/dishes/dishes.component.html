@@ -32,7 +32,7 @@
                     <br>kategorie:
                     <span *ngFor="let c of dish.category">{{c}}, </span>
                     <br><br>{{dish.description}}
-                    <br><br><span>Cena: {{dish.price | currency}}</span></p>
+                    <br><br><span class="price">Cena: {{dish.price | currency}}</span></p>
                     <div class="button-box">
                         <button class="button" (click)="addToReservation(dish)">+</button>
                         Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
@@ -40,9 +40,9 @@
                         <button class="button" (click)="deleteFromReservation(dish)">-</button>
                     </div>
                 </div>
+                <app-reviews [dishId]="dish.id"></app-reviews>
             </div>
             <!-- </a> -->
-            <app-reviews [dishId]="dish.id"></app-reviews>
         </li>
     </div>
 </ul>
