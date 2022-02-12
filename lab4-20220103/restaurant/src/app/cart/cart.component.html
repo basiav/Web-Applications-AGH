@@ -5,3 +5,7 @@
     <span>{{ item.key.price | currency }} </span>
     <span>{{ item.value }}</span>
 </div>
+<div class="cart-summary">
+    <span>Wartość koszyka: </span>
+    <span>{{getCartValue() | currency}}</span>
+</div>
