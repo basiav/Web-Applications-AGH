@@ -1,5 +1,23 @@
+<div class="form">
+    <div class="category-list">
+        <label for="search-categories">Wybierz rodzaj filtru</label>
+        <select [(ngModel)]="selectedCategory" name="search-categories">
+            <option *ngFor="let category of searchCategories" [value]="category">{{category}}</option>
+        </select>
+        <h3 *ngIf="selectedCategory">Filtrowanie: {{selectedCategory}}</h3>
+    </div>
+
+    <!-- <div *ngIf="selectedBrand" class="modelList">
+        <label for="models">Choose a model</label>
+        <select [(ngModel)]="selectedModel" name="models">
+            <option *ngFor="let model of getDistinctModels()" [value]="model">{{model}}</option>
+        </select>
+        <h3 *ngIf="selectedModel">Selected model: {{selectedModel}}</h3>
+    </div> -->
+</div>
+
 <div id="search-component">
-    <label for="search-box">Filtrowanie dań</label>
+    <label for="search-box">Filtrowanie dań po fragmencie nazwy</label>
     <input #searchBox id="search-box" (input)="search(searchBox.value)"/>
     <ul class="search-result">
         <li *ngFor="let dish of dishes$ | async">

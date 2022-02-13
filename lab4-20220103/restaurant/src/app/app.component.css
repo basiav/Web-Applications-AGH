@@ -1,5 +1,6 @@
 h1 {
-    color: #369;
+    /* color: #369; */
+    color: #3e5257;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 250%;
 }
@@ -19,7 +20,8 @@ p, span {
 app-top-bar {
     width: 100%;
     height: 68px;
-    background-color: #1976d2;
+    /* background-color: #1976d2; */
+    background-color: #435A60;
     padding: 16px;
     display: flex;
     flex-direction: row;

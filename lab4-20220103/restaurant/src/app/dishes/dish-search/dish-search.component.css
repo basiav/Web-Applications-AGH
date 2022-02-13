@@ -43,3 +43,20 @@ label {
     margin-top: 0;
     padding-left: 0;
   }
+
+
+/* CSS list styling from Zad.5  */
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+select {
+  margin: 20px;
+  padding: 10px;
+}
+
+.category-list {
+  color: rgb(75, 75, 102);
+}
