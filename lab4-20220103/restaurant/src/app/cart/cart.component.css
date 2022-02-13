@@ -27,3 +27,14 @@
     font-weight: bold;
     background-color: #d8d8d8;
 }
+
+.cart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    color: rgb(0, 52, 104);
+    font-weight: bold;
+}

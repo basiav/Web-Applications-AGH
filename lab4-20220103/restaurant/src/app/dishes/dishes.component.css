@@ -1,3 +1,18 @@
+nav {
+    margin: 2% 0px 1% 0px;
+    display: flex;
+}
+
+.form-class {
+    position: relative;
+    left: 7.5%;
+}
+
+.search-class {
+    position: relative;
+    left: 60%;
+}
+
 .dishes {
     margin: 0 0 2em 0;
     padding: 0;

@@ -5,7 +5,6 @@
         <mat-form-field appearance="fill">
             <mat-label>Kategorie filtrowania</mat-label>
             <mat-select [formControl]="searchCategories" multiple (selectionChange)="onCriteriaChange($event)">
-                {{searchCategories.value}}
               <mat-select-trigger>
                 {{searchCategories.value ? searchCategories.value[0] : ''}}
                 <span *ngIf="searchCategories.value?.length > 1" class="example-additional-selection">
@@ -25,7 +24,6 @@
             <mat-form-field appearance="fill">
                 <mat-label>Typ kuchni</mat-label>
                 <mat-select [formControl]="cuisine" multiple (selectionChange)="onCuisineChange($event)">
-                    {{cuisine.value}}
                   <mat-select-trigger>
                     {{cuisine.value ? cuisine.value[0] : ''}}
                     <span *ngIf="cuisine.value?.length > 1" class="example-additional-selection">
@@ -70,7 +68,6 @@
             <mat-form-field appearance="fill">
                 <mat-label>Kategoria dania</mat-label>
                 <mat-select [formControl]="dishCategories" multiple (selectionChange)="onDishCategoryChange($event)">
-                    {{dishCategories.value}}
                   <mat-select-trigger>
                     {{dishCategories.value ? dishCategories.value[0] : ''}}
                     <span *ngIf="dishCategories.value?.length > 1" class="example-additional-selection">
@@ -83,7 +80,7 @@
         </div>
 
         <div *ngIf="searchCategories.value && searchCategories.value.includes('nazwa dania')">
-            <div id="search-component">
+            <div class="search-component">
                 <label for="search-box">Filtrowanie dań po fragmencie nazwy</label>
                 <input #searchBox id="search-box" (input)="search(searchBox.value)"/>
                 <ul class="search-result">

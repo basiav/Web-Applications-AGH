@@ -1,11 +1,14 @@
-<h3>Cart</h3>
+<div class="cart-wrapper">
+    <h2>Twoje zamówienie</h2>
 
-<div class="cart-item" *ngFor="let item of items | keyvalue">
-    <span>{{ item.key.name }} </span>
-    <span>{{ item.key.price | currency }} </span>
-    <span>{{ item.value }}</span>
+    <div class="cart-item" *ngFor="let item of items | keyvalue">
+        <span>{{ item.key.name }} </span>
+        <span>{{ item.key.price | currency }} </span>
+        <span>{{ item.value }}</span>
+    </div>
+    <div class="cart-summary">
+        <span>Wartość koszyka: </span>
+        <span>{{getCartValue() | currency}}</span>
+    </div>
 </div>
-<div class="cart-summary">
-    <span>Wartość koszyka: </span>
-    <span>{{getCartValue() | currency}}</span>
-</div>
+
