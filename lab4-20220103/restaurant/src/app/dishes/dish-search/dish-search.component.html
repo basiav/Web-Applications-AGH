@@ -7,6 +7,27 @@
         <h3 *ngIf="selectedCategory">Filtrowanie: {{selectedCategory}}</h3>
     </div>
 
+    <div *ngIf="selectedCategory">
+
+        <div *ngIf="selectedCategory == 'typ kuchni'">
+            <mat-form-field appearance="fill">
+                <mat-label>Typ kuchni</mat-label>
+                <mat-select [formControl]="cuisine" multiple>
+                  <mat-select-trigger>
+                    {{cuisine.value ? cuisine.value[0] : ''}}
+                    <span *ngIf="cuisine.value?.length > 1" class="example-additional-selection">
+                      (+{{cuisine.value.length - 1}} {{cuisine.value?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let cuisine of cuisineList" [value]="cuisine">{{cuisine}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+        </div>
+
+
+    </div>
+
     <!-- <div *ngIf="selectedBrand" class="modelList">
         <label for="models">Choose a model</label>
         <select [(ngModel)]="selectedModel" name="models">

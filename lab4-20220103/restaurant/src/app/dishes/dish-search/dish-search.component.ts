@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
+
 import { SearchService } from '../../services/search.service';
 import { Dish } from '../../shared/dish';
 
@@ -11,13 +13,19 @@ import { Dish } from '../../shared/dish';
 export class DishSearchComponent implements OnInit {
   dishes$!: Observable<Dish[]>;
   private searchTerms = new Subject<string>();
+  
   searchCategories: String[];
   selectedCategory?: string;
+  
+  cuisine = new FormControl();
+  cuisineList: String[];
 
 
   constructor(private searchService: SearchService) { 
-    this.searchCategories = ["Typ kuchni", "Cena", "Ocena", "Kategoria dania"];
+    this.searchCategories = ["typ kuchni", "cena", "ocena", "kategoria dania"];
+    this.cuisineList = ['grecka', 'międzynarodowa', 'polska', 'tradycyjna', 'francuska', 'indyjska', 'włoska', 'wegańska', 'amerykańska', 'angielska'];
   }
+  
 
   search(term: string): void {
     this.searchTerms.next(term);

@@ -16,6 +16,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { CartComponent } from './cart/cart.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { DishSearchComponent } from './dishes/dish-search/dish-search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import { DishSearchComponent } from './dishes/dish-search/dish-search.component'
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,
-      {dataEncapsulation: false})
+      {dataEncapsulation: false}),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

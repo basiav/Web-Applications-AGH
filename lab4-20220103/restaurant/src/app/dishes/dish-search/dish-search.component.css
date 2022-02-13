@@ -60,3 +60,9 @@ select {
 .category-list {
   color: rgb(75, 75, 102);
 }
+
+/* Multiple selection boxes */
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}

@@ -37,4 +37,15 @@ export class SearchService {
       catchError(this.handleError<Dish[]>('searchDishes', []))
     );
   }
+
+  // searchCuisines(terms: string[]): Observable<Dish[]> {
+  //   for(let t of terms) {
+  //     if (!t.trim()) {
+  //       return of([]);
+  //     }
+  //     return this.http.get<Dish[]>(`${this.dishesUrl}/?cuisine=${t}`)
+  //   }
+    
+
+  // }
 }
