@@ -12,7 +12,9 @@
         (cuisineNotify)="filterCuisine($event)" 
         (priceNotify)="filterPrice($event)" 
         (reviewNotify)="filterReview($event)" 
-        (categoryNotify)="filterCategory($event)">
+        (categoryNotify)="filterCategory($event)" 
+        (nameNotify)="filterName($event)"
+        (resetDishesNotify)="resetDishes()">
     </app-dish-search>
 </div>
 <h2 [ngStyle]="{

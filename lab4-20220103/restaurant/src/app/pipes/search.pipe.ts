@@ -1,42 +1,47 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { filter } from 'rxjs';
 import { Dish } from '../shared/dish';
 import { FilterCriteria } from '../shared/filterCriteria';
+import { StarService } from '../services/star.service';
 
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
+  
+  constructor(public starService: StarService) { }
 
-  // transform(value: unknown, ...args: unknown[]): unknown {
-  //   return null;
-  // }
-  // transform(courses: Dish[], searchText: string): Dish[] { 
-  //   if (!courses) 
-  //    return []; 
-  //   if (!searchText) 
-  //    return courses; 
-  //   searchText = searchText.toLowerCase(); 
-  //    return courses.filter(course => { 
-  //    return course.name.toLowerCase().includes(searchText); 
-  //    }); 
-  //    }
-    transform(dishes: Dish[], filterCriterium: FilterCriteria, filterArgs: string[]): Dish[] {
-      // return dishes;
+  transform(dishes: Dish[], filterCriterium: FilterCriteria, filterArgs: string[], 
+    numFilterArg?: number): Dish[] {
+
       switch(filterCriterium){
-        case FilterCriteria.Cuisine:
-          return dishes.filter(dish => {
-            return dish.cuisine.some(cuisine => filterArgs.includes(cuisine));
-          });
-        
-        case FilterCriteria.DishCategory:
-          return dishes.filter(dish => {
-            return dish.category.some(cat => filterArgs.includes(cat));
-          });
-        
-        default:
-          return dishes;
-      }
+      case FilterCriteria.Cuisine:
+        return dishes.filter(dish => {
+          return dish.cuisine.some(cuisine => filterArgs.includes(cuisine));
+        });
+      
+      case FilterCriteria.DishCategory:
+        return dishes.filter(dish => {
+          return dish.category.some(cat => filterArgs.includes(cat));
+        });
+      
+      case FilterCriteria.Price:
+        return dishes.filter(dish => {
+          return numFilterArg && (dish.price <= numFilterArg);
+        });
+      
+      case FilterCriteria.Review:
+        return dishes.filter(dish => {
+          return numFilterArg && (this.starService.getDishAvgStars(dish.id) >= numFilterArg);
+        });
+      
+      case FilterCriteria.Name:
+        return dishes.filter(dish => {
+          return dish.name.toLowerCase().includes(filterArgs[0].toLowerCase());
+        })
+      
+      default:
+        return dishes;
     }
+  }
 
 }

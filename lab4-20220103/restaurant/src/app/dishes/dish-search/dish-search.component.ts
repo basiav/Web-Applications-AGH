@@ -25,7 +25,6 @@ export class DishSearchComponent implements OnInit {
   dishCategories = new FormControl();
   dishCategoryList: String[];
 
-  prices: number[] = [];
   reviews: number[] = [];
 
   @Output() criteriaNotify = new EventEmitter();
@@ -33,6 +32,8 @@ export class DishSearchComponent implements OnInit {
   @Output() priceNotify = new EventEmitter();
   @Output() reviewNotify = new EventEmitter();
   @Output() categoryNotify = new EventEmitter();
+  @Output() nameNotify = new EventEmitter();
+  @Output() resetDishesNotify = new EventEmitter();
 
   constructor(private searchService: SearchService) { 
     this.searchCategoriesList = ["typ kuchni", "cena", "ocena", "kategoria dania", "nazwa dania"];
@@ -44,6 +45,8 @@ export class DishSearchComponent implements OnInit {
     setTimeout(() => {
       this.cuisineList = this.searchService.getAllCuisines(this.dishes);
       this.dishCategoryList = this.searchService.getAllDishCategories(this.dishes);
+      this.reviews[0] = this.getMinStarAvg();
+      this.reviews[1] = this.getMaxStarAvg();
     }, 1000);
 
     this.dishesObs$ = this.searchTerms.pipe(
@@ -60,10 +63,15 @@ export class DishSearchComponent implements OnInit {
 
   formatLabel(value: number) {
     return value + '$';
+  } 
+
+  formatLabel2(value: number) {
+    return value;
   }  
 
   search(term: string): void {
     this.searchTerms.next(term);
+    this.nameNotify.emit(term);
   }
 
   onCriteriaChange(e: any) {
@@ -92,6 +100,18 @@ export class DishSearchComponent implements OnInit {
 
   getMaxPrice(): number {
     return this.searchService.getHighestPrice(this.dishes);
+  }
+
+  getMinStarAvg(): number {
+    return this.searchService.getLowestAvgStars(this.dishes);
+  }
+
+  getMaxStarAvg(): number {
+    return this.searchService.getHighestAvgStars(this.dishes);
+  }
+
+  resetDishes() {
+    this.resetDishesNotify.emit();
   }
 
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Dish } from '../shared/dish';
 import { DishService } from './dish.service';
+import { StarService } from './star.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class SearchService {
 
   constructor(
     private http: HttpClient,
-    private dishService: DishService
+    private dishService: DishService,
+    private starService: StarService,
   ) { }
 
   log(message: string): void {
@@ -68,6 +70,20 @@ export class SearchService {
 
   getLowestPrice(dishes: Dish[]): number {
     return Math.min.apply(Math, dishes.map(function(dish) { return dish.price; }));
+  }
+
+  getHighestAvgStars(dishes: Dish[]) {
+    let service = this;
+    return Math.max.apply(Math, dishes.map(function(dish) {
+      return service.starService.getDishAvgStars(dish.id);
+    }));
+  }
+
+  getLowestAvgStars(dishes: Dish[]) {
+    let service = this;
+    return Math.min.apply(Math, dishes.map(function(dish) {
+      return service.starService.getDishAvgStars(dish.id);
+    }));
   }
   
 }

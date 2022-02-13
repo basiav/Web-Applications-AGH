@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { SearchPipe } from './pipes/search.pipe';
 import {MatSliderModule} from '@angular/material/slider'; 
+import { StarService } from './services/star.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import {MatSliderModule} from '@angular/material/slider';
       {dataEncapsulation: false}),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [StarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

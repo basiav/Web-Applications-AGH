@@ -3,4 +3,5 @@ export enum FilterCriteria {
     Price = "cena",
     Review = "ocena",
     DishCategory = "kategoria dania",
+    Name = "nazwa dania",
 }

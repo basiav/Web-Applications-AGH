@@ -6,6 +6,7 @@ import { CartService } from '../services/cart.service';
 import { Reservations } from '../shared/reservations';
 import { SearchPipe } from '../pipes/search.pipe';
 import { FilterCriteria } from '../shared/filterCriteria';
+import { StarService } from '../services/star.service';
 
 
 @Component({
@@ -19,26 +20,23 @@ export class DishesComponent implements OnInit {
   showForm: boolean = false;
   showFilters: boolean = false;
   filterDishes: boolean = false;
-  searchPipe: SearchPipe = new SearchPipe();
+  searchPipe: SearchPipe;
 
   constructor(
     private dishService: DishService,
     private cartService: CartService,
-  ) { }
+    private starService: StarService,
+  ) {
+    this.searchPipe = new SearchPipe(this.starService);
+  }
 
   ngOnInit(): void {
-    // this.reservations = new Map<Dish, number>();
     this.getDishes();
-    // this.getReservationsFromService();
   }
 
   getDishes(): void {
     this.dishService.getDishes()
     .subscribe(dishes => this.dishes = dishes);
-    // console.log("Dishes: ", this.dishes)
-    // this.dishes.forEach(dish => {
-    //   console.log("Dish: ", dish)
-    // })
   }
 
   getReservationsFromService(): void {
@@ -134,40 +132,52 @@ export class DishesComponent implements OnInit {
     return "0px";
   }
 
-  getPipedDishes(): Dish[] {
-    if (this.filterDishes) {
-      return this.searchPipe.transform(this.dishes, FilterCriteria.DishCategory, ["deser"]);
-    }
-    return this.dishes;
-  }
+  delay: number = 500;
 
   filterCriteria(event: string[]) {
     this.filterDishes = true;
-    console.log("Event: ", event);
   }
 
   filterCuisine(event: string[]) {
-    this.dishes = this.searchPipe.transform(this.dishes, 
-      FilterCriteria.Cuisine, event);
-  }
-
-  
-  filterPrice(event: string[]) {
-    
-  }
-
-  filterReview(event: string[]) {
-    
+    this.getDishes();
+    setTimeout(() => {
+      this.dishes = this.searchPipe.transform(this.dishes, 
+        FilterCriteria.Cuisine, event);
+    }, this.delay);
   }
 
   filterCategory(event: string[]) {
     this.getDishes();
-    console.log("category!: ", event);
     setTimeout(() => {this.dishes = this.searchPipe.transform(this.dishes, 
-      FilterCriteria.DishCategory, event)}, 1000);
-
+      FilterCriteria.DishCategory, event)}, this.delay);
+  }
+  
+  filterPrice(event: number) {
+    this.getDishes();
+    setTimeout(() => {
+      this.dishes = this.searchPipe.transform(this.dishes, 
+        FilterCriteria.Price, [], event);
+    }, this.delay);
   }
 
+  filterReview(event: number) {
+    this.dishes = this.searchPipe.transform(this.dishes, 
+      FilterCriteria.Review, [], event);
+  }
 
+  filterName(event: string) {
+    console.log("Filter name: ", event);
+    this.getDishes();
+    let args: string[] = [];
+    args.push(event);
+    setTimeout(() => {
+      this.dishes = this.searchPipe.transform(this.dishes, 
+        FilterCriteria.Name, args);
+    }, this.delay);
+  }
+
+  resetDishes(): void {
+    this.getDishes();
+  }
 
 }

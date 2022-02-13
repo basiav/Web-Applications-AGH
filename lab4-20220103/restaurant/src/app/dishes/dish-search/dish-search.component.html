@@ -17,6 +17,8 @@
           </mat-form-field>
     </div>
 
+    <button class="reset-button" (click)="resetDishes()">Pokaż ponownie wszystkie dania</button>
+
     <div class="filter-details" *ngIf="searchCategories">
 
         <div *ngIf="searchCategories.value && searchCategories.value.includes('typ kuchni')">
@@ -53,11 +55,11 @@
             Ocena
             <mat-slider
                 thumbLabel
-                [displayWith]="formatLabel"
-                tickInterval="0.5"
+                [displayWith]="formatLabel2"
+                tickInterval="1000"
                 step="0.5"
-                min="1"
-                max="5"
+                min="{{getMinStarAvg()}}"
+                max="{{getMaxStarAvg()}}"
                 aria-label="units"
                 (change)="onReviewChange($event)">
             </mat-slider>
