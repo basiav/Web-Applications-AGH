@@ -25,6 +25,9 @@ export class DishSearchComponent implements OnInit {
   dishCategories = new FormControl();
   dishCategoryList: String[];
 
+  prices: number[] = [];
+  reviews: number[] = [];
+
   @Output() criteriaNotify = new EventEmitter();
   @Output() cuisineNotify = new EventEmitter();
   @Output() priceNotify = new EventEmitter();
@@ -56,10 +59,7 @@ export class DishSearchComponent implements OnInit {
   }
 
   formatLabel(value: number) {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
-    }
-    return value;
+    return value + '$';
   }  
 
   search(term: string): void {
@@ -79,10 +79,19 @@ export class DishSearchComponent implements OnInit {
   }
 
   onPriceChange(e: any) {
-    // this.priceNotify.emit(this.)
+    this.priceNotify.emit(e.value);
   }
 
   onReviewChange(e: any) {
+    this.reviewNotify.emit(e.value);
+  }
+
+  getMinPrice(): number {
+    return this.searchService.getLowestPrice(this.dishes);
+  }
+
+  getMaxPrice(): number {
+    return this.searchService.getHighestPrice(this.dishes);
   }
 
 

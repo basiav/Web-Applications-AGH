@@ -62,6 +62,12 @@ export class SearchService {
     return res;
   }
 
+  getHighestPrice(dishes: Dish[]): number {
+    return Math.max.apply(Math, dishes.map(function(dish) { return dish.price; }));
+  }
 
+  getLowestPrice(dishes: Dish[]): number {
+    return Math.min.apply(Math, dishes.map(function(dish) { return dish.price; }));
+  }
   
 }

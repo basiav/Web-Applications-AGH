@@ -36,17 +36,17 @@
         </div>
 
         <div *ngIf="searchCategories.value && searchCategories.value.includes('cena')">
-            Cena
-            <mat-slider
-                thumbLabel
-                [displayWith]="formatLabel"
-                tickInterval="1000"
-                step="1000"
-                min="0"
-                max="100000"
-                aria-label="units"
-                (change)="onPriceChange($event)">
-            </mat-slider>
+          Cena 
+          <mat-slider
+              thumbLabel
+              [displayWith]="formatLabel"
+              tickInterval="1000"
+              step="1"
+              min="{{getMinPrice()}}"
+              max="{{getMaxPrice()}}"
+              aria-label="units"
+              (change)="onPriceChange($event)">
+          </mat-slider>
         </div>
 
         <div *ngIf="searchCategories.value && searchCategories.value.includes('ocena')">
