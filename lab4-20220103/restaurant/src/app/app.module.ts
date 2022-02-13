@@ -15,6 +15,7 @@ import { AddDishFormComponent } from './dishes/add-dish-form/add-dish-form.compo
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { CartComponent } from './cart/cart.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { DishSearchComponent } from './dishes/dish-search/dish-search.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
     AddDishFormComponent,
     TopBarComponent,
     CartComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    DishSearchComponent
   ],
   imports: [
     BrowserModule,

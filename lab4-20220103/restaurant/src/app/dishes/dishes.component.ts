@@ -15,6 +15,7 @@ export class DishesComponent implements OnInit {
   dishes: Dish[] = [];
   reservations: Reservations = this.cartService.getItems();
   showForm: boolean = false;
+  showSearchBox: boolean = false;
 
   constructor(
     private dishService: DishService,
@@ -90,6 +91,10 @@ export class DishesComponent implements OnInit {
 
   onClickForm(): void {
     this.showForm = !this.showForm;
+  }
+
+  onClickSearchBox(): void {
+    this.showSearchBox = !this.showSearchBox;
   }
 
   addNewDish(e: Dish): void {
