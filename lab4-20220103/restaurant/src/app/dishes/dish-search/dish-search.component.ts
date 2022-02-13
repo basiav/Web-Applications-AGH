@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
 
@@ -23,25 +23,16 @@ export class DishSearchComponent implements OnInit {
   dishCategories = new FormControl();
   dishCategoryList: String[];
 
-  
-
+  @Output() criteriaNotify = new EventEmitter();
+  @Output() cuisineNotify = new EventEmitter();
+  @Output() priceNotify = new EventEmitter();
+  @Output() reviewNotify = new EventEmitter();
+  @Output() categoryNotify = new EventEmitter();
 
   constructor(private searchService: SearchService) { 
     this.searchCategoriesList = ["typ kuchni", "cena", "ocena", "kategoria dania", "nazwa dania"];
     this.cuisineList = ['grecka', 'międzynarodowa', 'polska', 'tradycyjna', 'francuska', 'indyjska', 'włoska', 'wegańska', 'amerykańska', 'angielska'];
     this.dishCategoryList = ["mięsne", "kolacje", "wegetariańskie", "na słono", "na słodko", "deser"];
-  }
-
-  formatLabel(value: number) {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
-    }
-
-    return value;
-  }  
-
-  search(term: string): void {
-    this.searchTerms.next(term);
   }
 
   ngOnInit(): void {
@@ -57,49 +48,35 @@ export class DishSearchComponent implements OnInit {
     );
   }
 
-  // carsAvailable: Car[] = []; 
-  // selectedBrand?: string;
-  // selectedModel?: string;
-  // selectedColour?: Colour;
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+    return value;
+  }  
 
-  // constructor(private carService: CarService) { }
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
 
-  // ngOnInit(): void {
-  //   this.getCars();
-  // }
+  onCriteriaChange(e: any) {
+    this.criteriaNotify.emit(this.searchCategories.value);
+  }
 
-  // getCars(): void {
-  //   this.carService.getCars()
-  //   .subscribe(cars => this.carsAvailable = cars);
-  // }
+  onCuisineChange(e: any) {
+    this.cuisineNotify.emit(this.cuisine.value);
+  }
 
-  // getDistinctBrands(): string[] {
-  //   return this.carsAvailable.map(car => car.brand)
-  //   .filter((value, index, self) => self.indexOf(value) === index)
-  // }
+  onDishCategoryChange(e: any) {
+    this.categoryNotify.emit(this.dishCategories.value);
+  }
 
-  // getDistinctModels(): string[] {
-  //   console.log("Selected brand: ", this.selectedBrand);
-  //   console.log(this.carsAvailable
-  //     .filter(car => car.brand === this.selectedBrand)
-  //     .map(car => car.model)
-  //     .filter((value, index, self) => self.indexOf(value) === index))
+  onPriceChange(e: any) {
+    // this.priceNotify.emit(this.)
+  }
 
-  //   return this.carsAvailable
-  //   .filter(car => car.brand === this.selectedBrand)
-  //   .map(car => car.model)
-  //   .filter((value, index, self) => self.indexOf(value) === index)
-  // }
+  onReviewChange(e: any) {
+  }
 
-  // getDistinctColours(): Colour[] {
-  //   console.log("Selected model: ", this.selectedModel);
-  //   console.log(this.carsAvailable
-  //   .filter(car => (car.brand === this.selectedBrand && car.model == this.selectedModel))
-  //   .map(car => car.colours)[0])
-
-  //   return this.carsAvailable
-  //   .filter(car => (car.brand === this.selectedBrand && car.model == this.selectedModel))
-  //   .map(car => car.colours)[0]
-  // }
 
 }

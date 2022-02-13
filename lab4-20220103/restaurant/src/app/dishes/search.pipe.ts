@@ -19,8 +19,11 @@ export class SearchPipe implements PipeTransform {
   //    return course.name.toLowerCase().includes(searchText); 
   //    }); 
   //    }
-    transform(dishes: Dish[], ...args: unknown[]): Dish[] {
-      return dishes;
+    transform(dishes: Dish[], ...args: string[]): Dish[] {
+      // return dishes;
+      return dishes.filter(dish => {
+        return dish.category.includes(args[0])
+      })
     }
 
 }

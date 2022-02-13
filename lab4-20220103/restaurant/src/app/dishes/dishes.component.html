@@ -6,14 +6,20 @@
     <app-add-dish-form (newDishNotify)="addNewDish($event)"></app-add-dish-form>
 </div>
 <div class="search-class" *ngIf="showSearchBox">
-    <app-dish-search></app-dish-search>
+    <app-dish-search 
+        (criteriaNotify)="filterCriteria($event)" 
+        (cuisineNotify)="filterCuisine($event)" 
+        (priceNotify)="filterPrice($event)" 
+        (reviewNotify)="filterReview($event)" 
+        (categoryNotify)="filterCategory($event)">
+    </app-dish-search>
 </div>
 <h2 [ngStyle]="{
     'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
     Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}</h2>
 <ul class="dishes">
     <div class="cards-container">
-        <li *ngFor="let dish of (dishes | search); let rowIndex = index">
+        <li *ngFor="let dish of getPipedDishes(); let rowIndex = index">
             <span class="badge" [ngStyle]="{
                     'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                 }">{{ rowIndex + 1 }} {{ dish.name }}</span>

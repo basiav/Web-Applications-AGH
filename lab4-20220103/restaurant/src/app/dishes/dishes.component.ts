@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
 import { CartService } from '../services/cart.service';
 import { Reservations } from '../shared/reservations';
+import { SearchPipe } from './search.pipe';
 
 
 @Component({
@@ -124,6 +125,31 @@ export class DishesComponent implements OnInit {
       return "5px";
     }
     return "0px";
+  }
+
+  getPipedDishes(): Dish[] {
+    return new SearchPipe().transform(this.dishes, "pizza");
+  }
+
+  filterCriteria(event: string[]) {
+    console.log("Event: ", event);
+  }
+
+  filterCuisine(event: string[]) {
+    
+  }
+
+  
+  filterPrice(event: string[]) {
+    
+  }
+
+  filterReview(event: string[]) {
+    
+  }
+
+  filterCategory(event: string[]) {
+    
   }
 
 
