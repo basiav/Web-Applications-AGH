@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
 
@@ -11,7 +11,9 @@ import { Dish } from '../../shared/dish';
   styleUrls: ['./dish-search.component.css']
 })
 export class DishSearchComponent implements OnInit {
-  dishes$!: Observable<Dish[]>;
+  dishesObs$!: Observable<Dish[]>;
+  @Input()
+  dishes!: Dish[];
   private searchTerms = new Subject<string>();
   
   searchCategories = new FormControl();
@@ -36,7 +38,12 @@ export class DishSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dishes$ = this.searchTerms.pipe(
+    setTimeout(() => {
+      this.cuisineList = this.searchService.getAllCuisines(this.dishes);
+      this.dishCategoryList = this.searchService.getAllDishCategories(this.dishes);
+    }, 1000);
+
+    this.dishesObs$ = this.searchTerms.pipe(
       // wait 200ms after each keystroke before considering the term
       debounceTime(200),
 

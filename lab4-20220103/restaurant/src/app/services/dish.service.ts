@@ -78,6 +78,5 @@ export class DishService {
           return of(dishes.length > 0 ? Math.max(...dishes.map(dish => dish.id)) + 1 : 1);
         })
       );
-    
   }
 }

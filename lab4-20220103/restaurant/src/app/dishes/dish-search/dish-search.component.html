@@ -85,7 +85,7 @@
                 <label for="search-box">Filtrowanie dań po fragmencie nazwy</label>
                 <input #searchBox id="search-box" (input)="search(searchBox.value)"/>
                 <ul class="search-result">
-                    <li *ngFor="let dish of dishes$ | async">
+                    <li *ngFor="let dish of dishesObs$ | async">
                         <a routerLink="/detail/{{dish.id}}">
                             {{dish.name}}
                         </a>

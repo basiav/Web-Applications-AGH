@@ -38,6 +38,30 @@ export class SearchService {
     );
   }
 
+  getAllCuisines(dishes: Dish[]): String[] {
+    let res: String[] = [];
+    dishes.forEach(dish => {
+      dish.cuisine.forEach(cuisine => {
+        if(!res.includes(cuisine)) {
+          res.push(cuisine);
+        }
+      });
+    });
+    return res;
+  }
+
+  getAllDishCategories(dishes: Dish[]): String[] {
+    let res: String[] = [];
+    dishes.forEach(dish => {
+      dish.category.forEach(cat => {
+        if(!res.includes(cat)) {
+          res.push(cat);
+        }
+      });
+    });
+    return res;
+  }
+
 
   
 }
