@@ -114,5 +114,4 @@ export class DishSearchComponent implements OnInit {
     this.resetDishesNotify.emit();
   }
 
-
 }

@@ -93,14 +93,24 @@ export class DishesComponent implements OnInit {
 
   onClickForm(): void {
     this.showForm = !this.showForm;
+    if (this.showForm && this.showFilters){
+      this.toggleFilters();
+    }
   }
 
   onClickFilters(): void {
-    this.showFilters = !this.showFilters;
-    this.filterDishes = !this.filterDishes;
+    this.toggleFilters();
     if(!this.showFilters) {
       this.getDishes();
     }
+    if(this.showForm){
+      this.showForm = !this.showForm;
+    }
+  }
+
+  toggleFilters(): void {
+    this.showFilters = !this.showFilters;
+    this.filterDishes = !this.filterDishes;
   }
 
   addNewDish(e: Dish): void {
@@ -166,7 +176,6 @@ export class DishesComponent implements OnInit {
   }
 
   filterName(event: string) {
-    console.log("Filter name: ", event);
     this.getDishes();
     let args: string[] = [];
     args.push(event);
