@@ -18,7 +18,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { DishSearchComponent } from './dishes/dish-search/dish-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
-import { SearchPipe } from './dishes/search.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 import {MatSliderModule} from '@angular/material/slider'; 
 
 @NgModule({

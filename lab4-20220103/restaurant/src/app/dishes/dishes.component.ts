@@ -4,7 +4,8 @@ import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
 import { CartService } from '../services/cart.service';
 import { Reservations } from '../shared/reservations';
-import { SearchPipe } from './search.pipe';
+import { SearchPipe } from '../pipes/search.pipe';
+import { FilterCriteria } from '../shared/filterCriteria';
 
 
 @Component({
@@ -16,11 +17,13 @@ export class DishesComponent implements OnInit {
   dishes: Dish[] = [];
   reservations: Reservations = this.cartService.getItems();
   showForm: boolean = false;
-  showSearchBox: boolean = false;
+  showFilters: boolean = false;
+  filterDishes: boolean = false;
+  searchPipe: SearchPipe = new SearchPipe();
 
   constructor(
     private dishService: DishService,
-    private cartService: CartService
+    private cartService: CartService,
   ) { }
 
   ngOnInit(): void {
@@ -32,10 +35,10 @@ export class DishesComponent implements OnInit {
   getDishes(): void {
     this.dishService.getDishes()
     .subscribe(dishes => this.dishes = dishes);
-    console.log("Dishes: ", this.dishes)
-    this.dishes.forEach(dish => {
-      console.log("Dish: ", dish)
-    })
+    // console.log("Dishes: ", this.dishes)
+    // this.dishes.forEach(dish => {
+    //   console.log("Dish: ", dish)
+    // })
   }
 
   getReservationsFromService(): void {
@@ -94,8 +97,12 @@ export class DishesComponent implements OnInit {
     this.showForm = !this.showForm;
   }
 
-  onClickSearchBox(): void {
-    this.showSearchBox = !this.showSearchBox;
+  onClickFilters(): void {
+    this.showFilters = !this.showFilters;
+    this.filterDishes = !this.filterDishes;
+    if(!this.showFilters) {
+      this.getDishes();
+    }
   }
 
   addNewDish(e: Dish): void {
@@ -128,15 +135,20 @@ export class DishesComponent implements OnInit {
   }
 
   getPipedDishes(): Dish[] {
-    return new SearchPipe().transform(this.dishes, "pizza");
+    if (this.filterDishes) {
+      return this.searchPipe.transform(this.dishes, FilterCriteria.DishCategory, ["deser"]);
+    }
+    return this.dishes;
   }
 
   filterCriteria(event: string[]) {
+    this.filterDishes = true;
     console.log("Event: ", event);
   }
 
   filterCuisine(event: string[]) {
-    
+    this.dishes = this.searchPipe.transform(this.dishes, 
+      FilterCriteria.Cuisine, event);
   }
 
   
@@ -149,7 +161,11 @@ export class DishesComponent implements OnInit {
   }
 
   filterCategory(event: string[]) {
-    
+    this.getDishes();
+    console.log("category!: ", event);
+    setTimeout(() => {this.dishes = this.searchPipe.transform(this.dishes, 
+      FilterCriteria.DishCategory, event)}, 1000);
+
   }
 
 

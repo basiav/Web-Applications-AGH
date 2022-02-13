@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { filter } from 'rxjs';
 import { Dish } from '../shared/dish';
+import { FilterCriteria } from '../shared/filterCriteria';
 
 @Pipe({
   name: 'search'
@@ -19,11 +21,22 @@ export class SearchPipe implements PipeTransform {
   //    return course.name.toLowerCase().includes(searchText); 
   //    }); 
   //    }
-    transform(dishes: Dish[], ...args: string[]): Dish[] {
+    transform(dishes: Dish[], filterCriterium: FilterCriteria, filterArgs: string[]): Dish[] {
       // return dishes;
-      return dishes.filter(dish => {
-        return dish.category.includes(args[0])
-      })
+      switch(filterCriterium){
+        case FilterCriteria.Cuisine:
+          return dishes.filter(dish => {
+            return dish.cuisine.some(cuisine => filterArgs.includes(cuisine));
+          });
+        
+        case FilterCriteria.DishCategory:
+          return dishes.filter(dish => {
+            return dish.category.some(cat => filterArgs.includes(cat));
+          });
+        
+        default:
+          return dishes;
+      }
     }
 
 }
