@@ -14,18 +14,31 @@ export class DishSearchComponent implements OnInit {
   dishes$!: Observable<Dish[]>;
   private searchTerms = new Subject<string>();
   
-  searchCategories: String[];
-  selectedCategory?: string;
-  
+  searchCategories = new FormControl();
+  searchCategoriesList: String[];
+
   cuisine = new FormControl();
   cuisineList: String[];
 
+  dishCategories = new FormControl();
+  dishCategoryList: String[];
+
+  
+
 
   constructor(private searchService: SearchService) { 
-    this.searchCategories = ["typ kuchni", "cena", "ocena", "kategoria dania"];
+    this.searchCategoriesList = ["typ kuchni", "cena", "ocena", "kategoria dania", "nazwa dania"];
     this.cuisineList = ['grecka', 'międzynarodowa', 'polska', 'tradycyjna', 'francuska', 'indyjska', 'włoska', 'wegańska', 'amerykańska', 'angielska'];
+    this.dishCategoryList = ["mięsne", "kolacje", "wegetariańskie", "na słono", "na słodko", "deser"];
   }
-  
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
+  }  
 
   search(term: string): void {
     this.searchTerms.next(term);

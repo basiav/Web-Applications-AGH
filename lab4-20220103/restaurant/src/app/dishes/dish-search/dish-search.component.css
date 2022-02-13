@@ -66,3 +66,8 @@ select {
   opacity: 0.75;
   font-size: 0.75em;
 }
+
+/* Slider */
+mat-slider {
+  width: 300px;
+}

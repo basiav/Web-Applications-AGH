@@ -18,6 +18,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { DishSearchComponent } from './dishes/dish-search/dish-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
+import { SearchPipe } from './dishes/search.pipe';
+import {MatSliderModule} from '@angular/material/slider'; 
 
 @NgModule({
   declarations: [
@@ -29,13 +31,15 @@ import { MatSelectModule } from '@angular/material/select';
     TopBarComponent,
     CartComponent,
     ReviewsComponent,
-    DishSearchComponent
+    DishSearchComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatSliderModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,

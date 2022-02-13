@@ -13,7 +13,7 @@
     Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}</h2>
 <ul class="dishes">
     <div class="cards-container">
-        <li *ngFor="let dish of dishes; let rowIndex = index">
+        <li *ngFor="let dish of (dishes | search); let rowIndex = index">
             <span class="badge" [ngStyle]="{
                     'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                 }">{{ rowIndex + 1 }} {{ dish.name }}</span>
