@@ -1,0 +1,11 @@
+<h1>Galeria zdjęć - kliknij na zdjęcie, by przejść do osobnego jego widoku</h1>
+<div class="gallery">
+    <div *ngFor="let photo of photos">
+        <div class="imagebox" routerLink="/detail/{{photo.id}}">
+            <img src="{{photo?.url}}" width="300" routerLink="/detail/{{photo.id}}">
+            <a routerLink="/detail/{{photo.id}}"><h1>albumId: {{photo?.albumId}}</h1></a>
+            <p>id: {{photo?.id}}</p>
+            <p class="title">{{photo?.title}}</p>
+        </div>
+    </div>
+</div>

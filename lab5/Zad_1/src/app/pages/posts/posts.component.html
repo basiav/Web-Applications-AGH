@@ -1,0 +1,17 @@
+<h1>Posty</h1>
+
+<div>
+    <input type="number" [(ngModel)]="userId" placeholder="userId">
+    <input type="text" [(ngModel)]="title" placeholder="Title">
+    <input type="text" [(ngModel)]="body" placeholder="Body">
+</div>
+<button (click)="postData()">Dodaj post</button>
+
+<hr>
+
+<ul *ngFor="let post of posts">
+    <li><p>UserID: {{post?.userId}}</p></li>
+    <li><p>Title: {{post?.title}}</p></li>
+    <li><p>Info: {{post?.body}}</p></li>
+    <hr>
+</ul>

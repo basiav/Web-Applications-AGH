@@ -1,0 +1,12 @@
+p {
+    font-weight: bold;
+    color:grey;
+}
+
+div {
+    display: block;
+}
+input {
+    display: block;
+    margin: 5px 5px;
+}

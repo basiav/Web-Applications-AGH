@@ -1,0 +1,8 @@
+.imagebox {
+    position: relative;
+    left: 30%;
+}
+
+img {
+    width: 100;
+}
