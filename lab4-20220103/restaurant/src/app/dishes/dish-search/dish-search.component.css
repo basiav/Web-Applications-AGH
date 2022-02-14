@@ -96,3 +96,36 @@ button:hover {
   background-color: #52525241;
   color: white;
 }
+
+/* Media query */
+@media (max-width: 1100px) {
+  .filter-area {
+    background-color: rgb(247, 247, 247);
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  button {
+    width: 80%;
+  }
+}
+
+@media (max-width: 100px) {
+  button {
+    width: 70%;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .filter-area {
+    background-color: rgb(247, 247, 247);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  
+}
