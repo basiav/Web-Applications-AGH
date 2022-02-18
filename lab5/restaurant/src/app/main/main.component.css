@@ -55,6 +55,10 @@ a {
     transition: opacity .3s linear;
 }
 
+.welcome-container i:hover{
+    color: #e7e5cf;
+}
+
 .contact-pool {
     display: flex;
     flex-direction: column;

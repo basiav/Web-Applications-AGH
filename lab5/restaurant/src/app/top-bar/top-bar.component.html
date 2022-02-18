@@ -1,6 +1,16 @@
-<a [routerLink]="['/']">
-    <h1>Restaurant</h1>
-</a>
-  
-<a routerLink="/cart" class="button fancy-button">
-    <i class="material-icons">shopping_cart</i>Koszyk</a>
+<nav>
+    <a [routerLink]="['/']">
+        <h1>Restaurant</h1>
+    </a>
+    
+    <div class="link-wrapper">
+        <a [routerLink]="['/']">Home</a>
+        <a routerLink="/dishes">Menu</a>
+        <a routerLink="/photos">Dodaj danie</a>
+        <a routerLink="/cart" class="button fancy-button">
+            <i class="material-icons">shopping_cart</i>Koszyk</a>
+    </div>
+      
+    <!-- <a routerLink="/cart" class="button fancy-button">
+        <i class="material-icons">shopping_cart</i>Koszyk</a> -->
+</nav>
