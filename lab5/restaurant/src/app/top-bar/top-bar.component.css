@@ -79,3 +79,15 @@ nav {
     justify-content: space-evenly;
     align-items: center;
 }
+
+.active-link {
+    text-decoration: underline;
+}
+
+.nav-link {
+    text-decoration: none;
+}
+
+.nav-link.active-link {
+    text-shadow: 1px 1px 30px white;
+}
