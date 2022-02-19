@@ -1,10 +1,8 @@
-<!-- Slideshow container -->
 <div class="slideshow-container">
 
     <div class="photo-container">
         <!-- Full-width images with number -->
-        <div class="mySlides fade" *ngFor="let photoUrl of photos; let i = index">
-            <!-- <div class="numbertext">{{i + 1}} / {{photos.length}}</div> -->
+        <div class="mySlides fade" *ngFor="let photoUrl of photos">
             <img src="{{photoUrl}}">
         </div>
     </div>

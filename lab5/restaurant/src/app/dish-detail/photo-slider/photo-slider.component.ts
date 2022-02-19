@@ -6,13 +6,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./photo-slider.component.css']
 })
 export class PhotoSliderComponent implements OnInit {
-  @Input() photos!: String[];
+  @Input() photos?: String[];
   slideIndex: number = 1;
 
-  constructor() { }
+  constructor() {
+    this.photos = [];
+  }
 
   ngOnInit(): void {
-    this.showSlides(this.slideIndex);
+    setTimeout(() => {
+      this.showSlides(this.slideIndex);
+    }, 300);
   }
 
   // Next/previous controls
@@ -30,10 +34,10 @@ export class PhotoSliderComponent implements OnInit {
     let slides = Array.from(document.getElementsByClassName("mySlides") as HTMLCollectionOf<HTMLElement>);
     let dots = document.getElementsByClassName("dot");
     if (n > slides.length) {
-      this.slideIndex = 1
+      this.slideIndex = 1;
     }
     if (n < 1) {
-      this.slideIndex = slides.length
+      this.slideIndex = slides.length;
     }
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";

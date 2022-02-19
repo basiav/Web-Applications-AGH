@@ -1,7 +1,8 @@
 .slideshow-container {
   width: 400px;
   height: 400px;
-  background-color:rgb(87, 141, 143);
+  /* background-color:rgb(87, 141, 143); */
+  background-color: black;
   
   display: flex;
   flex-direction: column;
@@ -10,9 +11,10 @@
 }
 
 .photo-container {
-    height: 70%;
+    height: 80%;
     width: fit-content;
     align-items: center;
+    display: flex;
 }
 
 .controls-container {
@@ -24,16 +26,12 @@
 
 img {
     width: 100%;
-    max-height: 250px;
-    /* width: fit-content; */
+    height: fit-content;
+    max-height: 350px;
 }
 
 .mySlides {
-  /* display: none; */
-}
-
-.numbertext {
-    align-items: center;
+  display: none;
 }
 
 .prev, .next {
@@ -65,7 +63,7 @@ img {
   cursor: pointer;
   height: 13px;
   width: 13px;
-  margin: 0 2px;
+  margin: 0 6px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
