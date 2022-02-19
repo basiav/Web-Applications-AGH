@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
@@ -111,10 +111,6 @@ export class DishesComponent implements OnInit {
   toggleFilters(): void {
     this.showFilters = !this.showFilters;
     this.filterDishes = !this.filterDishes;
-  }
-
-  addNewDish(e: Dish): void {
-    this.addDish(e);
   }
 
   getHighestPrice(): number {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Dish } from 'src/app/shared/dish';
 import { DishService } from 'src/app/services/dish.service';
@@ -9,8 +9,6 @@ import { DishService } from 'src/app/services/dish.service';
   styleUrls: ['./add-dish-form.component.css']
 })
 export class AddDishFormComponent implements OnInit {
-  // @Output() dish?: Dish;
-  @Output() newDishNotify = new EventEmitter();
   
   constructor(
     private fb: FormBuilder,
@@ -122,7 +120,6 @@ export class AddDishFormComponent implements OnInit {
   }
 
   async onSubmit() {
-    // Use EventEmitter with form value
     console.warn(this.dishForm.value);
     if (this.name && this.cuisines && this.categories &&
       this.ingredients && this.maxDailyAmount && this.price && this.description
@@ -139,7 +136,8 @@ export class AddDishFormComponent implements OnInit {
           photos: this.photos.getRawValue(),
         };
 
-        this.newDishNotify.emit(d);
+        this.dishService.addDish(d)
+        .subscribe();
 
         this.resetForm();
     }

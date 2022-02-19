@@ -1,10 +1,7 @@
 <nav>
-    <button (click)="onClickForm()" class="nav-button">Formularz dodawania dania</button>
     <button (click)="onClickFilters()" class="nav-button">Filtrowanie dań</button>
 </nav>
-<div class="form-class" *ngIf="showForm">
-    <app-add-dish-form (newDishNotify)="addNewDish($event)"></app-add-dish-form>
-</div>
+
 <div class="search-class" *ngIf="showFilters">
     <app-dish-search 
         [dishes]="dishes"
