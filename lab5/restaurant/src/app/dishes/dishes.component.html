@@ -48,7 +48,7 @@
                         <span *ngFor="let c of dish.cuisine">{{c | uppercase}}, </span>
                         <br>kategorie:
                         <span *ngFor="let c of dish.category">{{c}}, </span>
-                        <br><br>{{dish.description}}
+                        <!-- <br><br>{{dish.description}} -->
                         <br><br><span class="price">Cena: {{dish.price | currency}}</span></p>
                         <div class="button-box">
                             <button class="button" (click)="addToReservation(dish)">+</button>
@@ -56,8 +56,11 @@
                             Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
                             <button class="button" (click)="deleteFromReservation(dish)">-</button>
                         </div>
+                        <div class="show-more-box">
+                            <button class="button-show-more" routerLink="/detail/{{dish.id}}">Zobacz szczegóły</button>
+                        </div>
                     </div>
-                    <app-reviews [dishId]="dish.id"></app-reviews>
+                    <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
                 </div>
             </li>
         </div>

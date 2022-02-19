@@ -1,4 +1,7 @@
 <div class="card-wrapper">
+    <div class="button-box">
+        <button class="button" (click)="goBack()">Powrót do Menu</button>
+    </div>
     <div class="card">
         <!-- <img src={{dish.photos[0]}} alt={{dish.name}}> -->
         <app-photo-slider [photos]="dish.photos"></app-photo-slider>
@@ -12,10 +15,10 @@
                 <br><br>{{dish.description}}
                 <br><br><span class="price">Cena: {{dish.price | currency}}</span></p>
                 <div class="button-box">
-                    <!-- <button class="button" (click)="addToReservation(dish)">+</button>
+                    <button class="button" (click)="addToReservation(dish)">+</button>
                     Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
                     Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
-                    <button class="button" (click)="deleteFromReservation(dish)">-</button> -->
+                    <button class="button" (click)="deleteFromReservation(dish)">-</button>
                 </div>
                 <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
             </div>

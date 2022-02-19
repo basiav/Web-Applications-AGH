@@ -3,6 +3,7 @@ import { Dish } from '../shared/dish';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-dish-detail',
@@ -15,6 +16,7 @@ export class DishDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dishService: DishService,
+    private cartService: CartService,
     private location: Location
   ) { }
 
@@ -35,6 +37,35 @@ export class DishDetailComponent implements OnInit {
   save(): void {
     this.dishService.updateDish(this.dish)
     .subscribe(() => this.goBack());
+  }
+
+  getCurrentlyAvailableDishAmount(dish: Dish): number {
+    return this.cartService.getCurrentlyAvailableDishAmount(dish);
+  }
+
+  getCurrentReservedNumber(dish: Dish): number {
+    return this.cartService.getCurrentItemsNumber(dish);
+  }
+
+  addToReservation(dish: Dish): boolean {
+    let reservationsNo = this.getCurrentReservedNumber(dish)
+    if (reservationsNo < dish.maxDailyAmount){
+      this.cartService.addToCart(dish);
+      return true;
+    } else {
+      this.dishService.log("[dishes | addToReservation] Cannot make more reservations than available dishes. Reservation denied");
+      return false;
+    }
+  }
+
+  deleteFromReservation(dish: Dish): boolean {
+    let reservationsNo = this.getCurrentReservedNumber(dish);
+    if (reservationsNo > 0) {
+      return this.cartService.decrementInCart(dish);
+    } else {
+      this.dishService.log("[dishes | deleteFromReservation] Cannot delete this dish from the reservation, it has not been reserved");
+      return false;
+    }
   }
 
 }
