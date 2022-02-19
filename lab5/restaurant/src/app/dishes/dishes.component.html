@@ -1,9 +1,9 @@
 <nav>
     <button (click)="onClickFilters()" class="nav-button">Pokaż/schowaj filtrowanie dań</button>
     <app-paginator 
-    [dishes]="dishes" 
-    (notify)="registerPaginationBounds($event)">
-</app-paginator>
+        [dishes]="dishes" 
+        (notify)="registerPaginationBounds($event)">
+    </app-paginator>
 </nav>
 
 <div class="search-class" *ngIf="showFilters">
@@ -26,7 +26,7 @@
 
 <ul class="dishes">
     <div class="cards-container">
-        <li *ngFor="let dish of dishes | paginateSlice:paginationStart:paginationEnd; let rowIndex = index">
+        <li *ngFor="let dish of getPaginatedDishes(); let rowIndex = index">
             <span class="badge" [ngStyle]="{
                     'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                 }">{{ rowIndex + 1 }} {{ dish.name }}</span>

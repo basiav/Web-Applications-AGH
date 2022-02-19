@@ -7,6 +7,7 @@ import { Reservations } from '../shared/reservations';
 import { SearchPipe } from '../pipes/search.pipe';
 import { FilterCriteria } from '../shared/filterCriteria';
 import { StarService } from '../services/star.service';
+import { PaginateSlicePipe } from '../pipes/paginate-slice.pipe';
 
 
 @Component({
@@ -22,8 +23,9 @@ export class DishesComponent implements OnInit {
   filterDishes: boolean = false;
   searchPipe: SearchPipe;
 
+  paginationSlicePipe: PaginateSlicePipe;
   paginationStart: number = 0;
-  paginationEnd: number = this.dishes.length;
+  paginationEnd!: number;
 
   constructor(
     private dishService: DishService,
@@ -31,6 +33,7 @@ export class DishesComponent implements OnInit {
     private starService: StarService,
   ) {
     this.searchPipe = new SearchPipe(this.starService);
+    this.paginationSlicePipe = new PaginateSlicePipe();
   }
 
   ngOnInit(): void {
@@ -39,7 +42,12 @@ export class DishesComponent implements OnInit {
 
   getDishes(): void {
     this.dishService.getDishes()
-    .subscribe(dishes => this.dishes = dishes);
+    .subscribe(dishes => {
+      this.dishes = dishes;
+      if(!this.paginationEnd) {
+        this.paginationEnd = this.dishes.length;
+      }
+    });
   }
 
   getReservationsFromService(): void {
@@ -181,6 +189,10 @@ export class DishesComponent implements OnInit {
   registerPaginationBounds(event: Array<number>) {
     this.paginationStart = event[0];
     this.paginationEnd = event[1];
+  }
+
+  getPaginatedDishes() {
+    return this.paginationSlicePipe.transform(this.dishes, this.paginationStart, this.paginationEnd);
   }
 
 }
