@@ -1,1 +1,28 @@
-<p>dish-detail works!</p>
+<div class="card-wrapper">
+    <div class="card">
+        <!-- <img src={{dish.photos[0]}} alt={{dish.name}}> -->
+        <app-photo-slider [photos]="dish.photos"></app-photo-slider>
+        <div class="details-container">
+            <div class="text-container">
+                <h2>{{dish.name | uppercase}}</h2>
+                <p>{{"kuchnia" | uppercase}}:
+                <span *ngFor="let c of dish.cuisine">{{c | uppercase}}, </span>
+                <br>kategorie:
+                <span *ngFor="let c of dish.category">{{c}}, </span>
+                <br><br>{{dish.description}}
+                <br><br><span class="price">Cena: {{dish.price | currency}}</span></p>
+                <div class="button-box">
+                    <!-- <button class="button" (click)="addToReservation(dish)">+</button>
+                    Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
+                    Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
+                    <button class="button" (click)="deleteFromReservation(dish)">-</button> -->
+                </div>
+                <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
+            </div>
+            <app-reviews [dishId]="dish.id"></app-reviews>
+        </div>
+        <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
+        <!-- <app-photo-slider [photos]="dish.photos"></app-photo-slider> -->
+    </div>
+</div>
+

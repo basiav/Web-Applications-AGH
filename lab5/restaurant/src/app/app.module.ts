@@ -26,6 +26,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { PaginatorComponent } from './dishes/paginator/paginator.component';
 import { PaginateSlicePipe } from './pipes/paginate-slice.pipe';
 import { DishDetailComponent } from './dish-detail/dish-detail.component';
+import { PhotoSliderComponent } from './dish-detail/photo-slider/photo-slider.component';
 
 
 
@@ -44,7 +45,8 @@ import { DishDetailComponent } from './dish-detail/dish-detail.component';
     MapComponent,
     PaginatorComponent,
     PaginateSlicePipe,
-    DishDetailComponent
+    DishDetailComponent,
+    PhotoSliderComponent
   ],
   imports: [
     BrowserModule,

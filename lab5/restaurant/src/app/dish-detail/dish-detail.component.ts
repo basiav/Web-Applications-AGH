@@ -10,7 +10,7 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./dish-detail.component.css']
 })
 export class DishDetailComponent implements OnInit {
-  dish?: Dish;
+  dish!: Dish;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,10 +33,8 @@ export class DishDetailComponent implements OnInit {
   }
 
   save(): void {
-    if (this.dish) {
-      this.dishService.updateDish(this.dish)
-      .subscribe(() => this.goBack());
-    }
+    this.dishService.updateDish(this.dish)
+    .subscribe(() => this.goBack());
   }
 
 }
