@@ -1,6 +1,8 @@
 nav {
     margin: 2% 0px 1% 0px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .search-class {

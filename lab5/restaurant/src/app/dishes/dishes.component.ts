@@ -22,6 +22,9 @@ export class DishesComponent implements OnInit {
   filterDishes: boolean = false;
   searchPipe: SearchPipe;
 
+  paginationStart: number = 0;
+  paginationEnd: number = this.dishes.length;
+
   constructor(
     private dishService: DishService,
     private cartService: CartService,
@@ -173,6 +176,11 @@ export class DishesComponent implements OnInit {
 
   resetDishes(): void {
     this.getDishes();
+  }
+
+  registerPaginationBounds(event: Array<number>) {
+    this.paginationStart = event[0];
+    this.paginationEnd = event[1];
   }
 
 }

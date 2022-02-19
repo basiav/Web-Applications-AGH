@@ -22,6 +22,10 @@ import { SearchPipe } from './pipes/search.pipe';
 import {MatSliderModule} from '@angular/material/slider'; 
 import { StarService } from './services/star.service';
 import { MapComponent } from './main/map/map.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { PaginatorComponent } from './dishes/paginator/paginator.component';
+import { PaginateSlicePipe } from './pipes/paginate-slice.pipe';
+
 
 
 @NgModule({
@@ -36,7 +40,9 @@ import { MapComponent } from './main/map/map.component';
     ReviewsComponent,
     DishSearchComponent,
     SearchPipe,
-    MapComponent
+    MapComponent,
+    PaginatorComponent,
+    PaginateSlicePipe
   ],
   imports: [
     BrowserModule,
@@ -44,11 +50,12 @@ import { MapComponent } from './main/map/map.component';
     ReactiveFormsModule,
     MatSelectModule,
     MatSliderModule,
+    MatPaginatorModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,
       {dataEncapsulation: false}),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [StarService],
   bootstrap: [AppComponent]
