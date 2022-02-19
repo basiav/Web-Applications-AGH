@@ -27,7 +27,11 @@ import { PaginatorComponent } from './dishes/paginator/paginator.component';
 import { PaginateSlicePipe } from './pipes/paginate-slice.pipe';
 import { DishDetailComponent } from './dish-detail/dish-detail.component';
 import { PhotoSliderComponent } from './dish-detail/photo-slider/photo-slider.component';
-
+import { ReviewFormComponent } from './reviews/review-form/review-form.component';
+import {MatInputModule} from '@angular/material/input'; 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -46,7 +50,8 @@ import { PhotoSliderComponent } from './dish-detail/photo-slider/photo-slider.co
     PaginatorComponent,
     PaginateSlicePipe,
     DishDetailComponent,
-    PhotoSliderComponent
+    PhotoSliderComponent,
+    ReviewFormComponent
   ],
   imports: [
     BrowserModule,
@@ -55,13 +60,17 @@ import { PhotoSliderComponent } from './dish-detail/photo-slider/photo-slider.co
     MatSelectModule,
     MatSliderModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,
       {dataEncapsulation: false}),
     BrowserAnimationsModule,
   ],
-  providers: [StarService],
+  providers: [StarService, MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
