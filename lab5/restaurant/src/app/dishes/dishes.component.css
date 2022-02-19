@@ -3,14 +3,9 @@ nav {
     display: flex;
 }
 
-.form-class {
-    position: relative;
-    left: 7.5%;
-}
-
 .search-class {
     position: relative;
-    left: 60%;
+    left: 30%;
 }
 
 .dishes {
@@ -185,11 +180,6 @@ h2, h3, h4 {
         margin: 1%;
         width: 60%;
     }
-
-    .form-class {
-        position: relative;
-        left: 0%;
-    }
     
     .search-class {
         position: relative;
@@ -216,11 +206,6 @@ h2, h3, h4 {
     .nav-button {
         margin: 1%;
         width: 90%;
-    }
-
-    .form-class {
-        position: relative;
-        left: 10%;
     }
     
     .search-class {

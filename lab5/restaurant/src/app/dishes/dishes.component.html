@@ -14,9 +14,12 @@
         (resetDishesNotify)="resetDishes()">
     </app-dish-search>
 </div>
+
 <h2 [ngStyle]="{
     'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
-    Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}</h2>
+    Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}
+</h2>
+
 <ul class="dishes">
     <div class="cards-container">
         <li *ngFor="let dish of dishes; let rowIndex = index">

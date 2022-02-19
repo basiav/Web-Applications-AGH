@@ -17,7 +17,7 @@ import { StarService } from '../services/star.service';
 export class DishesComponent implements OnInit {
   dishes: Dish[] = [];
   reservations: Reservations = this.cartService.getItems();
-  showForm: boolean = false;
+
   showFilters: boolean = false;
   filterDishes: boolean = false;
   searchPipe: SearchPipe;
@@ -91,20 +91,10 @@ export class DishesComponent implements OnInit {
     .subscribe();
   }
 
-  onClickForm(): void {
-    this.showForm = !this.showForm;
-    if (this.showForm && this.showFilters){
-      this.toggleFilters();
-    }
-  }
-
   onClickFilters(): void {
     this.toggleFilters();
     if(!this.showFilters) {
       this.getDishes();
-    }
-    if(this.showForm){
-      this.showForm = !this.showForm;
     }
   }
 
