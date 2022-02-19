@@ -25,6 +25,7 @@ import { MapComponent } from './main/map/map.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { PaginatorComponent } from './dishes/paginator/paginator.component';
 import { PaginateSlicePipe } from './pipes/paginate-slice.pipe';
+import { DishDetailComponent } from './dish-detail/dish-detail.component';
 
 
 
@@ -42,7 +43,8 @@ import { PaginateSlicePipe } from './pipes/paginate-slice.pipe';
     SearchPipe,
     MapComponent,
     PaginatorComponent,
-    PaginateSlicePipe
+    PaginateSlicePipe,
+    DishDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -27,19 +27,18 @@
 <ul class="dishes">
     <div class="cards-container">
         <li *ngFor="let dish of getPaginatedDishes(); let rowIndex = index">
+            
             <span class="badge" [ngStyle]="{
                     'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                 }">{{ rowIndex + 1 }} {{ dish.name }}</span>
                 <button class="button delete" title="delete dish" (click)="deleteDish(dish)">Usuń</button>
             
-            <!-- <a routerLink="/detail/{{dish.id}}"> -->
-                <!-- <div class="dishlist-element">
-                    <span class="badge">{{ dish.id }}</span>{{ dish.name }}
-                </div> -->
             <div class="card" [ngStyle]="{
                 'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgba(228, 92, 87, 0.52)' : 'beige'
             }">
-                <img src={{dish.photos[0]}} alt={{dish.name}}>
+                <!-- <a routerLink="/detail/{{dish.id}}" class="photoLink"> -->
+                    <img src={{dish.photos[0]}} alt={{dish.name}} routerLink="/detail/{{dish.id}}">
+                <!-- </a> -->
                 <div class="text-container" [ngStyle]="{
                     'border-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                 }">
@@ -59,7 +58,6 @@
                 </div>
                 <app-reviews [dishId]="dish.id"></app-reviews>
             </div>
-            <!-- </a> -->
         </li>
     </div>
 </ul>

@@ -79,4 +79,12 @@ export class DishService {
         })
       );
   }
+
+  updateDish(dish: Dish): Observable<any> {
+    return this.http.put(this.dishesUrl, dish, this.httpOptions)
+    .pipe(
+      tap(_ => this.log(`updated dish id=${dish.id}`)),
+      catchError(this.handleError<any>(`updateDish`))
+    );
+  }
 }
