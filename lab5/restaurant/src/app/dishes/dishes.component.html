@@ -60,7 +60,7 @@
                             <button class="button-show-more" routerLink="/detail/{{dish.id}}">Zobacz szczegóły</button>
                         </div>
                     </div>
-                    <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
+                    <app-reviews [dishId]="dish.id" [ratingDisabled]="ratingDisabled"></app-reviews>
                 </div>
             </li>
         </div>

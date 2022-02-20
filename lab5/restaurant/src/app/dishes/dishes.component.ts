@@ -27,6 +27,8 @@ export class DishesComponent implements OnInit {
   paginationStart: number = 0;
   paginationEnd!: number;
 
+  ratingDisabled: boolean = true;
+
   constructor(
     private dishService: DishService,
     private cartService: CartService,

@@ -20,6 +20,7 @@ export class DishDetailComponent implements OnInit {
   body: string[] = [];
   date!: Date;
   flags: boolean[] = [];
+  ratingDisabled: boolean = false;
 
   paginationStart: number = 0;
   paginationEnd!: number;

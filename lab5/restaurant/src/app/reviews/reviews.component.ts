@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 import { StarService } from '../services/star.service';
 
 @Component({
@@ -9,19 +11,32 @@ import { StarService } from '../services/star.service';
 export class ReviewsComponent implements OnInit {
   @Input()
   dishId!: number;
+  @Input()
+  ratingDisabled!: boolean;
 
-  constructor(private starService: StarService) { }
+  constructor(
+    private starService: StarService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
 
   starHandler(value: number): void {
-    console.log("starHandler for: ", this.dishId);
-    this.starService.setStar(this.dishId, value);
+    if (this.ratingDisabled) {
+      this.openDialog();
+    }
+    else {
+      this.starService.setStar(this.dishId, value);
+    }
   }
 
   avgRating(): number {
     return this.starService.getDishAvgStars(this.dishId);
+  }
+
+  openDialog(): void {
+    this.dialog.open(DialogComponent);
   }
 
 }
