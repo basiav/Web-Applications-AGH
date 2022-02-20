@@ -1,0 +1,9 @@
+<mat-radio-group
+  aria-labelledby="radio-group-label"
+  class="radio-group"
+  [(ngModel)]="currency">
+  <mat-radio-button class="radio-button" *ngFor="let c of availableCurrencies" [value]="c.name" 
+    (click)="setCurrency(c.name)">
+    {{c.symbol}}
+  </mat-radio-button>
+</mat-radio-group>

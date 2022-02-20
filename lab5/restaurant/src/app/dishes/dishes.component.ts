@@ -195,4 +195,8 @@ export class DishesComponent implements OnInit {
     return this.paginationSlicePipe.transform(this.dishes, this.paginationStart, this.paginationEnd);
   }
 
+  getCurrency(): string {
+    return this.cartService.currency;
+  }
+
 }

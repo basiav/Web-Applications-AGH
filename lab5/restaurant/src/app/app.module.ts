@@ -32,7 +32,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatTabsModule} from '@angular/material/tabs'; 
+import {MatTabsModule} from '@angular/material/tabs';
+import { CurrencyChoiceComponent } from './top-bar/currency-choice/currency-choice.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { ExpansionMenuComponent } from './top-bar/expansion-menu/expansion-menu.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -52,7 +57,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     PaginateSlicePipe,
     DishDetailComponent,
     PhotoSliderComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    CurrencyChoiceComponent,
+    ExpansionMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +73,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTabsModule,
+    MatRadioModule,
+    MatMenuModule,
+    MatIconModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,

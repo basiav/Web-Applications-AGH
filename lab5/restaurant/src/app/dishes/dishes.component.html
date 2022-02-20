@@ -49,7 +49,7 @@
                         <br>kategorie:
                         <span *ngFor="let c of dish.category">{{c}}, </span>
                         <!-- <br><br>{{dish.description}} -->
-                        <br><br><span class="price">Cena: {{dish.price | currency}}</span></p>
+                        <br><br><span class="price">Cena: {{dish.price | currency:getCurrency()}}</span></p>
                         <div class="button-box">
                             <button class="button" (click)="addToReservation(dish)">+</button>
                             Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>

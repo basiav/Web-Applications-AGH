@@ -9,6 +9,7 @@ import { DishService } from './dish.service';
 })
 export class CartService {
   items!: Reservations;
+  currency: string = 'USD';
 
   constructor(
     private http: HttpClient,
@@ -72,5 +73,9 @@ export class CartService {
   clearCart() {
     this.items = new Map<Dish["id"], number>();
     return this.items;
+  }
+
+  setCurrency(currency: string): void {
+    this.currency = currency;
   }
 }

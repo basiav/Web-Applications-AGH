@@ -3,7 +3,9 @@
         <button class="button" (click)="goBack()">Powrót do Menu</button>
     </div> -->
     
-    <div class="card">
+    <div class="card" [ngStyle]="{
+        'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgb(255, 170, 167)' : 'beige'
+    }">
         <app-photo-slider [photos]="dish.photos"></app-photo-slider>
         <div class="details-container">
             <div class="text-container">
@@ -13,7 +15,7 @@
                 <br>kategorie:
                 <span *ngFor="let c of dish.category">{{c}}, </span>
                 <br><br>{{dish.description}}
-                <br><br><span class="price">Cena: {{dish.price | currency}}</span></p>
+                <br><br><span class="price">Cena: {{dish.price | currency:getCurrency()}}</span></p>
                 <div class="button-box">
                     <button class="button" (click)="addToReservation(dish)">+</button>
                     Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>

@@ -140,4 +140,8 @@ export class DishDetailComponent implements OnInit {
     return this.reviews.slice(this.paginationStart, this.paginationEnd);
   }
 
+  getCurrency(): string {
+    return this.cartService.currency;
+  }
+
 }

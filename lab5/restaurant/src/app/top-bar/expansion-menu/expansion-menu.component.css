@@ -1,0 +1,32 @@
+.button, button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 6px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #435A60;
+    color: white;
+    border: none;
+}
+
+.currency {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+  
+.button:hover, button:hover {
+    opacity: 0.8;
+    font-weight: normal;
+    background-color: white;
+}
+
+.fancy-button {
+    background-color: white;
+    color: #3e5257;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+mat-icon {
+    font-size: large;
+}

@@ -30,4 +30,8 @@ export class CartComponent implements OnInit {
     return acc;
   }
 
+  getCurrency(): string {
+    return this.cartService.currency;
+  }
+
 }

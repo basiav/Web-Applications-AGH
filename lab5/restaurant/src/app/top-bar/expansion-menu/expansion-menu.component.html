@@ -1,0 +1,10 @@
+
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="currency menu" class="button fancy-button">
+    <span class="currency">
+        <mat-icon>euro_icon</mat-icon>Currency
+    </span>
+</button>
+<mat-menu #menu="matMenu">
+  <app-currency-choice></app-currency-choice>
+</mat-menu>
+  
