@@ -1,4 +1,4 @@
-.card-wrapper {
+.dish-details-page {
     height: 100%;
     display: flex;
     /* align-items: center; */
@@ -6,11 +6,20 @@
     justify-content: space-evenly;
 }
 
+.card-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.review-wrapper {
+
+}
+
 .card {
     background-color: beige;
-    width: fit-content;
-    width: 60%;
-    height: fit-content;
+    width: 100%;
     
     box-shadow: 0 4px 8px 0 rgba(144, 118, 175, 0.2);
     transition: 0.8s;
@@ -78,7 +87,8 @@ button {
 }
 
 button:hover {
-    background-color: #52525241;
+    /* background-color: #52525241; */
+    background-color: rgb(163, 162, 162);
     color: white;
 }
 
