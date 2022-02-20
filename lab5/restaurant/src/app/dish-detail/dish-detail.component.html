@@ -1,9 +1,9 @@
 <div class="card-wrapper">
-    <div class="button-box">
+    <!-- <div class="button-box">
         <button class="button" (click)="goBack()">Powrót do Menu</button>
-    </div>
+    </div> -->
+    
     <div class="card">
-        <!-- <img src={{dish.photos[0]}} alt={{dish.name}}> -->
         <app-photo-slider [photos]="dish.photos"></app-photo-slider>
         <div class="details-container">
             <div class="text-container">
@@ -24,21 +24,29 @@
             </div>
             <app-reviews [dishId]="dish.id"></app-reviews>
         </div>
-        <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
-        <!-- <app-photo-slider [photos]="dish.photos"></app-photo-slider> -->
     </div>
-    <app-review-form 
-        (nickNotify)="onNickNotify($event)" 
-        (nameNotify)="onNameNotify($event)" 
-        (bodyNotify)="onBodyNotify($event)" 
-        (dateNotify)="onDateNotify($event)" 
-        (notifyReady)="addNewReview()">
-    </app-review-form>
-    <div *ngFor="let review of reviews">
-        {{review.dishId}}
-        {{review.nick}}
-        {{review.body}}
-        {{review.date}}
+
+    <div class="review-tab">
+        <mat-tab-group>
+            <mat-tab label="Dodaj recenzję">
+                <app-review-form 
+                    (nickNotify)="onNickNotify($event)" 
+                    (nameNotify)="onNameNotify($event)" 
+                    (bodyNotify)="onBodyNotify($event)" 
+                    (dateNotify)="onDateNotify($event)" 
+                    (notifyReady)="addNewReview()">
+                </app-review-form>
+            </mat-tab>
+    
+            <mat-tab label="Pokaż recenzje">
+                <div *ngFor="let review of reviews">
+                    {{review.dishId}}
+                    {{review.nick}}
+                    {{review.body}}
+                    {{review.date}}
+                </div>
+            </mat-tab>
+          </mat-tab-group>
     </div>
 </div>
 
