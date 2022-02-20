@@ -77,6 +77,12 @@ ul {
     font-size: small;
 }
 
+.show-more-box {
+    display: flex;
+    align-items: center;
+    margin: 7.5% 0 5% 0;
+}
+
 button {
     /* width: 1em; */
     height: 1.5em;
@@ -100,6 +106,10 @@ button:hover {
     top: -4px;
     height: 2em;
     min-width: 20px;
+}
+
+.button-show-more {
+    font-size: large;
 }
 
 .cards-container {
