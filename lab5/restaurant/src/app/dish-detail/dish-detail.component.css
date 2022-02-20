@@ -1,7 +1,7 @@
 .card-wrapper {
     height: 100%;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     background-color: #2c3a41;
     justify-content: space-evenly;
 }
@@ -91,4 +91,18 @@ button:hover {
     top: -4px;
     height: 2em;
     min-width: 20px;
+}
+
+.review-tab {
+    background-color: beige;
+}
+
+.reviews-content-display {
+    background-color: #444;
+    margin: 1% 0px 0px 1px;
+    max-width: 300px;
+}
+
+.reviews-display {
+    max-width: 300px;
 }

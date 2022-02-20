@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
 import { CartService } from '../services/cart.service';
 import { Review } from '../shared/review';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dish-detail',
@@ -19,6 +20,9 @@ export class DishDetailComponent implements OnInit {
   body: string[] = [];
   date!: Date;
   flags: boolean[] = [];
+
+  paginationStart: number = 0;
+  paginationEnd!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -116,6 +120,24 @@ export class DishDetailComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  onPageChange(event: PageEvent) {
+    const startIdx = event.pageIndex * event.pageSize;
+    let endIdx = startIdx + event.pageSize;
+    if(endIdx > this.reviews.length) {
+      endIdx = this.reviews.length;
+    }
+    this.registerPaginationBounds([startIdx, endIdx]);
+  }
+
+  registerPaginationBounds(event: Array<number>) {
+    this.paginationStart = event[0];
+    this.paginationEnd = event[1];
+  }
+
+  getPaginatedReviews() {
+    return this.reviews.slice(this.paginationStart, this.paginationEnd);
   }
 
 }

@@ -1,7 +1,7 @@
-<div class="form-wrapper">
-    <form class="example-form" (ngSubmit)="onSubmit()">
+<div class="class-wrapper">
+    <form class="form-wrapper" (ngSubmit)="onSubmit()">
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="nice-field" appearance="fill">
             <mat-label>Nick</mat-label>
             <input type="text" #message matInput [formControl]="nickFormControl" [errorStateMatcher]="matcher"
              placeholder="Ex. Arnold87">
@@ -11,7 +11,7 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="nice-field" appearance="fill">
             <mat-label>Nazwa</mat-label>
             <input type="text" #message matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
              placeholder="Ex. pyszny deser Tiramisu">
@@ -21,7 +21,7 @@
             </mat-error>
         </mat-form-field>
         
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="nice-field" appearance="fill">
           <mat-label>Twoja recenzja</mat-label>
           <input type="text" #message matInput [formControl]="reviewBodyFormControl" [errorStateMatcher]="matcher"
            placeholder="Ex. Pyszny deser Tiramisu. Dość słodki, ale to dobrze...">
@@ -45,7 +45,7 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <button type="submit" [disabled]="!reviewForm.valid">Submit</button>
+        <button type="submit" [disabled]="!reviewForm.valid" class="submit-button">Submit</button>
         <div class="form-status ">
             <p>Status wypełnienia formularza: {{ reviewForm.status }}</p>
             Niepoprawnie wypełnione pola: 
