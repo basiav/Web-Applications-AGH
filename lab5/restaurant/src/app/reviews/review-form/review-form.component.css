@@ -27,3 +27,20 @@
 .form-status {
   align-items: center;
 }
+
+button {
+  background-color: white;
+  color:  #525252;
+  margin: auto;
+}
+
+button:hover {
+  background-color: #52525241;
+  color: white;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
