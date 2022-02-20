@@ -82,6 +82,13 @@ export class ReviewFormComponent implements OnInit {
     this.nameFormControl = new FormControl('', [Validators.required]);
     this.reviewBodyFormControl = new FormControl('', this.reviewBodyValidators);
     this.dateFormControl = new FormControl('');
+
+    this.reviewForm = new FormGroup({
+      nick: this.nickFormControl,
+      name: this.nameFormControl,
+      body: this.reviewBodyFormControl,
+      date: this.dateFormControl
+    });
   }
 
   public invalidFormControls() { 
