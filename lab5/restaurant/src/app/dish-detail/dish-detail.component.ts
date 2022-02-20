@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
 import { CartService } from '../services/cart.service';
+import { Review } from '../shared/review';
 
 @Component({
   selector: 'app-dish-detail',
@@ -12,6 +13,12 @@ import { CartService } from '../services/cart.service';
 })
 export class DishDetailComponent implements OnInit {
   dish!: Dish;
+  reviews: Review[] = [];
+  nick!: string;
+  name!: string;
+  body: string[] = [];
+  date!: Date;
+  flags: boolean[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +73,49 @@ export class DishDetailComponent implements OnInit {
       this.dishService.log("[dishes | deleteFromReservation] Cannot delete this dish from the reservation, it has not been reserved");
       return false;
     }
+  }
+
+  onNickNotify(event: string): void {
+    this.nick = event;
+  }
+
+  onNameNotify(event: string): void {
+    this.name = event;
+  }
+
+  onBodyNotify(event: string[]): void {
+    this.body = event;
+  }
+
+  onDateNotify(event: Date): void {
+    this.date = event;
+  }
+
+  addNewReview(): boolean {
+    let r: Review;
+    if (this.date) {
+      r = {
+        dishId: this.dish.id,
+        nick: this.nick,
+        name: this.name,
+        body: this.body,
+        date: this.date,
+      }
+    }
+    else {
+      r = {
+        dishId: this.dish.id,
+        nick: this.nick,
+        name: this.name,
+        body: this.body,
+      }
+    }
+
+    if(!this.reviews.includes(r)) {
+      this.reviews.push(r);
+      return true;
+    }
+    return false;
   }
 
 }

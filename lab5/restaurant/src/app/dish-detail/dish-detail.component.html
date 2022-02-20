@@ -27,6 +27,18 @@
         <!-- <app-reviews [dishId]="dish.id"></app-reviews> -->
         <!-- <app-photo-slider [photos]="dish.photos"></app-photo-slider> -->
     </div>
-    <app-review-form></app-review-form>
+    <app-review-form 
+        (nickNotify)="onNickNotify($event)" 
+        (nameNotify)="onNameNotify($event)" 
+        (bodyNotify)="onBodyNotify($event)" 
+        (dateNotify)="onDateNotify($event)" 
+        (notifyReady)="addNewReview()">
+    </app-review-form>
+    <div *ngFor="let review of reviews">
+        {{review.dishId}}
+        {{review.nick}}
+        {{review.body}}
+        {{review.date}}
+    </div>
 </div>
 

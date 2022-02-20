@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-    <form class="example-form">
+    <form class="example-form" (ngSubmit)="onSubmit()">
 
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Nick</mat-label>
@@ -45,7 +45,12 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <button (click)="logg()">logg</button>
+        <button type="submit" [disabled]="!reviewForm.valid">Submit</button>
+        <div class="form-status ">
+            <p>Status wypełnienia formularza: {{ reviewForm.status }}</p>
+            Niepoprawnie wypełnione pola: 
+            <span *ngFor="let i of invalidFormControls()">{{i}}, </span>
+          </div>
     </form>
 </div>
 
