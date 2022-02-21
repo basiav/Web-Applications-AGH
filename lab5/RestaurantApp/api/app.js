@@ -11,6 +11,7 @@ app.use(cors());
 const { Dish } = require("./db/models/dish.model");
 const { User } = require("./db/models/user.model");
 const { Review } = require("./db/models/review.model");
+const { Star } = require("./db/models/star.model");
 
 const { NativeDate } = require('mongoose');
 
@@ -22,6 +23,8 @@ const reviewsRoute = require('./routes/reviews');
 app.use('/reviews', reviewsRoute);
 const usersRoute = require('./routes/users');
 app.use('/users', usersRoute);
+const starsRoute = require('./routes/stars');
+app.use('/stars', starsRoute);
 
 
 

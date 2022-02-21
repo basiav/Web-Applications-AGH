@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const user = require('./user.model')
 
 const ReviewSchema = new mongoose.Schema({
     dishId: {
@@ -13,9 +12,6 @@ const ReviewSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 50,
         trim: true,
-    },
-    stars: {
-        type: Number
     },
     reviewHead: {
         type: String,
