@@ -7,7 +7,7 @@ export interface Review {
     // _id: string;
     // dishId: number,
     dishId: string,
-    // author: string,
+    author: string,
     reviewHead: string,
     reviewBody: string,
     purchaseDate?: Date

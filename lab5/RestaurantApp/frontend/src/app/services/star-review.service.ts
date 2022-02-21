@@ -72,12 +72,12 @@ export class StarReviewService {
     return res;
   }
 
-  getAllDishReviews(dishId: number): Observable<Review[]> {
+  getAllDishReviews(dishId: number): Observable<any> {
     const url = `${this.reviewsUrl}/dish_id/${dishId}`;
-    return this.http.get<Review[]>(`${this.ROOT_URL}/${url}`)
+    return this.http.get<any>(`${this.ROOT_URL}/${url}`)
     .pipe(
       tap(_ => this.log('fetched allDishReviews')),
-      catchError(this.handleError<Review[]>('getAllDishReviews', []))
+      catchError(this.handleError<any>('getAllDishReviews', []))
     );;
   }
 

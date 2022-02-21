@@ -36,16 +36,15 @@ router.get('/dish_id/:id', (req, res) => {
             as: 'dish'
         }},
         { $unwind: '$dish'},
-        { $match : { "dish.id" : parseInt(req.params.id) }},
-        { $project: { "author": "$author", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody", _id: 0}},
+        { $project: { 'dishId': '$dish.id', "author": "$author", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody", _id: 0}},
+        { $match : { "dishId" : parseInt(req.params.id) }},
         { $lookup: {
             from: 'users', 
             localField: 'author', foreignField: '_id', 
             as: 'author'
         }},
         { $unwind: '$author'},
-        // { $project: { "author": "$author.nick", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
-        { $project: { 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
+        { $project: { 'dishId': 'dish.id', "author": "$author.nick", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
     ]).then((reviewDoc) => {
         res.send(reviewDoc);
     }).catch((err) => {

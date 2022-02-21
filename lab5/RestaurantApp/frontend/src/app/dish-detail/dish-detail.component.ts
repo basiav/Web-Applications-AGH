@@ -36,7 +36,6 @@ export class DishDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDish();
-    this.getReviews();
   }
 
   getDish(): void {
@@ -44,19 +43,13 @@ export class DishDetailComponent implements OnInit {
     this.dishService.getDish(id)
     .subscribe(dish => {
       this.dish = dish;
+      this.getReviews();
     });
   }
 
   getReviews(): void {
-    // this.starsReviewService.getAllDishReviews(this.dish.id)
-    // .subscribe(reviews => {
-    //   console.log("REVIEWS: ", reviews);
-    //   this.reviews = reviews;
-    // })
-
-    this.starsReviewService.getAllReviews()
+    this.starsReviewService.getAllDishReviews(this.dish.id)
     .subscribe(reviews => {
-      console.log("REVIEWS: ", reviews);
       this.reviews = reviews;
     })
   }
@@ -121,7 +114,7 @@ export class DishDetailComponent implements OnInit {
     if (this.date) {
       r = {
         dishId: mongoId,
-        // author: this.nick,
+        author: this.nick,
         reviewHead: this.name,
         reviewBody: this.body,
         purchaseDate: this.date,
@@ -130,7 +123,7 @@ export class DishDetailComponent implements OnInit {
     else {
       r = {
         dishId: mongoId,
-        // author: this.nick,
+        author: this.nick,
         reviewHead: this.name,
         reviewBody: this.body,
       }
