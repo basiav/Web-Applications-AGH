@@ -82,8 +82,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,
-      {dataEncapsulation: false}),
     BrowserAnimationsModule,
   ],
   providers: [StarService, MatDatepickerModule],

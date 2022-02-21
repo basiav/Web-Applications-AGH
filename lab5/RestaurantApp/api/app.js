@@ -5,6 +5,9 @@ const mongoose = require('./db/mongoose');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+var cors = require('cors');
+app.use(cors());
+
 const { Dish } = require("./db/models/dish.model");
 
 const { NativeDate } = require('mongoose');
@@ -20,9 +23,9 @@ app.get('/dishes', (req, res) => {
 });
 
 //Get dish with specified id
-app.get('/detail/:id', (req, res) => {
+app.get('/dishes/:id', (req, res) => {
     Dish.findOne({
-        _id: req.params.id
+        'id': req.params.id
     }).then((dishDoc) => {
         res.send(dishDoc);
     }).catch((err) => {

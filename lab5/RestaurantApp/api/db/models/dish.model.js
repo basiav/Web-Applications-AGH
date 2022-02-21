@@ -11,6 +11,11 @@
 const mongoose = require('mongoose');
 
 const DishSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        unique: true,
+        required: [true, 'Restaurant dish id is required {VALUE}, (not the mongoDB "_id" parameter']
+    },
     name: {
         type: String,
         required: [true, 'Dishname is required {VALUE}'],

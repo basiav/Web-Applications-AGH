@@ -38,7 +38,7 @@
                     'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgba(228, 92, 87, 0.52)' : 'beige'
                 }">
                     <!-- <a routerLink="/detail/{{dish.id}}" class="photoLink"> -->
-                        <img src={{dish.photos[0]}} alt={{dish.name}} routerLink="/detail/{{dish.id}}">
+                        <img src={{dish.photos[0]}} alt={{dish.name}} routerLink="/dishes/{{dish.id}}">
                     <!-- </a> -->
                     <div class="text-container" [ngStyle]="{
                         'border-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
@@ -57,7 +57,7 @@
                             <button class="button" (click)="deleteFromReservation(dish)">-</button>
                         </div>
                         <div class="show-more-box">
-                            <button class="button-show-more" routerLink="/detail/{{dish.id}}">More details</button>
+                            <button class="button-show-more" routerLink="/dishes/{{dish.id}}">More details</button>
                         </div>
                     </div>
                     <app-reviews [dishId]="dish.id" [ratingDisabled]="ratingDisabled"></app-reviews>
