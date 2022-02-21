@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     let stars = req.body.stars;
     let newStar = new Star({
         dishId,
-        author,
+        // author,
         stars
     });
     newStar.save().then((starDoc) => {

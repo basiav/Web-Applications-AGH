@@ -1,11 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
+import { Dish } from '../models/dish.model';
 import { Review } from '../models/review.model';
 import { Star } from '../models/star.model';
 import { DishService } from './dish.service';
 import { WebRequestsService } from './web-requests.service';
 
+
+export type StarMap = Map<Dish["id"], number>;
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +22,7 @@ export class StarReviewService {
       'Content-Type': 'applications/json'
     })
   }
+  starMap: StarMap = new Map<Dish["id"], number>();
 
   constructor(
     private webService: WebRequestsService,
@@ -42,34 +46,29 @@ export class StarReviewService {
     );
   }
 
-  getDishAvgStars(id: number): Observable<number> {
+  getDishAvgStars(id: number): Observable<any> {
     const url = `${this.starsUrl}/avgStarsByDishId/${id}`;
-    return this.http.get<number>(`${this.ROOT_URL}/${url}`)
+    return this.http.get(`${this.ROOT_URL}/${url}`)
     .pipe(
       tap(_ => this.log(`got avg stars, dish id=${id}`),
-      catchError(this.handleError<number>(`getDishAvgStars id=${id}`)))
+      catchError(this.handleError<any>(`getDishAvgStars id=${id}`)))
     )
   }
 
-  // async getDishAvgStarValue(id: number): Promise<Number> {
-  //   let res = 0;
-  //   this.getDishAvgStars(id)
-  //   .subscribe((avgStars) => {
-  //       res = this.round(avgStars.valueOf(), 2);
-  //   }, (err) => console.log("error in getDishAvgStarValue: ", err));
-  //   await new Promise(f => setTimeout(f, 1000));
-  //   return res;
-  // }
-
-  getDishAvgStarValue(id: number): number {
-    let res = 0;
-    setTimeout(() => {
-      this.getDishAvgStars(id)
-      .subscribe((avgStars) => {
-        res = this.round(avgStars.valueOf(), 2);
-      }, (err) => console.log("error in getDishAvgStarValue: ", err));
-    }, 500);
+  async getDishAvgStarValue(id: number): Promise<number> {
+    let res: number = 0;
+    this.getDishAvgStars(id)
+    .subscribe((avgStars) => {
+      res = this.round(avgStars[0].avgStars, 2);
+      this.handleStarMap(id, res);
+      return res;
+    }, (err) => console.log("error in getDishAvgStarValue: ", err));
+    await new Promise(f => setTimeout(f, 500));
     return res;
+  }
+
+  getDishAvg(dishId: number): number {
+    return (this.starMap.get(dishId) != undefined) ? this.starMap.get(dishId)! : 0;
   }
 
   getAllDishReviews(dishId: number): Observable<any> {
@@ -99,7 +98,7 @@ export class StarReviewService {
   }
 
   addReview(review: Review): Observable<Review> {
-    console.log("ADDING REVIEW IN SERVICE!!!!", review)
+    console.log("ADDING REVIEW TO SERVICE!!!!", review)
     return this.http.post<Review>(`${this.ROOT_URL}/${this.reviewsUrl}`, review)
     .pipe(
       tap((newReview: Review) => this.log(`added review: ${newReview}`)),
@@ -111,6 +110,10 @@ export class StarReviewService {
     return await this.dishService.getMongoDishIdValue(id);
   }
 
+
+  handleStarMap(dishId: number, avgStarValue: number): void {
+    this.starMap.set(dishId, avgStarValue);
+  }
 
   round(value: number, precision: number): number {
     var multiplier = Math.pow(10, precision || 0);

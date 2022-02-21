@@ -75,14 +75,14 @@ export class SearchService {
   getHighestAvgStars(dishes: Dish[]) {
     let service = this;
     return Math.max.apply(Math, dishes.map(function(dish) {
-      return service.starReviewService.getDishAvgStarValue(dish.id);
+      return service.starReviewService.getDishAvg(dish.id);
     }));
   }
 
   getLowestAvgStars(dishes: Dish[]) {
     let service = this;
     return Math.min.apply(Math, dishes.map(function(dish) {
-      return service.starReviewService.getDishAvgStarValue(dish.id);
+      return service.starReviewService.getDishAvg(dish.id);
     }));
   }
   

@@ -13,27 +13,34 @@ export class ReviewsComponent implements OnInit {
   dishId!: number;
   @Input()
   ratingDisabled!: boolean;
+  avgRating!: number;
 
   constructor(
     private starReviewService: StarReviewService,
     public dialog: MatDialog
-  ) { }
+  ) {
+    this.updateAvgRating();
+  }
 
   ngOnInit(): void {
   }
 
-  starHandler(value: number): void {
+  async starHandler(value: number): Promise<void> {
     if (this.ratingDisabled) {
       this.openDialog();
     }
     else {
-      this.starReviewService.setStar(this.dishId, value);
+      await this.starReviewService.setStar(this.dishId, value)
+      .then(() => {
+        console.log("Updating avg rating | BEFORE: ", this.avgRating);
+        this.updateAvgRating();
+      });
     }
   }
 
-  avgRating(): number {
-    // return this.starReviewService.getDishAvgStarValue(this.dishId);
-    return 1;
+  async updateAvgRating() {
+    await this.starReviewService.getDishAvgStarValue(this.dishId);
+    this.avgRating = this.starReviewService.getDishAvg(this.dishId);
   }
 
   openDialog(): void {
