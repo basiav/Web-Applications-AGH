@@ -51,9 +51,10 @@
                     aria-label="Select page">
                     </mat-paginator>
                     <div class="reviews-content-display" *ngFor="let review of getPaginatedReviews()">
-                        <div>Nick: {{review.nick}}</div>
-                        <div>Body: {{review.body}}</div>
-                        <div *ngIf="review.date">Purchased on: {{review.date}}</div>
+                        <!-- <div>Nick: {{review.nick}}</div> -->
+                        <div>Title: {{review.reviewHead}}</div>
+                        <div>Body: {{review.reviewBody}}</div>
+                        <div *ngIf="review.purchaseDate">Purchased on: {{review.purchaseDate}}</div>
                     </div>
                 </mat-tab>
             </mat-tab-group>

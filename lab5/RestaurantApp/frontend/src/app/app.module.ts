@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { DishesComponent } from './dishes/dishes.component';
-import { MessagesComponent } from './messages/messages.component';
 import { AddDishFormComponent } from './add-dish-form/add-dish-form.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { CartComponent } from './cart/cart.component';
@@ -47,7 +46,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     AppComponent,
     MainComponent,
     DishesComponent,
-    MessagesComponent,
     AddDishFormComponent,
     TopBarComponent,
     CartComponent,

@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 //Get review with specified MongoDB id (_id)
 router.get('/:id', (req, res) => {
-    Dish.findOne({
+    Review.findOne({
         _id: req.params.id
     }).then((dishDoc) => {
         res.send(dishDoc);
@@ -44,7 +44,8 @@ router.get('/dish_id/:id', (req, res) => {
             as: 'author'
         }},
         { $unwind: '$author'},
-        { $project: { "author": "$author.nick", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
+        // { $project: { "author": "$author.nick", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
+        { $project: { 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
     ]).then((reviewDoc) => {
         res.send(reviewDoc);
     }).catch((err) => {
@@ -56,16 +57,16 @@ router.get('/dish_id/:id', (req, res) => {
 //Add review do the database
 router.post('/', (req, res) => {
     let dishId = req.body.dishId;
-    let author = req.body.author;
+    // let author = req.body.author;
     let reviewHead = req.body.reviewHead;
     let reviewBody = req.body.reviewBody;
-    let purchaseDate = req.body.purchaseDate;
+    // let purchaseDate = req.body.purchaseDate;
     let newReview = new Review({
         dishId,
-        author,
+        // author,
         reviewHead,
         reviewBody,
-        purchaseDate
+        // purchaseDate
     });
     newReview.save().then((reviewDoc) => {
         res.send(reviewDoc);

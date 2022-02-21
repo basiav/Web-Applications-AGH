@@ -8,10 +8,11 @@ const ReviewSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'Author is required'],
-        minlength: 1,
-        maxlength: 50,
-        trim: true,
+        // required: [true, 'Author is required'],
+        // minlength: 1,
+        // maxlength: 50,
+        // trim: true,
+        default: "62139fa838bfb51fec9ef99f"
     },
     reviewHead: {
         type: String,

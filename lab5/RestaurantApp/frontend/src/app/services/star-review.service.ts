@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Dish } from '../models/dish.model';
 import { Review } from '../models/review.model';
 import { Star } from '../models/star.model';
 import { DishService } from './dish.service';
@@ -36,7 +35,7 @@ export class StarReviewService {
   }
 
   getAllReviews(): Observable<Review[]> { 
-    return this.http.get<Review[]>(`${this.ROOT_URL}/${this.starsUrl}`)
+    return this.http.get<Review[]>(`${this.ROOT_URL}/${this.reviewsUrl}`)
     .pipe(
       tap(_ => this.log('fetched reviews')),
       catchError(this.handleError<Review[]>('getAllReviews', []))
@@ -52,17 +51,35 @@ export class StarReviewService {
     )
   }
 
-  async getDishAvgStarValue(id: number): Promise<number> {
+  // async getDishAvgStarValue(id: number): Promise<Number> {
+  //   let res = 0;
+  //   this.getDishAvgStars(id)
+  //   .subscribe((avgStars) => {
+  //       res = this.round(avgStars.valueOf(), 2);
+  //   }, (err) => console.log("error in getDishAvgStarValue: ", err));
+  //   await new Promise(f => setTimeout(f, 1000));
+  //   return res;
+  // }
+
+  getDishAvgStarValue(id: number): number {
     let res = 0;
-    this.getDishAvgStars(id)
-    .subscribe((avgStars) => {
+    setTimeout(() => {
+      this.getDishAvgStars(id)
+      .subscribe((avgStars) => {
         res = this.round(avgStars.valueOf(), 2);
-    }, (err) => console.log("error in getDishAvgStarValue: ", err));
-    await new Promise(f => setTimeout(f, 1000));
-    return res.valueOf();
+      }, (err) => console.log("error in getDishAvgStarValue: ", err));
+    }, 500);
+    return res;
   }
 
-  getAllDishReviews(dish)
+  getAllDishReviews(dishId: number): Observable<Review[]> {
+    const url = `${this.reviewsUrl}/dish_id/${dishId}`;
+    return this.http.get<Review[]>(`${this.ROOT_URL}/${url}`)
+    .pipe(
+      tap(_ => this.log('fetched allDishReviews')),
+      catchError(this.handleError<Review[]>('getAllDishReviews', []))
+    );;
+  }
 
   async setStar(dishId: number, val: number): Promise<void> {
     let star: Star = {
@@ -82,10 +99,16 @@ export class StarReviewService {
   }
 
   addReview(review: Review): Observable<Review> {
+    console.log("ADDING REVIEW IN SERVICE!!!!", review)
     return this.http.post<Review>(`${this.ROOT_URL}/${this.reviewsUrl}`, review)
     .pipe(
-      tap((newReview: Review) => this.log(`added review`)),
-      catchError(this.handleError<Review>('addReview')));
+      tap((newReview: Review) => this.log(`added review: ${newReview}`)),
+      catchError(this.handleError<Review>('addReview'))
+    );
+  }
+
+  async getMongoDishId(id: number): Promise<string> {
+    return await this.dishService.getMongoDishIdValue(id);
   }
 
 

@@ -19,7 +19,7 @@ export class SearchService {
   constructor(
     private http: HttpClient,
     private dishService: DishService,
-    private starService: StarReviewService,
+    private starReviewService: StarReviewService,
   ) { }
 
   log(message: string): void {
@@ -75,14 +75,14 @@ export class SearchService {
   getHighestAvgStars(dishes: Dish[]) {
     let service = this;
     return Math.max.apply(Math, dishes.map(function(dish) {
-      return service.starService.getDishAvgStars(dish.id);
+      return service.starReviewService.getDishAvgStarValue(dish.id);
     }));
   }
 
   getLowestAvgStars(dishes: Dish[]) {
     let service = this;
     return Math.min.apply(Math, dishes.map(function(dish) {
-      return service.starService.getDishAvgStars(dish.id);
+      return service.starReviewService.getDishAvgStarValue(dish.id);
     }));
   }
   

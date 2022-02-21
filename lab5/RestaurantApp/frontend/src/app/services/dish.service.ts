@@ -76,16 +76,17 @@ export class DishService {
 
   // Get MongoDB dish _id with given restaurant dish id
   // router.get('/_id/:id', (req, res)
-  private getMongoDishId(id: number): Observable<string> {
+  private getMongoDishId(id: number): Observable<any> {
     const url = `${this.dishesUrl}/_id/${id}`;
-    return this.http.get<string>(`${this.ROOT_URL}/${url}`);
+    return this.http.get(`${this.ROOT_URL}/${url}`);
   }
 
   async getMongoDishIdValue(id: number): Promise<string> {
     let mongoId: string = "";
     this.getMongoDishId(id)
     .subscribe(mId => {
-      mongoId = mId.valueOf();
+      console.log("-------------    mId", mId[0]._id)
+      mongoId = mId[0]._id;
     }, (err) => console.log("error: getMongoDishIdValue", err));
     await new Promise(f => setTimeout(f, 1000));
     return mongoId;

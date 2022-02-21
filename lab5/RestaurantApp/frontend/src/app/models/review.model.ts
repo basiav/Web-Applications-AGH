@@ -5,8 +5,9 @@ export interface Review {
     // body: string[];
     // date?: Date;
     // _id: string;
-    dishId: number,
-    author: string,
+    // dishId: number,
+    dishId: string,
+    // author: string,
     reviewHead: string,
     reviewBody: string,
     purchaseDate?: Date

@@ -97,7 +97,6 @@ export class ReviewFormComponent implements OnInit {
     for (const name in controls) { 
       if(controls[name].invalid) { 
         invalidList.push(name);
-        console.log("invalid name: ", name)
       } 
     }
     return invalidList;

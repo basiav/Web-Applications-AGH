@@ -15,7 +15,7 @@ export class ReviewsComponent implements OnInit {
   ratingDisabled!: boolean;
 
   constructor(
-    private starService: StarReviewService,
+    private starReviewService: StarReviewService,
     public dialog: MatDialog
   ) { }
 
@@ -27,12 +27,13 @@ export class ReviewsComponent implements OnInit {
       this.openDialog();
     }
     else {
-      this.starService.setStar(this.dishId, value);
+      this.starReviewService.setStar(this.dishId, value);
     }
   }
 
   avgRating(): number {
-    return this.starService.getDishAvgStars(this.dishId);
+    // return this.starReviewService.getDishAvgStarValue(this.dishId);
+    return 1;
   }
 
   openDialog(): void {

@@ -30,9 +30,21 @@ router.get('/:id', (req, res) => {
 router.get('/_id/:id', (req, res) => {
     const mongoose = require("mongoose");
     Dish.aggregate([
-        { $match : { 'id' : new mongoose.Types.ObjectId(req.params.id)}},
-        { $project: { _id: 1 }}
+        { $match : { 'id' : parseInt(req.params.id)}},
+        { $project: { '_id': '$_id' }}
     ]).then((dishDoc) => {
+        res.send(dishDoc);
+    }).catch((err) => {
+        res.send(err);
+    });
+});
+
+// Get dish with given Mongo dish _id
+router.get('/getWith_id/:id', (req, res) => {
+    const mongoose = require("mongoose");
+    Dish.findOne({
+        _id: new mongoose.Types.ObjectId(req.params.id)
+    }).then((dishDoc) => {
         res.send(dishDoc);
     }).catch((err) => {
         res.send(err);

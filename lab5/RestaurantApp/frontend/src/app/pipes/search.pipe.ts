@@ -30,8 +30,8 @@ export class SearchPipe implements PipeTransform {
         });
       
       case FilterCriteria.Review:
-        return dishes.filter(dish => {
-          return numFilterArg && (this.starService.getDishAvgStars(dish.id) >= numFilterArg);
+        return dishes.filter(async dish => {
+          return numFilterArg && (await this.starService.getDishAvgStarValue(dish.id) >= numFilterArg);
         });
       
       case FilterCriteria.Name:

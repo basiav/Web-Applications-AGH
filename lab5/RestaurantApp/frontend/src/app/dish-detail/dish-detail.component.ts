@@ -6,6 +6,7 @@ import { DishService } from '../services/dish.service';
 import { CartService } from '../services/cart.service';
 import { Review } from '../models/review.model';
 import { PageEvent } from '@angular/material/paginator';
+import { StarReviewService } from '../services/star-review.service';
 
 @Component({
   selector: 'app-dish-detail',
@@ -14,10 +15,10 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class DishDetailComponent implements OnInit {
   dish!: Dish;
-  reviews: Review[] = [];
+  reviews!: Review[];
   nick!: string;
   name!: string;
-  body: string[] = [];
+  body!: string;
   date!: Date;
   flags: boolean[] = [];
   ratingDisabled: boolean = false;
@@ -29,11 +30,13 @@ export class DishDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private dishService: DishService,
     private cartService: CartService,
+    private starsReviewService: StarReviewService,
     private location: Location
   ) { }
 
   ngOnInit(): void {
     this.getDish();
+    this.getReviews();
   }
 
   getDish(): void {
@@ -42,6 +45,20 @@ export class DishDetailComponent implements OnInit {
     .subscribe(dish => {
       this.dish = dish;
     });
+  }
+
+  getReviews(): void {
+    // this.starsReviewService.getAllDishReviews(this.dish.id)
+    // .subscribe(reviews => {
+    //   console.log("REVIEWS: ", reviews);
+    //   this.reviews = reviews;
+    // })
+
+    this.starsReviewService.getAllReviews()
+    .subscribe(reviews => {
+      console.log("REVIEWS: ", reviews);
+      this.reviews = reviews;
+    })
   }
 
   goBack(): void {
@@ -90,7 +107,7 @@ export class DishDetailComponent implements OnInit {
     this.name = event;
   }
 
-  onBodyNotify(event: string[]): void {
+  onBodyNotify(event: string): void {
     this.body = event;
   }
 
@@ -98,31 +115,39 @@ export class DishDetailComponent implements OnInit {
     this.date = event;
   }
 
-  addNewReview(): boolean {
+  async addNewReview(): Promise<void> {
     let r: Review;
+    let mongoId: string = await this.starsReviewService.getMongoDishId(this.dish.id);
     if (this.date) {
       r = {
-        dishId: this.dish.id,
-        nick: this.nick,
-        name: this.name,
-        body: this.body,
-        date: this.date,
+        dishId: mongoId,
+        // author: this.nick,
+        reviewHead: this.name,
+        reviewBody: this.body,
+        purchaseDate: this.date,
       }
     }
     else {
       r = {
-        dishId: this.dish.id,
-        nick: this.nick,
-        name: this.name,
-        body: this.body,
+        dishId: mongoId,
+        // author: this.nick,
+        reviewHead: this.name,
+        reviewBody: this.body,
       }
     }
 
-    if(!this.reviews.includes(r)) {
-      this.reviews.push(r);
-      return true;
-    }
-    return false;
+    // if(!this.reviews.includes(r)) {
+    //   this.reviews.push(r);
+    //   return true;
+    // }
+    // return false;
+    setTimeout(() => {
+      console.log("DISH _ID: ", r.dishId)
+      this.starsReviewService.addReview(r)
+      .subscribe();
+
+      setTimeout(() => this.getReviews(), 300);
+    }, 1000);
   }
 
   onPageChange(event: PageEvent) {
