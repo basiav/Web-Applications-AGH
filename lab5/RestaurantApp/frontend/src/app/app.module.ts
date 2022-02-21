@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { SearchPipe } from './pipes/search.pipe';
 import {MatSliderModule} from '@angular/material/slider'; 
-import { StarService } from './services/star.service';
+import { StarReviewService } from './services/star-review.service';
 import { MapComponent } from './main/map/map.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { PaginatorComponent } from './dishes/paginator/paginator.component';
@@ -84,7 +84,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule,
     BrowserAnimationsModule,
   ],
-  providers: [StarService, MatDatepickerModule],
+  providers: [StarReviewService, MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

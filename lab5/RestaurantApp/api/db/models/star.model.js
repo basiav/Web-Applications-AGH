@@ -5,14 +5,14 @@ const StarSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Dish'
     },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: [true, 'Author is required'],
-        minlength: 1,
-        maxlength: 50,
-        trim: true,
-    },
+    // author: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: [true, 'Author is required'],
+    //     minlength: 1,
+    //     maxlength: 50,
+    //     trim: true,
+    // },
     stars: {
         type: Number,
         required: [true, 'Stars value is required'],

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 
-import { Dish } from '../shared/dish';
+import { Dish } from '../models/dish.model';
 import { WebRequestsService } from './web-requests.service';
 
 @Injectable({
@@ -72,6 +72,23 @@ export class DishService {
       tap(_ => this.log(`updated dish id=${dish.id}`)),
       catchError(this.handleError<any>(`updateDish`))
     );
+  }
+
+  // Get MongoDB dish _id with given restaurant dish id
+  // router.get('/_id/:id', (req, res)
+  private getMongoDishId(id: number): Observable<string> {
+    const url = `${this.dishesUrl}/_id/${id}`;
+    return this.http.get<string>(`${this.ROOT_URL}/${url}`);
+  }
+
+  async getMongoDishIdValue(id: number): Promise<string> {
+    let mongoId: string = "";
+    this.getMongoDishId(id)
+    .subscribe(mId => {
+      mongoId = mId.valueOf();
+    }, (err) => console.log("error: getMongoDishIdValue", err));
+    await new Promise(f => setTimeout(f, 1000));
+    return mongoId;
   }
 
   public handleError<T>(operation = 'operation', result?: T) {

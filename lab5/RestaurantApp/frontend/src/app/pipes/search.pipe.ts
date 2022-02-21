@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Dish } from '../shared/dish';
-import { FilterCriteria } from '../shared/filterCriteria';
-import { StarService } from '../services/star.service';
+import { Dish } from '../models/dish.model';
+import { FilterCriteria } from '../models/filterCriteria';
+import { StarReviewService } from '../services/star-review.service';
 
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
   
-  constructor(public starService: StarService) { }
+  constructor(public starService: StarReviewService) { }
 
   transform(dishes: Dish[], filterCriterium: FilterCriteria, filterArgs: string[], 
     numFilterArg?: number): Dish[] {

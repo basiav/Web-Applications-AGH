@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { StarService } from '../services/star.service';
+import { StarReviewService } from '../services/star-review.service';
 
 @Component({
   selector: 'app-reviews',
@@ -15,7 +15,7 @@ export class ReviewsComponent implements OnInit {
   ratingDisabled!: boolean;
 
   constructor(
-    private starService: StarService,
+    private starService: StarReviewService,
     public dialog: MatDialog
   ) { }
 

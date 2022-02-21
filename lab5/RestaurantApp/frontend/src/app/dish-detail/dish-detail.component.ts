@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Dish } from '../shared/dish';
+import { Dish } from '../models/dish.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
 import { CartService } from '../services/cart.service';
-import { Review } from '../shared/review';
+import { Review } from '../models/review.model';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({

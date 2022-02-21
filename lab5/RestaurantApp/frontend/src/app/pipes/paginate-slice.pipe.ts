@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Dish } from '../shared/dish';
+import { Dish } from '../models/dish.model';
 
 @Pipe({
   name: 'paginateSlice'

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Dish } from '../shared/dish'
-import { Reservations } from '../shared/reservations';
+import { Dish } from '../models/dish.model'
+import { Reservations } from '../models/reservations';
 import { DishService } from './dish.service';
 
 @Injectable({

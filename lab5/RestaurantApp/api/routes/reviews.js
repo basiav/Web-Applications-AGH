@@ -26,6 +26,33 @@ router.get('/:id', (req, res) => {
     });
 });
 
+//Get all the reviews of a dish with a given restaurant dish id
+router.get('/dish_id/:id', (req, res) => {
+    const mongoose = require("mongoose");
+    Review.aggregate([
+        { $lookup: {
+            from: 'dishes', 
+            localField: 'dishId', foreignField: '_id', 
+            as: 'dish'
+        }},
+        { $unwind: '$dish'},
+        { $match : { "dish.id" : parseInt(req.params.id) }},
+        { $project: { "author": "$author", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody", _id: 0}},
+        { $lookup: {
+            from: 'users', 
+            localField: 'author', foreignField: '_id', 
+            as: 'author'
+        }},
+        { $unwind: '$author'},
+        { $project: { "author": "$author.nick", 'reviewHead': "$reviewHead", 'reviewBody': "$reviewBody"}},
+    ]).then((reviewDoc) => {
+        res.send(reviewDoc);
+    }).catch((err) => {
+        res.send(err);
+    });
+});
+
+
 //Add review do the database
 router.post('/', (req, res) => {
     let dishId = req.body.dishId;

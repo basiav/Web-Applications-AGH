@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Dish } from '../shared/dish';
+import { Dish } from '../models/dish.model';
 import { DishService } from './dish.service';
-import { StarService } from './star.service';
+import { StarReviewService } from './star-review.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class SearchService {
   constructor(
     private http: HttpClient,
     private dishService: DishService,
-    private starService: StarService,
+    private starService: StarReviewService,
   ) { }
 
   log(message: string): void {

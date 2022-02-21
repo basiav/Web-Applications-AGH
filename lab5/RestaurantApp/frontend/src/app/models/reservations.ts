@@ -1,4 +1,4 @@
-import { Dish } from "./dish";
+import { Dish } from "./dish.model";
 
 export type Reservations = Map<Dish["id"], number>;
 

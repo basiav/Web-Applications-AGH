@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DishService } from '../services/dish.service';
-import { Dish } from '../shared/dish';
+import { Dish } from '../models/dish.model';
 import { CartService } from '../services/cart.service';
-import { Reservations } from '../shared/reservations';
+import { Reservations } from '../models/reservations';
 import { SearchPipe } from '../pipes/search.pipe';
-import { FilterCriteria } from '../shared/filterCriteria';
-import { StarService } from '../services/star.service';
+import { FilterCriteria } from '../models/filterCriteria';
+import { StarReviewService } from '../services/star-review.service';
 import { PaginateSlicePipe } from '../pipes/paginate-slice.pipe';
 
 
@@ -32,7 +32,7 @@ export class DishesComponent implements OnInit {
   constructor(
     private dishService: DishService,
     private cartService: CartService,
-    private starService: StarService,
+    private starService: StarReviewService,
   ) {
     this.searchPipe = new SearchPipe(this.starService);
     this.paginationSlicePipe = new PaginateSlicePipe();
