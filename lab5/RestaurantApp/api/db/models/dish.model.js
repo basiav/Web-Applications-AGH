@@ -64,6 +64,6 @@ const DishSchema = new mongoose.Schema({
 });
 
 
-const Dish = mongoose.model('Dishes', DishSchema);
+const Dish = mongoose.model('Dish', DishSchema);
 
 module.exports = { Dish };
