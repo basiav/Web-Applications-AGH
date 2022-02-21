@@ -10,7 +10,6 @@ const { Dish } = require("./db/models/dish.model");
 const { NativeDate } = require('mongoose');
 
 
-
 // Get a full list of dishes
 app.get('/dishes', (req, res) => {
     Dish.find().then((dishes) => {
@@ -22,7 +21,7 @@ app.get('/dishes', (req, res) => {
 
 //Get dish with specified id
 app.get('/detail/:id', (req, res) => {
-    User.findOne({
+    Dish.findOne({
         _id: req.params.id
     }).then((dishDoc) => {
         res.send(dishDoc);
@@ -41,6 +40,7 @@ app.post('/dishes', (req, res) => {
     let price = req.body.price;
     let description = req.body.description;
     let photos = req.body.photos;
+    console.log("NAME: ", name)
     let newDish = new Dish({
         name,
         cuisine,

@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const DishSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Dishname is reuired'],
+        required: [true, 'Dishname is required {VALUE}'],
         minlength: 1,
         maxlength: 50,
         trim: true
@@ -59,6 +59,6 @@ const DishSchema = new mongoose.Schema({
 });
 
 
-const Dish = mongoose.model('Dish', DishSchema);
+const Dish = mongoose.model('Dishes', DishSchema);
 
 module.exports = { Dish };
