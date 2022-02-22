@@ -9,9 +9,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { User } = require("../db/models/user.model");
-const { registerValidation } = require('../validation');
+const { registerValidation, loginValidation } = require('../validation');
 
-//Add user do the database /auth/register
+// REGISTER user in the database /auth/register
 router.post('/register', async (req, res) => {
     // Validate data of the user-to-be
     try {
@@ -41,10 +41,34 @@ router.post('/register', async (req, res) => {
 
     try {
         const savedUser = await newUser.save();
-        res.send(savedUser);
+        res.send({user: newUser._id});
     } catch (err) {
         res.status(400).send(err);
     }
+});
+
+
+// LOGIN user /auth/login
+router.post('/login', async (req, res) => {
+    // Validate data of the user-to-be
+    try {
+        const value = await loginValidation(req.body);
+        console.log("[loginValidation] value: ", value);
+    }
+    catch (err) {
+        console.log("[loginValidation] ERROR: ", err);
+        return res.status(400).send(err.details[0].message);
+    }
+
+    // If the email doesn't exist in the database, it means it's invalid
+    const user = await User.findOne({email: req.body.email});
+    if (!user) return res.status(400).send("The email doesn't exist");
+
+    // Password is correct
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass) return res.status(400).send("The password is incorrect");
+
+    res.send("Logged in!");
 });
 
 module.exports = router;
