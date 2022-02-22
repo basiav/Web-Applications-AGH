@@ -1,0 +1,46 @@
+.class-wrapper {
+  background-color: beige;
+  width: 400px;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+  
+.nice-field {
+  width: 100%;
+}
+
+.submit-button {
+  /* width: 30%; */
+  padding: 3%;
+}
+
+.form-status {
+  align-items: center;
+}
+
+button {
+  background-color: white;
+  color:  #525252;
+  margin: auto;
+}
+
+button:hover {
+  background-color: #52525241;
+  color: white;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}

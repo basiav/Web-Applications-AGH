@@ -1,0 +1,67 @@
+<div class="outter">
+    <nav>
+        <button (click)="onClickFilters()" class="nav-button">Pokaż/schowaj filtrowanie dań</button>
+        <app-paginator 
+            [dishes]="dishes" 
+            (notify)="registerPaginationBounds($event)">
+        </app-paginator>
+    </nav>
+
+    <div class="search-class" *ngIf="showFilters">
+        <app-dish-search 
+            [dishes]="dishes"
+            (criteriaNotify)="filterCriteria($event)" 
+            (cuisineNotify)="filterCuisine($event)" 
+            (priceNotify)="filterPrice($event)" 
+            (reviewNotify)="filterReview($event)" 
+            (categoryNotify)="filterCategory($event)" 
+            (nameNotify)="filterName($event)"
+            (resetDishesNotify)="resetDishes()">
+        </app-dish-search>
+    </div>
+
+    <h2 [ngStyle]="{
+        'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
+        Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}
+    </h2>
+
+    <ul class="dishes">
+        <div class="cards-container">
+            <li *ngFor="let dish of getPaginatedDishes(); let rowIndex = index">
+                
+                <span class="badge" [ngStyle]="{
+                        'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
+                    }">{{ rowIndex + 1 }} {{ dish.name }}</span>
+                    <button class="button delete" title="delete dish" (click)="deleteDish(dish)">Usuń</button>
+                
+                <div class="card" [ngStyle]="{
+                    'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgba(228, 92, 87, 0.52)' : 'beige'
+                }">
+                    <!-- <a routerLink="/detail/{{dish.id}}" class="photoLink"> -->
+                        <img src={{dish.photos[0]}} alt={{dish.name}} routerLink="/dishes/{{dish.id}}">
+                    <!-- </a> -->
+                    <div class="text-container" [ngStyle]="{ 
+                    'border-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)}">
+                        <h2>{{dish.name | uppercase}}</h2>
+                        <p>{{"kuchnia" | uppercase}}:
+                        <span *ngFor="let c of dish.cuisine">{{c | uppercase}}, </span>
+                        <br>kategorie:
+                        <span *ngFor="let c of dish.category">{{c}}, </span>
+                        <!-- <br><br>{{dish.description}} -->
+                        <br><br><span class="price">Cena: {{dish.price | currency:getCurrency()}}</span></p>
+                        <div class="button-box">
+                            <button class="button" (click)="addToReservation(dish)">+</button>
+                            Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
+                            Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
+                            <button class="button" (click)="deleteFromReservation(dish)">-</button>
+                        </div>
+                        <div class="show-more-box">
+                            <button class="button-show-more" routerLink="/dishes/{{dish.id}}">More details</button>
+                        </div>
+                    </div>
+                    <app-reviews [dishId]="dish.id" [ratingDisabled]="ratingDisabled"></app-reviews>
+                </div>
+            </li>
+        </div>
+    </ul>
+</div>

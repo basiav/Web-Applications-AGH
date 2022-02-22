@@ -1,0 +1,15 @@
+.map-container {
+    /* align-items: center; */
+}
+
+iframe {
+    /* height: 60%; */
+    width: 100%;
+    opacity: 0.4;
+    transition: .5s ease;
+}
+
+iframe:hover {
+    opacity: 1;
+    transition: .5s ease;
+}

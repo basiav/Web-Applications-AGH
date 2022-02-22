@@ -1,0 +1,63 @@
+<div class="dish-details-page">
+
+    <div class="card-wrapper">
+        <div class="card" [ngStyle]="{
+            'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgb(255, 170, 167)' : 'beige'
+        }">
+            <app-photo-slider [photos]="dish.photos"></app-photo-slider>
+            <div class="details-container">
+                <div class="text-container">
+                    <h2>{{dish.name | uppercase}}</h2>
+                    <p>{{"kuchnia" | uppercase}}:
+                    <span *ngFor="let c of dish.cuisine">{{c | uppercase}}, </span>
+                    <br>kategorie:
+                    <span *ngFor="let c of dish.category">{{c}}, </span>
+                    <br><br>{{dish.description}}
+                    <br><br><span class="price">Cena: {{dish.price | currency:getCurrency()}}</span></p>
+                    <div class="button-box">
+                        <button class="button" (click)="addToReservation(dish)">+</button>
+                        Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
+                        Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
+                        <button class="button" (click)="deleteFromReservation(dish)">-</button>
+                    </div>
+                </div>
+                <app-reviews [dishId]="dish.id" [ratingDisabled]="ratingDisabled"></app-reviews>
+            </div>
+        </div>
+
+        <div class="button-box">
+            <button class="button" (click)="goBack()">Back to Menu</button>
+        </div>
+    </div>
+
+    <div class="review-wrapper">
+        <div class="review-tab">
+            <mat-tab-group>
+                <mat-tab label="Dodaj recenzję">
+                    <app-review-form 
+                        (nickNotify)="onNickNotify($event)" 
+                        (nameNotify)="onNameNotify($event)" 
+                        (bodyNotify)="onBodyNotify($event)" 
+                        (dateNotify)="onDateNotify($event)" 
+                        (notifyReady)="addNewReview()">
+                    </app-review-form>
+                </mat-tab>
+                
+                <mat-tab class="reviews-display" label="Pokaż recenzje">
+                    <mat-paginator [length]="reviews.length" 
+                    [pageSize]="5"
+                    [pageSizeOptions]="[1, 3, 5, 10]"
+                    (page)="onPageChange($event)"
+                    aria-label="Select page">
+                    </mat-paginator>
+                    <div class="reviews-content-display" *ngFor="let review of getPaginatedReviews()">
+                        <div>Author: {{review.author}}</div>
+                        <div>Title: {{review.reviewHead}}</div>
+                        <div>Body: {{review.reviewBody}}</div>
+                        <div *ngIf="review.purchaseDate">Purchased on: {{review.purchaseDate}}</div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

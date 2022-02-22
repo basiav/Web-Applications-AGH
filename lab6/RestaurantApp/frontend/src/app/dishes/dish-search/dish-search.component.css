@@ -1,0 +1,131 @@
+/* General */
+.filter-area {
+  background-color: rgb(247, 247, 247);
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.filter-area:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.753);
+  transition: width 2s, height 4s;
+}
+
+.filter-selection {
+  margin: 5%;
+}
+
+.filter-details {
+  margin: 0 0 5% 5%;
+}
+
+/* Name-search box */
+
+.search-component {
+  width: 80%;
+  align-items: center;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+  
+  }
+  input {
+    padding: .5rem;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    display: block;
+  }
+  
+  input:focus {
+    outline: #336699 auto 1px;
+  }
+  
+  li {
+    list-style-type: none;
+  }
+  .search-result li a {
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    display: inline-block;
+    width: 100%;
+    max-width: 600px;
+    padding: .5rem;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .search-result li a:hover {
+    background-color: #435A60;
+    color: white;
+  }
+  
+  ul.search-result {
+    margin-top: 0;
+    padding-left: 0;
+  }
+
+
+/* Slider */
+mat-slider {
+  width: 300px;
+}
+
+/* Reset Dishes Button */
+button {
+  /* width: 1em; */
+  width: 60%;
+  height: 1.5em;
+  font-size: 1rem;
+  background-color: white;
+  color:  #525252;
+  /* margin: auto; */
+  margin: 0 0 5% 5%;
+  /* padding: 10%; */
+}
+
+button:hover {
+  background-color: #52525241;
+  color: white;
+}
+
+/* Media query */
+@media (max-width: 1100px) {
+  .filter-area {
+    background-color: rgb(247, 247, 247);
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  button {
+    width: 80%;
+  }
+}
+
+@media (max-width: 100px) {
+  button {
+    width: 70%;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .filter-area {
+    background-color: rgb(247, 247, 247);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  
+}

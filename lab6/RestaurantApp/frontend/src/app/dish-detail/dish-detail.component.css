@@ -1,0 +1,135 @@
+.dish-details-page {
+    height: 100%;
+    display: flex;
+    /* align-items: center; */
+    background-color: #2c3a41;
+    justify-content: space-evenly;
+}
+
+.card-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.review-wrapper {
+
+}
+
+.card {
+    background-color: beige;
+    width: 100%;
+    
+    box-shadow: 0 4px 8px 0 rgba(144, 118, 175, 0.2);
+    transition: 0.8s;
+    /* border-radius: 15px; */
+    line-height: 92%;
+    display: flex;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: width 2s, height 4s;
+}
+
+.text-container {
+    padding: 0px 12px;
+    align-content: unset;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 0;
+    font-size: smaller;
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+img {
+    width: 50%;
+}
+
+h2, h3, h4 {
+    color: #444;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: #2c3a41;
+}
+
+.price {
+    font-size: medium;
+}
+
+
+.button-box {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-size: medium;
+    font-size: small;
+}
+
+button {
+    /* width: 1em; */
+    height: 1.5em;
+    font-size: 1.5rem;
+    background-color: white;
+    color:  #525252;
+    margin: auto;
+}
+
+button:hover {
+    /* background-color: #52525241; */
+    background-color: rgb(163, 162, 162);
+    color: white;
+}
+
+.delete {
+    font-size: medium;
+    padding: 0em 0.7em 0em 0.7em;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 2em;
+    min-width: 20px;
+}
+
+.review-tab {
+    background-color: beige;
+    background-color: rgb(248, 248, 236);
+}
+
+.reviews-display {
+    max-width: 300px;
+}
+
+.reviews-content-display {
+    margin: 5% 0px 0px 5%;
+    max-width: 450px;
+    font-family: georgia,serif;
+    line-height: 20px;
+    letter-spacing:1px;
+    font-size: medium;
+    color:#333232;
+}
+
+mat-paginator {
+    background-color: rgb(248, 248, 236);
+}
+
+mat-tab-group {
+    font-family: georgia,serif;
+    /* line-height: 20px; */
+    letter-spacing:1px;
+    font-size: medium;
+    color:#333232;
+}

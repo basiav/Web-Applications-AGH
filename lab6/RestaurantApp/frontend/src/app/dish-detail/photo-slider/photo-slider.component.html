@@ -1,0 +1,27 @@
+<div class="slideshow-container">
+
+    <div class="photo-container">
+        <!-- Full-width images with number -->
+        <div class="mySlides fade" *ngFor="let photoUrl of photos">
+            <img src="{{photoUrl}}">
+        </div>
+    </div>
+
+    <div class="controls-container">
+        <!-- Next and previous buttons -->
+        <div class="button-container">
+            <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+        </div>
+
+        <!-- The dots/circles -->
+        <div class="dots-area">
+            <span *ngFor="let photoUrl of photos; let i = index" class="dot" (click)="currentSlide(i+1)"></span>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <div class="button-container">
+            <a class="next" (click)="plusSlides(1)">&#10095;</a>
+        </div>
+    </div>
+
+</div>

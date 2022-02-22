@@ -1,0 +1,9 @@
+<div class="pagination-area">
+    <div class="title">Stronicuj Menu <i class="bi bi-arrow-right-square"></i></div>
+    <mat-paginator [length]="dishes.length" 
+                [pageSize]="100"
+                [pageSizeOptions]="[1, 3, 5, 10, 15, 25, 100]"
+                (page)="onPageChange($event)"
+                aria-label="Select page">
+    </mat-paginator>
+</div>
