@@ -4,7 +4,7 @@
     <input id="name" type="text" formControlName="name">
   
     <div formArrayName="cuisines">
-      <h3>Typ kuchni</h3>
+      <h5>Typ kuchni</h5>
       <button type="button" (click)="addCuisine()" type="button">+ Dodaj tag typu kuchni</button>
   
       <div *ngFor="let cuisine of cuisines.controls; let i=index">
@@ -14,7 +14,7 @@
     </div>
 
     <div formArrayName="categories">
-        <h3>Kategoria kuchni</h3>
+        <h5>Kategoria kuchni</h5>
         <button type="button" (click)="addCategory()" type="button">+ Dodaj tag kategorii kuchni</button>
     
         <div *ngFor="let category of categories.controls; let i=index">
@@ -24,7 +24,7 @@
     </div>
 
     <div formArrayName="ingredients">
-      <h3>Składniki</h3>
+      <h5>Składniki</h5>
       <button type="button" (click)="addIngredient()" type="button">+ Dodaj składnik</button>
   
       <div *ngFor="let ingredient of ingredients.controls; let i=index">
@@ -43,7 +43,7 @@
     <input id="description" type="text" formControlName="description">
 
     <div formArrayName="photos">
-      <h3>Zdjęcia</h3>
+      <h5>Zdjęcia</h5>
       <button type="button" (click)="addPhoto()" type="button">+ Dodaj link do zdjęcia</button>
 
       <div *ngFor="let photo of photos.controls; let i=index">
