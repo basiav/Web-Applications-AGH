@@ -46,6 +46,7 @@ export class StarReviewService {
     );
   }
 
+  // Returns json-formatted value
   getDishAvgStars(id: number): Observable<any> {
     const url = `${this.starsUrl}/avgStarsByDishId/${id}`;
     return this.http.get(`${this.ROOT_URL}/${url}`)
@@ -55,6 +56,8 @@ export class StarReviewService {
     )
   }
 
+  // Async - it takes some time to calculate the avg,
+  // updates value in the map
   async getDishAvgStarValue(id: number): Promise<number> {
     let res: number = 0;
     this.getDishAvgStars(id)
@@ -63,12 +66,14 @@ export class StarReviewService {
       this.handleStarMap(id, res);
       return res;
     }, (err) => console.log("error in getDishAvgStarValue: ", err));
-    await new Promise(f => setTimeout(f, 500));
+    await new Promise(f => setTimeout(f, 300));
     return res;
   }
 
-  getDishAvg(dishId: number): number {
-    return (this.starMap.get(dishId) != undefined) ? this.starMap.get(dishId)! : 0;
+
+  // Gets value from the map
+  getDishAvgRating(dishId: number): number {
+    return (this.starMap.get(dishId) != undefined || this.starMap.get(dishId)!) ? this.starMap.get(dishId)! : 0;
   }
 
   getAllDishReviews(dishId: number): Observable<any> {
@@ -80,6 +85,7 @@ export class StarReviewService {
     );;
   }
 
+  // Sets star to the DB
   async setStar(dishId: number, val: number): Promise<void> {
     let star: Star = {
       dishId: await this.dishService.getMongoDishIdValue(dishId),
@@ -98,7 +104,6 @@ export class StarReviewService {
   }
 
   addReview(review: Review): Observable<Review> {
-    console.log("ADDING REVIEW TO SERVICE!!!!", review)
     return this.http.post<Review>(`${this.ROOT_URL}/${this.reviewsUrl}`, review)
     .pipe(
       tap((newReview: Review) => this.log(`added review: ${newReview}`)),
@@ -106,10 +111,10 @@ export class StarReviewService {
     );
   }
 
+  // Returns mongo object _id dish value, given the id dish value
   async getMongoDishId(id: number): Promise<string> {
     return await this.dishService.getMongoDishIdValue(id);
   }
-
 
   handleStarMap(dishId: number, avgStarValue: number): void {
     this.starMap.set(dishId, avgStarValue);

@@ -19,28 +19,37 @@ export class ReviewsComponent implements OnInit {
     private starReviewService: StarReviewService,
     public dialog: MatDialog
   ) {
-    this.updateAvgRating();
+    // Wait some time before counting avg. rating
+    //  for the parent-child component communication to succeed
+    setTimeout(() => {
+      this.updateAvgRating();
+    }, 200);
   }
 
   ngOnInit(): void {
   }
 
+  // Handles clicking on stars with the intent to rate the dish,
   async starHandler(value: number): Promise<void> {
+    // If rating is blocked, then open dialog information
     if (this.ratingDisabled) {
       this.openDialog();
     }
     else {
+      // If we're free to go with the rating, register the new star, then update avg. rating
       await this.starReviewService.setStar(this.dishId, value)
       .then(() => {
-        console.log("Updating avg rating | BEFORE: ", this.avgRating);
         this.updateAvgRating();
       });
     }
   }
 
+  // Updates rating, needs to be async, it takes some time to count the avg
   async updateAvgRating() {
-    await this.starReviewService.getDishAvgStarValue(this.dishId);
-    this.avgRating = this.starReviewService.getDishAvg(this.dishId);
+    await this.starReviewService.getDishAvgStarValue(this.dishId)
+    setTimeout(() => {
+      this.avgRating = this.starReviewService.getDishAvgRating(this.dishId);
+    }, 500);
   }
 
   openDialog(): void {
