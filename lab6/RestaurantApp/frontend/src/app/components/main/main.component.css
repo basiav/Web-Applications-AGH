@@ -1,0 +1,79 @@
+.banner {
+    background-image: url("..\..\..\assets\images\restaurant-banner.jpg");
+    height: 600px;
+    background-position: center top;
+    background-size: cover;
+}
+
+.welcome-container {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-items: center;
+    padding: 40px;
+    justify-content: space-between;
+}
+
+h1 { 
+    color: #7c795d; 
+    font-size: 2.5rem; 
+    line-height: 1; 
+    text-align: center; 
+}
+
+a {
+
+}
+
+.welcome-container a {
+    margin: 10px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    color: #7c795d;
+    transition: color .3s linear;
+   
+    font-size: 1.5rem; 
+    line-height: 1; 
+    text-align: center;
+}
+
+.welcome-container a:hover{
+    color: #e7e5cf;
+    transition: opacity .3s linear;
+}
+
+.welcome-container i:hover{
+    color: #e7e5cf;
+}
+
+.contact-pool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.address > h3, h4 {
+    padding: 0%;
+    margin: 5px;
+    color: #e7e5cf;
+    font-weight: lighter;
+}
+
+.address > h2 {
+    color: #7c795d;
+}
+
+.phone > h3, h2, h4 {
+    color: #7c795d;
+    font-weight: lighter;
+}
+

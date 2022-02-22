@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 
-import { Dish } from '../models/dish.model';
+import { Dish } from '../components/models/dish.model';
 import { WebRequestsService } from './web-requests.service';
 
 @Injectable({

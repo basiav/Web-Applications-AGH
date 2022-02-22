@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Dish } from '../models/dish.model';
-import { FilterCriteria } from '../models/filterCriteria';
+import { Dish } from '../components/models/dish.model';
+import { FilterCriteria } from '../components/models/filterCriteria';
 import { StarReviewService } from '../services/star-review.service';
 
 @Pipe({

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Dish } from '../models/dish.model';
+import { Dish } from '../components/models/dish.model';
 import { DishService } from './dish.service';
 import { StarReviewService } from './star-review.service';
 
