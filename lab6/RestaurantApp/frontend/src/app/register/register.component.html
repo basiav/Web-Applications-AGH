@@ -1,20 +1,26 @@
 <div class="login-component">
     <div class="title-container">
-        <h1 class="login title">LOGIN</h1>
+        <h1 class="login title">REGISTER</h1>
     </div>
 
     <div class="form-container">
         <form class="form">
             <div class="field">
+                <input #nickInput class="input" type="text" placeholder="Nick">
+            </div>
+            <p>Must be at least 8 characters long</p>
+            <div class="field">
                 <input #emailInput class="input" type="email" placeholder="Email">
             </div>
+            <p>Must be at least 8 characters long, type '@_._'</p>
             <div class="field">
                 <input #passwordInput class="input" type="password" placeholder="Password">
             </div>
+            <p>Must be at least 8 characters long</p>
         </form>
         <div class="button-container">
-            <button class="button login-button" (click)="onLoginButtonClicked(emailInput.value, passwordInput.value)">
-                Login
+            <button class="button login-button" (click)="onRegisterButtonClicked(nickInput.value, emailInput.value, passwordInput.value)">
+                Register
             </button>
         </div>
     </div>
@@ -22,12 +28,12 @@
     <div class="register-suggestion">
         <div class="register-suggestion-text">
             <p>
-                Don't have an account? Create one!
+                Already have an account? Sign in!
             </p>
         </div>
         <div class="register-suggestion-button-box">
-            <button class="button register-button" routerLink="/register-page">
-                Redirect to register page
+            <button class="button register-button" routerLink="/login-page">
+                Redirect to sign in page
             </button>
         </div>
     </div>

@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+
+
+// const jwtSecret = '662253917dainddina39624629938asdjiasdsad';
+
 const UserSchema = new mongoose.Schema({
     nick: {
         type: String,
@@ -35,6 +43,8 @@ const UserSchema = new mongoose.Schema({
     //     type: String,
     // }
 });
+
+
 
 const User = mongoose.model('User', UserSchema);
 

@@ -40,6 +40,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { LoginComponent } from './login/login.component';
     CurrencyChoiceComponent,
     ExpansionMenuComponent,
     DialogComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgbModule,
   ],
   providers: [StarReviewService, MatDatepickerModule],
   bootstrap: [AppComponent]
