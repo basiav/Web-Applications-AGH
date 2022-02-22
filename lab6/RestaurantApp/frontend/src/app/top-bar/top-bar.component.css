@@ -1,10 +1,4 @@
-* {
-    color: #616161;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-h1 {
+h1, h2, h3 {
   color: white;
   margin: 0;
 }
@@ -13,36 +7,55 @@ i {
     color: white;
 }
 
+nav {
+    background-color: #435A60;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.link-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
 a {
     cursor: pointer;
-    color: white;
+    color: rgba(255, 255, 255, 0.596);
     background-color: #435a60;
     text-decoration: none;
+    font-size: medium;
 }
 
 a:hover {
     opacity: 0.8;
     background: none;
+    color: white;
 }
 
 /* Button */
 .button, button {
     display: inline-flex;
+    flex-direction: row;
     align-items: center;
-    padding: 8px 16px;
+    padding: 8px 8px;
     border-radius: 2px;
-    font-size: 14px;
     cursor: pointer;
-    background-color: #435A60;
+    /* background-color: #435A60; */
     color: white;
     border: none;
+    font-size: small;
   }
   
-.button:hover, button:hover {
+.button:hover, fancy-button:hover {
     opacity: 0.8;
     font-weight: normal;
     background-color: white;
+    color: #435A60;
 }
 
 .button:disabled, button:disabled {
@@ -50,44 +63,31 @@ a:hover {
     cursor: auto;
 }
   
-  /* Fancy Button */
 .fancy-button {
     background-color: white;
     color: #3e5257;
     font-family: 'Roboto', Arial, sans-serif;
+    font-size: small;
 }
+
 
 .fancy-button i.material-icons {
     color: #3e5257;
     padding-right: 4px;
 }
 
-nav {
-    width: 100%;
-    background-color: #435A60;
-    /* background-color:#405061; */
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.link-wrapper {
-    width: 40%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 .active-link {
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    color: white;
+    /* font-size: large; */
+    /* color: antiquewhite; */
+    /* font-weight: bold; */
 }
 
 .nav-link {
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 .nav-link.active-link {
-    text-shadow: 1px 1px 30px white;
+    /* font-size: large; */
 }
