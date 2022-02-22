@@ -4,23 +4,23 @@ const UserSchema = new mongoose.Schema({
     nick: {
         type: String,
         required: [true, 'Nick is required'],
-        minlength: 1,
-        maxlength: 20,
-        trim: true,
+        minlength: 6,
+        maxlength: 255,
         unique: [true, 'Nick has to be unique'],
     },
-    // email: {
-    //     type: String,
-    //     required: [true, 'Email is required'],
-    //     minlength: 1,
-    //     trim: true,
-    //     unique: [true, 'Email has to be unique']
-    // },
-    // password: {
-    //     type: String,
-    //     required: [true, 'Password is required'],
-    //     minlength: 1
-    // },
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        minlength: 6,
+        max: 255,
+        unique: [true, 'Email has to be unique']
+    },
+    password: {
+        type: String,
+        required: [true, 'Password is required'],
+        minlength: 8,
+        maxlength: 1024,
+    },
     // sessions: [{
     //     token: {
     //         type: String,

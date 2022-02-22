@@ -39,6 +39,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     ReviewFormComponent,
     CurrencyChoiceComponent,
     ExpansionMenuComponent,
-    DialogComponent
+    DialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
