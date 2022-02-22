@@ -17,6 +17,9 @@
                 <input #passwordInput class="input" type="password" placeholder="Password">
             </div>
             <p>Must be at least 8 characters long</p>
+            <div *ngIf="showAlert">
+                <ngb-alert type='danger'(closed)="close()">{{ alertMessage }}</ngb-alert>
+            </div>
         </form>
         <div class="button-container">
             <button class="button login-button" (click)="onRegisterButtonClicked(nickInput.value, emailInput.value, passwordInput.value)">

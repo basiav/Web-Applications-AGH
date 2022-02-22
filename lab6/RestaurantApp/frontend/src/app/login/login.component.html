@@ -11,6 +11,9 @@
             <div class="field">
                 <input #passwordInput class="input" type="password" placeholder="Password">
             </div>
+            <div *ngIf="showAlert">
+                <ngb-alert type='danger'(closed)="close()">{{ alertMessage }}</ngb-alert>
+            </div>
         </form>
         <div class="button-container">
             <button class="button login-button" (click)="onLoginButtonClicked(emailInput.value, passwordInput.value)">

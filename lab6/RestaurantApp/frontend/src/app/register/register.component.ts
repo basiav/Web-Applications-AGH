@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  alertMessage: string = "Alert!";
+  showAlert: boolean = false;
 
   constructor() { }
 
@@ -18,5 +20,10 @@ export class RegisterComponent implements OnInit {
     //   console.log(res);
     // });
     console.log("nick", nick, "email: ", email, " password: ", password);
+    this.showAlert = true;
+  }
+
+  close(): void {
+    this.showAlert = !this.showAlert;
   }
 }
