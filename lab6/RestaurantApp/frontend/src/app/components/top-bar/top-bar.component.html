@@ -6,7 +6,7 @@
     <div class="link-wrapper">
         <a routerLink="/home" class="nav-link" routerLinkActive="active-link" [routerLinkActiveOptions]={exact:true}>Home</a>
         <a routerLink="/dishes" class="nav-link" routerLinkActive="active-link">Menu</a>
-        <a routerLink="/add-dish" class="nav-link" routerLinkActive="active-link">Dodaj danie</a>
+        <a *ngIf="isManager() || isAdmin()" routerLink="/add-dish" class="nav-link" routerLinkActive="active-link">Dodaj danie</a>
         <a *ngIf="!isLoggedIn()" routerLink="/login-page" routerLinkActive="active-link">Login</a>
         <a *ngIf="!isLoggedIn()" routerLink="/register-page" routerLinkActive="active-link">Sign up</a>
         <a *ngIf="isLoggedIn()" (click)="onLogout()" routerLink="/" routerLinkActive="active-link">Logout</a>

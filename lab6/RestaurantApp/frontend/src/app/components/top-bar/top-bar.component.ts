@@ -17,6 +17,14 @@ export class TopBarComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 
+  isManager(): boolean {
+    return this.authService.isUserManager();
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isUserAdmin();
+  }
+
   onLogout(): void {
     this.authService.logout();
   }

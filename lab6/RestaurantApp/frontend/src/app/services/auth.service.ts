@@ -7,8 +7,8 @@ import { WebRequestsService } from './web-requests.service';
 })
 export class AuthService {
   usersRoles = new Map<string, string>();  // roles: "guest", "user", "manager", "admin"
-  private storedEmail = "user-email";
-  private storedToken = "auth-token";
+  private storedEmailPath = "user-email";
+  private storedTokenPath = "auth-token";
 
   constructor(
     private userService: UserService,
@@ -27,6 +27,8 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
+    this.logout();
+
     let res = false;
     this.webService.login(email, password)
     .subscribe(
@@ -40,6 +42,7 @@ export class AuthService {
       }
     );
     await new Promise(f => setTimeout(f, 1000));
+    console.log("Logged in as: ", this.getUserRole());
     return res;
   }
 
@@ -56,22 +59,35 @@ export class AuthService {
       }
     );
     await new Promise(f => setTimeout(f, 1000));
+
+    setTimeout(() => 
+      this.getAllUsersRoles()
+    , 400);
+
     return res;
   }
 
   private setSession(email: string, acccessToken: string){
-    localStorage.setItem(this.storedEmail, email);
-    localStorage.setItem(this.storedToken, acccessToken);
+    localStorage.setItem(this.storedEmailPath, email);
+    localStorage.setItem(this.storedTokenPath, acccessToken);
   }
 
   private removeSession(){
-    localStorage.removeItem(this.storedEmail);
-    localStorage.removeItem(this.storedToken);
+    localStorage.removeItem(this.storedEmailPath);
+    localStorage.removeItem(this.storedTokenPath);
   }
 
   logout(){
+    console.log('Logged out as ', this.getUserRole());
     this.removeSession();
-    console.log('Logged out!');
+  }
+
+  get storedEmail() {
+    return localStorage.getItem(this.storedEmailPath);
+  }
+
+  get storedToken() {
+    return localStorage.getItem(this.storedTokenPath);
   }
 
   addRole(email: string, role: string): void {
@@ -79,35 +95,35 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.storedToken);
+    return !!localStorage.getItem(this.storedTokenPath);
   }
 
   checkRole(email: string, role: string): boolean {
-    return !!(this.usersRoles.has(email) && this.usersRoles.get(email) && (this.usersRoles.get(email)?.localeCompare(role)));
+    return !!(this.usersRoles.has(email) && this.usersRoles.get(email) && (this.usersRoles.get(email) === role));
   }
 
-  getUserRole(email: string): string {
-    if (this.isUserUser(email)) {
-      return "guest";
+  getUserRole(): string {
+    if (this.checkRole(this.storedEmail!, "user")) {
+      return "user";
     }
-    if (this.isUserManager(email)) {
+    if (this.checkRole(this.storedEmail!, "manager")) {
       return "manager";
     }
-    if (this.isUserAdmin(email)) {
+    if (this.checkRole(this.storedEmail!, "admin")) {
       return "admin";
     }
     return "guest";
   }
 
-  isUserUser(email: string): boolean {
-    return this.checkRole(email, "guest");
+  isUserUser(): boolean {
+    return this.isLoggedIn() && this.checkRole(this.storedEmail!, "user");
   }
 
-  isUserManager(email: string): boolean {
-    return this.checkRole(email, "manager");
+  isUserManager(): boolean {
+    return this.isLoggedIn() && this.checkRole(this.storedEmail!, "manager");
   }
 
-  isUserAdmin(email: string): boolean {
-    return this.checkRole(email, "admin");
+  isUserAdmin(): boolean {
+    return this.isLoggedIn() && this.checkRole(this.storedEmail!, "admin");
   }
 }
