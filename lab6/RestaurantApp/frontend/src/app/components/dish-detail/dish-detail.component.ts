@@ -119,7 +119,6 @@ export class DishDetailComponent implements OnInit {
     let r: Review;
     let mongoDishId: string = await this.starsReviewService.getMongoDishId(this.dish.id);
     let mongoUserId: string = (await this.userService.getMongoUserId(this.nick))!;
-    console.log("IDDDDDDD------- ", mongoUserId);
     if (this.date) {
       r = {
         dishId: mongoDishId,
