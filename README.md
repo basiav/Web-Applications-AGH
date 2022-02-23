@@ -2,7 +2,9 @@
 
 ## Restaurant Service - Angular
 
-https://user-images.githubusercontent.com/82549088/153858513-a77530ec-54e9-4832-b029-dfec74ca2cfc.mp4
+### Admin functionalities
+
+https://user-images.githubusercontent.com/82549088/155283001-2e4981bf-4d39-44d3-ab99-2e51de4bebe9.mp4
 
 ## Zombie game -  Vanilla JS
 
