@@ -170,6 +170,12 @@ h2, h3, h4 {
     font-size: medium;
 }
 
+mat-radio-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 /* Media query */
 @media (max-width: 1100px) {
     .cards-container {

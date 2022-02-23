@@ -69,6 +69,33 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+//Patch user with given id
+router.patch('/patchWithId/:id', (req, res) => {
+    User.findOneAndUpdate({_id:req.params.id}, {
+        $set: req.body
+    }).then(() => {
+        res.sendStatus(200);
+    });
+});
+
+//Patch user with given nick
+router.patch('/patchWithNick/:nick', (req, res) => {
+    User.findOneAndUpdate({'nick':req.params.nick}, {
+        $set: req.body
+    }).then(() => {
+        res.sendStatus(200);
+    });
+});
+
+//Patch user with given mail
+router.patch('/patchWithMail/:email', (req, res) => {
+    User.findOneAndUpdate({'email':req.params.email}, {
+        $set: req.body
+    }).then(() => {
+        res.sendStatus(200);
+    });
+});
+
 // -------------- PROPER REST API ------------------
 
 //Get user role by nick

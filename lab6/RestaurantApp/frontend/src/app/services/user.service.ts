@@ -115,6 +115,28 @@ export class UserService {
   isBanned(userEmail: string): boolean {
     return this.bannedUsers.includes(userEmail);
   }
+
+  patchUser(user: User): Observable<any> {
+    return this.http.patch<User>(`${this.ROOT_URL}/${this.usersUrl}/patchWithMail/${user.email}`, user)
+    .pipe(
+      tap((updatedUser: any) => this.log(`patched user nick=${updatedUser.nick}`)),
+      catchError(this.handleError<User>('patchUser')));
+  }
+
+  updateRole(user: User, newRole: string) {
+    let updatedUser = {
+      'nick': user.nick,
+      'email': user.email,
+      'password': user.password,
+      'role': newRole, 
+    };
+
+    this.patchUser(updatedUser)
+    .subscribe(u => {
+      console.log("Old user: ", user);
+      console.log("Updated user: ", u);
+    });
+  }
   
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

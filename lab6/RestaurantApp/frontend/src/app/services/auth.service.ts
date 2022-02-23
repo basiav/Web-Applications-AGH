@@ -51,6 +51,11 @@ export class AuthService {
     );
     await new Promise(f => setTimeout(f, 1000));
     console.log("Logged in as: ", this.getUserRole());
+
+    setTimeout(() => 
+      this.getAllUsersData()
+    , 400);
+
     return res;
   }
 
