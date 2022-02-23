@@ -18,7 +18,6 @@ router.post('/register', async (req, res) => {
     // Validate data of the user-to-be
     try {
         const value = await registerValidation(req.body);
-        console.log("[registerValidation] value: ", value);
     }
     catch (err) {
         console.log("[registerValidation] ERROR: ", err);
@@ -56,7 +55,6 @@ router.post('/login', async (req, res) => {
     // Validate data of the user-to-be
     try {
         const value = await loginValidation(req.body);
-        console.log("[loginValidation] value: ", value);
     }
     catch (err) {
         console.log("[loginValidation] ERROR: ", err);
@@ -73,7 +71,8 @@ router.post('/login', async (req, res) => {
 
     // Create and assign a token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
+    // res.header('auth-token', token).send(token);
+    res.header('auth-token', token).send({token: token});
 });
 
 module.exports = router;
