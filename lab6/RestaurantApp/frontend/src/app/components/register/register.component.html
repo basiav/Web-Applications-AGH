@@ -17,12 +17,18 @@
                 <input #passwordInput class="input" type="password" placeholder="Password">
             </div>
             <p>Must be at least 8 characters long</p>
+            <div class="field">
+                <input #repeatPasswordInput class="input" type="password" placeholder="Repeat password">
+            </div>
+            <div *ngIf="wrongPasswords(passwordInput.value, repeatPasswordInput.value)">
+                <ngb-alert type='danger'(closed)="close()">Passwords don't match!</ngb-alert>
+            </div>
             <div *ngIf="showAlert">
                 <ngb-alert type='danger'(closed)="close()">{{ alertMessage }}</ngb-alert>
             </div>
         </form>
         <div class="button-container">
-            <button class="button login-button" (click)="onRegisterButtonClicked(nickInput.value, emailInput.value, passwordInput.value)">
+            <button class="button login-button" (click)="onRegisterButtonClicked(nickInput.value, emailInput.value, passwordInput.value, repeatPasswordInput.value)">
                 Register
             </button>
         </div>

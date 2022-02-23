@@ -28,32 +28,33 @@ export class AuthService {
     });
   }
 
-  // async login(email: string, password: string) {
-  //   let token = false;
-  //   this.webService.login(email, password)
-  //   .subscribe((res: any) => {
-  //     if (res.token && !!res.token) {
-  //       this.setSession(email, res.token);
-  //       token = true;
-  //     }
-  //   });
-  //   await new Promise(f => setTimeout(f, 1000));
-  //   return token;
-  // }
-
-  // data => console.log('success', data),
-  // error => console.log('oops', error)
-
   async login(email: string, password: string) {
     let res = false;
     this.webService.login(email, password)
     .subscribe(
-      data => {
-        console.log('success', data);
+      (data: any) => {
+        this.setSession(email, data.token);
         res = true;
       },
       error => {
-        console.log('oops', error);
+        console.log('Oops: ', error);
+        res = error.error;
+      }
+    );
+    await new Promise(f => setTimeout(f, 1000));
+    return res;
+  }
+
+  async signup(nick: string, email: string, password: string) {
+    let res = false;
+    this.webService.signup(nick, email, password)
+    .subscribe(
+      (data: any) => {
+        console.log("success: ", data);
+        res = true;
+      },
+      error => {
+        console.log('Oops: ', error);
         res = error.error;
       }
     );

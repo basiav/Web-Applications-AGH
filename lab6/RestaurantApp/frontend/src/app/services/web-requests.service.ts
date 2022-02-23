@@ -17,5 +17,13 @@ export class WebRequestsService {
       password: password
     });
   }
+
+  signup(nick: string, email: string, password: string) {
+    return this.http.post(`${this.ROOT_URL}/auth/register`, {
+      nick: nick,
+      email: email,
+      password: password
+    });
+  }
   
 }
