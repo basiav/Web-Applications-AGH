@@ -1,6 +1,6 @@
 <div class="outter">
     <nav>
-        <button (click)="onClickFilters()" class="nav-button">Pokaż/schowaj filtrowanie dań</button>
+        <button (click)="onClickFilters()" class="nav-button">Pokaż/ukryj filtrowanie dań</button>
         <app-paginator 
             [dishes]="dishes" 
             (notify)="registerPaginationBounds($event)">
@@ -20,10 +20,10 @@
         </app-dish-search>
     </div>
 
-    <h2 [ngStyle]="{
+    <h4 [ngStyle]="{
         'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
-        Sumaryczna liczba aktualnie zarezerwowanych dań: {{getAllReservationsNumber()}}
-    </h2>
+        Aktualnie zarezerwowano: {{getAllReservationsNumber()}} dań
+    </h4>
 
     <ul class="dishes">
         <div class="cards-container">
