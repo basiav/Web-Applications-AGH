@@ -1,6 +1,4 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { shareReplay, tap } from 'rxjs';
 import { UserService } from './user.service';
 import { WebRequestsService } from './web-requests.service';
 
@@ -50,7 +48,6 @@ export class AuthService {
     this.webService.signup(nick, email, password)
     .subscribe(
       (data: any) => {
-        console.log("success: ", data);
         res = true;
       },
       error => {
@@ -67,12 +64,22 @@ export class AuthService {
     localStorage.setItem(this.storedToken, acccessToken);
   }
 
+  private removeSession(){
+    localStorage.removeItem(this.storedEmail);
+    localStorage.removeItem(this.storedToken);
+  }
+
+  logout(){
+    this.removeSession();
+    console.log('Logged out!');
+  }
+
   addRole(email: string, role: string): void {
     this.usersRoles.set(email, role);
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('auth-token');
+    return !!localStorage.getItem(this.storedToken);
   }
 
   checkRole(email: string, role: string): boolean {
