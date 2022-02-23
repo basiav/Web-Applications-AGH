@@ -207,4 +207,14 @@ export class DishesComponent implements OnInit {
     return this.authService.getUserRole();
   }
 
+  isEditor(): boolean {
+    let userRole: string = this.getUserRole();
+    return userRole == "admin" || userRole == "manager";
+  }
+
+  isConsumer(): boolean {
+    let userRole: string = this.getUserRole();
+    return userRole == "admin" || userRole == "manager" || userRole == "user";
+  }
+
 }

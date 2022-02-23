@@ -67,7 +67,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     LoginComponent,
     RegisterComponent,
     UsersComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,

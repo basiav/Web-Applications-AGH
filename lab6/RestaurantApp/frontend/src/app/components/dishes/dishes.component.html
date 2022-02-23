@@ -20,10 +20,12 @@
         </app-dish-search>
     </div>
 
-    <h4 [ngStyle]="{
+    <h4 *ngIf="isConsumer()" [ngStyle]="{
         'background-color': getAllReservationsNumber() > 10 ? 'rgb(194, 222, 255)' : 'rgb(255, 187, 98, 0.959)'}">
         Aktualnie zarezerwowano: {{getAllReservationsNumber()}} dań
     </h4>
+
+    <h4 *ngIf="!isConsumer()">Please login to fully profit from this section.</h4>
 
     <ul class="dishes">
         <div class="cards-container">
@@ -32,7 +34,7 @@
                 <span class="badge" [ngStyle]="{
                         'background-color': getPriceColour(dish), 'border-width': getBorderWidth(dish)
                     }">{{ rowIndex + 1 }} {{ dish.name }}</span>
-                    <button class="button delete" title="delete dish" (click)="deleteDish(dish)">Usuń</button>
+                    <button *ngIf="isEditor()" class="button delete" title="delete dish" (click)="deleteDish(dish)">Usuń</button>
                 
                 <div class="card" [ngStyle]="{
                     'background-color': getCurrentlyAvailableDishAmount(dish) <= 3 ? 'rgba(228, 92, 87, 0.52)' : 'beige'
