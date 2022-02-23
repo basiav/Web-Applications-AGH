@@ -1,0 +1,36 @@
+<div class="admin-panel">
+    <div class="title-container">
+        <h1 class="login title">ADMIN PANEL</h1>
+    </div>
+
+    <div class="column">
+        <div class="row-box">
+            <div class="register-suggestion-text">
+                <p>
+                    Go to users' panel to change their settings, ban them, etc. ...
+                </p>
+            </div>
+            <button class="button register-button" routerLink="/users">
+                Redirect to users' panel page
+            </button>
+        </div>
+        <div class="row-box">
+            <div class="register-suggestion-text">
+                <p>
+                    Choose persistence functionality model:
+                </p>
+            </div>
+            <div class="radios-box">
+                <mat-radio-group
+                aria-labelledby="radio-group-label"
+                class="radio-group"
+                [(ngModel)]="persistencyModel">
+                <mat-radio-button class="radio-button" *ngFor="let m of models" [value]="m" 
+                  (click)="setModel(m)">
+                  {{m}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+        </div>
+    </div>
+</div>
