@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Dish } from 'src/app/components/models/dish.model';
+import { Dish } from 'src/app/models/dish.model';
 
 
 @Component({

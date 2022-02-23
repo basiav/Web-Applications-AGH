@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
 
 import { SearchService } from '../../../services/search.service';
-import { Dish } from '../../models/dish.model';
+import { Dish } from '../../../models/dish.model';
 
 @Component({
   selector: 'app-dish-search',

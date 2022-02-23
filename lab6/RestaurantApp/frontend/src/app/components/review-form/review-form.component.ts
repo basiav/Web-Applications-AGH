@@ -72,6 +72,7 @@ export class ReviewFormComponent implements OnInit {
     }
     if (this.date && this.dateFormControl.valid && this.date != new Date()) {
       this.dateNotify.emit(this.date);
+      console.log("THIS DATE ",this.date)
     }
     this.notifyReady.emit();
     this.resetForms();

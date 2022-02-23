@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DishService } from '../../services/dish.service';
-import { Dish } from '../models/dish.model';
+import { Dish } from '../../models/dish.model';
 import { CartService } from '../../services/cart.service';
-import { Reservations } from '../models/reservations';
+import { Reservations } from '../../models/reservations';
 import { SearchPipe } from '../../pipes/search.pipe';
-import { FilterCriteria } from '../models/filterCriteria';
+import { FilterCriteria } from '../../models/filterCriteria';
 import { StarReviewService } from '../../services/star-review.service';
 import { PaginateSlicePipe } from '../../pipes/paginate-slice.pipe';
 

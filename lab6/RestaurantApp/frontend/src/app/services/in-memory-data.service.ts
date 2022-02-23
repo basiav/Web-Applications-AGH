@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-import { Dish } from '../components/models/dish.model';
+import { Dish } from '../models/dish.model';
 
 @Injectable({
   providedIn: 'root'

@@ -5,7 +5,8 @@ const registerValidation = async (data) => {
     const schema = Joi.object({
         nick: Joi.string().min(6).max(255).required(),
         email: Joi.string().min(6).max(255).required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'pl'] } }),
-        password: Joi.string().min(8).max(1024).required()
+        password: Joi.string().min(8).max(1024).required(),
+        role: Joi.string()
     });
     return schema.validateAsync(data);
 }
