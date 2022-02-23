@@ -6,8 +6,6 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 
 
-// const jwtSecret = '662253917dainddina39624629938asdjiasdsad';
-
 const UserSchema = new mongoose.Schema({
     nick: {
         type: String,
@@ -29,16 +27,6 @@ const UserSchema = new mongoose.Schema({
         minlength: 8,
         maxlength: 1024,
     },
-    // sessions: [{
-    //     token: {
-    //         type: String,
-    //         required: [true, 'Token is required']
-    //     },
-    //     expiresAt: {
-    //         type: Number,
-    //         required: true
-    //     }
-    // }],
     role: {
         type: String,
         default: "user"

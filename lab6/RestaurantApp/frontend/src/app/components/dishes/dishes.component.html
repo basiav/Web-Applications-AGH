@@ -49,11 +49,14 @@
                         <span *ngFor="let c of dish.category">{{c}}, </span>
                         <!-- <br><br>{{dish.description}} -->
                         <br><br><span class="price">Cena: {{dish.price | currency:getCurrency()}}</span></p>
-                        <div class="button-box">
+                        <div *ngIf="getUserRole()!='guest'" class="button-box">
                             <button class="button" (click)="addToReservation(dish)">+</button>
                             Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}<br>
                             Rezerwacji na to danie: {{getCurrentReservedNumber(dish)}}
                             <button class="button" (click)="deleteFromReservation(dish)">-</button>
+                        </div>
+                        <div *ngIf="getUserRole()=='guest'">
+                            Dostępnych dziś sztuk dania: {{getCurrentlyAvailableDishAmount(dish)}}
                         </div>
                         <div class="show-more-box">
                             <button class="button-show-more" routerLink="/dishes/{{dish.id}}">More details</button>

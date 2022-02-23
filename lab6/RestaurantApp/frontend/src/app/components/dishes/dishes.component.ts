@@ -8,6 +8,7 @@ import { SearchPipe } from '../../pipes/search.pipe';
 import { FilterCriteria } from '../../models/filterCriteria';
 import { StarReviewService } from '../../services/star-review.service';
 import { PaginateSlicePipe } from '../../pipes/paginate-slice.pipe';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class DishesComponent implements OnInit {
     private dishService: DishService,
     private cartService: CartService,
     private starService: StarReviewService,
+    private authService: AuthService
   ) {
     this.searchPipe = new SearchPipe(this.starService);
     this.paginationSlicePipe = new PaginateSlicePipe();
@@ -199,6 +201,10 @@ export class DishesComponent implements OnInit {
 
   getCurrency(): string {
     return this.cartService.currency;
+  }
+
+  getUserRole(): string {
+    return this.authService.getUserRole();
   }
 
 }
