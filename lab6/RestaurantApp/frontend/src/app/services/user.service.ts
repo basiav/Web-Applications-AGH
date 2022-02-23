@@ -137,6 +137,35 @@ export class UserService {
       console.log("Updated user: ", u);
     });
   }
+
+  getUserIdByEmail(email: string): Observable<any> {
+    const url = `${this.usersUrl}/getUserIdByEmail/${email}`;
+    return this.http.get(`${this.ROOT_URL}/${url}`)
+      .pipe(
+        tap(_ => this.log(`got user _id by email=${email}`),
+          catchError(this.handleError<any>(`getUserIdByEmail email=${email}`)))
+      );
+  }
+
+  getUserIdByNick(nick: string): Observable<any> {
+    const url = `${this.usersUrl}/getUserIdByNick/${nick}`;
+    return this.http.get(`${this.ROOT_URL}/${url}`)
+      .pipe(
+        tap(_ => this.log(`got user _id by nick=${nick}`),
+          catchError(this.handleError<any>(`getUserIdByNick nick=${nick}`)))
+      );
+  }
+
+    // Returns mongo object _id user, given the user's nick
+    async getMongoUserId(nick: string) {
+      let res;
+      this.getUserByNick(nick)
+      .subscribe((id: any) => {
+        res = id._id;
+      });
+      await new Promise(f => setTimeout(f, 1000));
+      return res;
+    }
   
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -56,16 +56,16 @@ router.get('/dish_id/:id', (req, res) => {
 //Add review do the database
 router.post('/', (req, res) => {
     let dishId = req.body.dishId;
-    // let author = req.body.author;
+    let author = req.body.author;
     let reviewHead = req.body.reviewHead;
     let reviewBody = req.body.reviewBody;
-    // let purchaseDate = req.body.purchaseDate;
+    let purchaseDate = req.body.purchaseDate;
     let newReview = new Review({
         dishId,
-        // author,
+        author,
         reviewHead,
         reviewBody,
-        // purchaseDate
+        purchaseDate
     });
     newReview.save().then((reviewDoc) => {
         res.send(reviewDoc);

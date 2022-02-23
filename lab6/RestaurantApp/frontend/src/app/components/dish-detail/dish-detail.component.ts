@@ -8,6 +8,7 @@ import { Review } from '../../models/review.model';
 import { PageEvent } from '@angular/material/paginator';
 import { StarReviewService } from '../../services/star-review.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dish-detail',
@@ -35,6 +36,7 @@ export class DishDetailComponent implements OnInit {
     private dishService: DishService,
     private cartService: CartService,
     private starsReviewService: StarReviewService,
+    private userService: UserService,
     private authService: AuthService,
     private location: Location
   ) { }
@@ -115,11 +117,13 @@ export class DishDetailComponent implements OnInit {
 
   async addNewReview(): Promise<void> {
     let r: Review;
-    let mongoId: string = await this.starsReviewService.getMongoDishId(this.dish.id);
+    let mongoDishId: string = await this.starsReviewService.getMongoDishId(this.dish.id);
+    let mongoUserId: string = (await this.userService.getMongoUserId(this.nick))!;
+    console.log("IDDDDDDD------- ", mongoUserId);
     if (this.date) {
       r = {
-        dishId: mongoId,
-        author: this.nick,
+        dishId: mongoDishId,
+        author: mongoUserId,
         reviewHead: this.name,
         reviewBody: this.body,
         purchaseDate: this.date,
@@ -127,20 +131,14 @@ export class DishDetailComponent implements OnInit {
     }
     else {
       r = {
-        dishId: mongoId,
-        author: this.nick,
+        dishId: mongoDishId,
+        author: mongoUserId,
         reviewHead: this.name,
         reviewBody: this.body,
       }
     }
 
-    // if(!this.reviews.includes(r)) {
-    //   this.reviews.push(r);
-    //   return true;
-    // }
-    // return false;
     setTimeout(() => {
-      console.log("DISH _ID: ", r.dishId)
       this.starsReviewService.addReview(r)
       .subscribe();
 

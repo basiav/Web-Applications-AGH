@@ -43,6 +43,30 @@ router.get('/getUserByNick/:nick', (req, res) => {
     });
 });
 
+//Get user _id by email
+router.get('/getUserIdByEmail/:email', (req, res) => {
+    User.aggregate([
+        { $match : { 'email' : req.params.email}},
+        { $project: { _id : 1 }}
+    ]).then((userDoc) => {
+        res.send(userDoc[0]._id);
+    }).catch((err) => {
+        res.send(err);
+    });
+});
+
+//Get user _id by nick
+router.get('/getUserIdByNick/:nick', (req, res) => {
+    User.aggregate([
+        { $match : { 'nick' : req.params.nick}},
+        { $project: { _id : 1 }}
+    ]).then((userDoc) => {
+        res.send(userDoc[0]._id);
+    }).catch((err) => {
+        res.send(err);
+    });
+});
+
 //Add user do the database
 router.post('/', (req, res) => {
     let nick = req.body.nick;
