@@ -48,12 +48,12 @@ export class UserService {
     );
   }
 
-  getAllUsersRoles(): Observable<any> {
-    const url = `${this.usersUrl}/getAllRoles/all`;
+  getAllUsersData(): Observable<any> {
+    const url = `${this.usersUrl}/getUsersData/all`;
     return this.http.get(`${this.ROOT_URL}/${url}`)
       .pipe(
-        tap(_ => this.log(`got all users' roles`),
-          catchError(this.handleError<any>(`getAllUsersRoles`)))
+        tap(_ => this.log(`got all users' data`),
+          catchError(this.handleError<any>(`getAllUsersData`)))
       );
   }
 

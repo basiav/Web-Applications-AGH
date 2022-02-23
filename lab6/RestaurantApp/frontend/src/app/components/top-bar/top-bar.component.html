@@ -4,6 +4,7 @@
     </a>
     
     <div class="link-wrapper">
+        <a>{{displayUser() | uppercase}}</a>
         <a routerLink="/home" class="nav-link" routerLinkActive="active-link" [routerLinkActiveOptions]={exact:true}>Home</a>
         <a routerLink="/dishes" class="nav-link" routerLinkActive="active-link">Menu</a>
         <a *ngIf="isManager() || isAdmin()" routerLink="/add-dish" class="nav-link" routerLinkActive="active-link">Add dish</a>

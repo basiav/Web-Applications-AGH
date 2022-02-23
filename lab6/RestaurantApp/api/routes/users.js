@@ -96,9 +96,9 @@ router.get('/getUserRole/:id', (req, res) => {
 });
 
 //Get all users' roles
-router.get('/getAllRoles/:param', (req, res) => {
+router.get('/getUsersData/:param', (req, res) => {
     User.aggregate([
-        { $project: { 'role': '$role', _id : 0, 'email': '$email' }}
+        { $project: { 'role': '$role', _id : 0, 'email': '$email', 'nick': '$nick' }}
     ]).then((userDoc) => {
         res.send(userDoc);
     }).catch((err) => {

@@ -15,19 +15,21 @@ export class AuthService {
   private storedEmailPath = "user-email";
   private storedTokenPath = "auth-token";
   persistenceModel: PersistenceModel =  PersistenceModel.LOCAL;
+  usersMap = new Map<string, string>(); // email -> nick
 
   constructor(
     private userService: UserService,
     private webService: WebRequestsService
   ) {
-    this.getAllUsersRoles();
+    this.getAllUsersData();
   }
 
-  getAllUsersRoles(): void {
-    this.userService.getAllUsersRoles()
+  getAllUsersData(): void {
+    this.userService.getAllUsersData()
     .subscribe(roles => {
-      roles.forEach((emailRole: { email: string; role: string; }) => {
+      roles.forEach((emailRole: { email: string; role: string; nick: string }) => {
         this.addRole(emailRole.email, emailRole.role);
+        this.registerNick(emailRole.email, emailRole.nick);
       });
     });
   }
@@ -67,7 +69,7 @@ export class AuthService {
     await new Promise(f => setTimeout(f, 1000));
 
     setTimeout(() => 
-      this.getAllUsersRoles()
+      this.getAllUsersData()
     , 400);
 
     return res;
@@ -126,6 +128,10 @@ export class AuthService {
     this.usersRoles.set(email, role);
   }
 
+  registerNick(email: string, nick: string): void {
+    this.usersMap.set(email, nick);
+  }
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem(this.storedTokenPath);
   }
@@ -173,5 +179,9 @@ export class AuthService {
         this.persistenceModel = PersistenceModel.SESSION
         break;
     }
+  }
+
+  getUserNick(): string {
+    return this.usersMap.get(this.storedEmail!)!;
   }
 }

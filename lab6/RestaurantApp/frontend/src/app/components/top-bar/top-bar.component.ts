@@ -29,4 +29,12 @@ export class TopBarComponent implements OnInit {
     this.authService.logout();
   }
 
+  displayUser(): string {
+    let role: string = this.authService.getUserRole();
+    if (role == "user") {
+      return this.authService.getUserNick();
+    }
+    return role;
+  }
+
 }
