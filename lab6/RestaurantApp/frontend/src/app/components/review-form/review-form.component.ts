@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { FormGroup } from '@angular/forms';
@@ -101,6 +101,5 @@ export class ReviewFormComponent implements OnInit {
       } 
     }
     return invalidList;
-    }
-
+  }
 }

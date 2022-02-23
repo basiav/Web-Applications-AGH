@@ -126,4 +126,9 @@ export class AuthService {
   isUserAdmin(): boolean {
     return this.isLoggedIn() && this.checkRole(this.storedEmail!, "admin");
   }
+
+  isUserBanned(): boolean {
+    return this.isLoggedIn() && this.checkRole(this.storedEmail!, "user")
+    && this.userService.isBanned(this.storedEmail!);
+  }
 }

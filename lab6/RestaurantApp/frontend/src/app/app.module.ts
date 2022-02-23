@@ -40,6 +40,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { RegisterComponent } from './components/register/register.component';
     ExpansionMenuComponent,
     DialogComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

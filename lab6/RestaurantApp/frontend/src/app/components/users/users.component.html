@@ -1,0 +1,22 @@
+<div class="title">
+    <h2>Users</h2>
+</div>
+<ul class="users">
+    <div class="cards-container">
+        <li *ngFor="let user of users; let rowIndex = index">
+            
+            <span class="badge">{{user.role}}</span>
+            <div class="card">
+                <div class="text-container">
+                    <h3>{{user.nick}}</h3>
+                    <h4>{{user.email}}</h4>
+                    <h4>{{user.role}}</h4>
+                    <div class="button-box">
+                        <button *ngIf="user.role=='user'" class="button ban" title="ban user" (click)="banUser(user)">Ban user</button>
+                        <button *ngIf="user.role=='user'" class="button ban" title="ban user" (click)="unbanUser(user)">Unban user</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </div>
+</ul>

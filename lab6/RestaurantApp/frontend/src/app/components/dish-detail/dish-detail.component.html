@@ -34,13 +34,18 @@
         <div class="review-tab">
             <mat-tab-group>
                 <mat-tab label="Dodaj recenzję">
-                    <app-review-form 
+                    <app-review-form *ngIf="!banned"
                         (nickNotify)="onNickNotify($event)" 
                         (nameNotify)="onNameNotify($event)" 
                         (bodyNotify)="onBodyNotify($event)" 
                         (dateNotify)="onDateNotify($event)" 
                         (notifyReady)="addNewReview()">
                     </app-review-form>
+                    <div *ngIf="banned">
+                        <div *ngIf="showAlert">
+                            <ngb-alert type='danger'(closed)="close()">Unfortunately you cannot post reviews, since you have been banned :(</ngb-alert>
+                        </div>
+                    </div>
                 </mat-tab>
                 
                 <mat-tab class="reviews-display" label="Pokaż recenzje">

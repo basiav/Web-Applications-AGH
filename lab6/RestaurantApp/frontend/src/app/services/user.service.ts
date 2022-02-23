@@ -15,6 +15,7 @@ export class UserService {
       'Content-Type': 'applications/json'
     })
   }
+  bannedUsers: string[] = [];
 
   constructor(
     private webService: WebRequestsService,
@@ -90,12 +91,29 @@ export class UserService {
       catchError(this.handleError<User>('addUser')));
   }
 
-  updateDish(user: User): Observable<User> {
+  updateUser(user: User): Observable<User> {
     return this.http.patch<User>(`${this.ROOT_URL}/${this.usersUrl}`, user)
     .pipe(
-      tap(_ => this.log(`updated dish nick=${user.nick}`)),
+      tap(_ => this.log(`updated user nick=${user.nick}`)),
       catchError(this.handleError<User>(`updateUser`))
     );
+  }
+
+  banUser(user: User): void {
+    if (!this.bannedUsers.includes(user.email)) {
+      this.bannedUsers.push(user.email);
+    }
+  }
+
+  unbanUser(user: User): void {
+    const index = this.bannedUsers.indexOf(user.email, 0);
+    if (index > -1) {
+      this.bannedUsers.splice(index, 1);
+    }
+  }
+
+  isBanned(userEmail: string): boolean {
+    return this.bannedUsers.includes(userEmail);
   }
   
   public handleError<T>(operation = 'operation', result?: T) {

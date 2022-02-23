@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ManagerGuard } from './guards/manager.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { ManagerAdminGuard } from './guards/manager-admin.guard';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   {path: 'dishes', component: DishesComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'dishes/:id', component: DishDetailComponent, canActivate: [AuthGuard]},
   {path: 'login-page', component: LoginComponent},
   {path: 'register-page', component: RegisterComponent},
+  {path: 'users', component: UsersComponent},
 ];
 
 @NgModule({

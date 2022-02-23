@@ -7,6 +7,7 @@ import { CartService } from '../../services/cart.service';
 import { Review } from '../../models/review.model';
 import { PageEvent } from '@angular/material/paginator';
 import { StarReviewService } from '../../services/star-review.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dish-detail',
@@ -26,11 +27,15 @@ export class DishDetailComponent implements OnInit {
   paginationStart: number = 0;
   paginationEnd!: number;
 
+  banned: boolean = this.authService.isUserBanned();
+  showAlert: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private dishService: DishService,
     private cartService: CartService,
     private starsReviewService: StarReviewService,
+    private authService: AuthService,
     private location: Location
   ) { }
 
@@ -163,6 +168,10 @@ export class DishDetailComponent implements OnInit {
 
   getCurrency(): string {
     return this.cartService.currency;
+  }
+
+  close(): void {
+    this.showAlert = !this.showAlert;
   }
 
 }
