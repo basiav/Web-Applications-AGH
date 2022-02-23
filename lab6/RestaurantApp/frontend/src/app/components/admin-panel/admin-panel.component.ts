@@ -8,8 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-  persistencyModel!: string;
-  models = ['LOCAL', 'SESSION', 'NONE'];
+  persistencyModel: string = this.authService.persistenceModel;
+  models = ['LOCAL', 'SESSION'];
 
   constructor(private authService: AuthService) { }
 
@@ -17,7 +17,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   setModel(model: string): void {
-    
+    this.authService.setPersistenceModel(model);
   }
 
 }

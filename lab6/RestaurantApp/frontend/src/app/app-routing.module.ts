@@ -23,8 +23,8 @@ const routes: Routes = [
   {path: 'dishes/:id', component: DishDetailComponent, canActivate: [AuthGuard]},
   {path: 'login-page', component: LoginComponent},
   {path: 'register-page', component: RegisterComponent},
-  {path: 'admin-panel', component: AdminPanelComponent},
-  {path: 'users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard, AdminGuard]},
 ];
 
 @NgModule({

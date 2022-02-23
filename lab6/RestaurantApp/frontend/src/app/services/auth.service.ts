@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { WebRequestsService } from './web-requests.service';
 
+export enum PersistenceModel {
+  LOCAL = "LOCAL",
+  SESSION = "SESSION"
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +14,7 @@ export class AuthService {
   usersRoles = new Map<string, string>();  // roles: "guest", "user", "manager", "admin"
   private storedEmailPath = "user-email";
   private storedTokenPath = "auth-token";
+  persistenceModel: PersistenceModel =  PersistenceModel.LOCAL;
 
   constructor(
     private userService: UserService,
@@ -68,13 +74,39 @@ export class AuthService {
   }
 
   private setSession(email: string, acccessToken: string){
-    localStorage.setItem(this.storedEmailPath, email);
-    localStorage.setItem(this.storedTokenPath, acccessToken);
+    switch(this.persistenceModel){
+      case PersistenceModel.LOCAL:
+        localStorage.setItem(this.storedEmailPath, email);
+        localStorage.setItem(this.storedTokenPath, acccessToken);
+        break;
+      case PersistenceModel.SESSION:
+        sessionStorage.setItem(this.storedEmailPath, email);
+        sessionStorage.setItem(this.storedTokenPath, acccessToken);
+        break;
+      default:
+        localStorage.setItem(this.storedEmailPath, email);
+        localStorage.setItem(this.storedTokenPath, acccessToken);
+    }
   }
 
   private removeSession(){
-    localStorage.removeItem(this.storedEmailPath);
-    localStorage.removeItem(this.storedTokenPath);
+    switch(this.persistenceModel){
+      case PersistenceModel.LOCAL:
+        localStorage.removeItem(this.storedEmailPath);
+        localStorage.removeItem(this.storedTokenPath);
+        break;
+      case PersistenceModel.SESSION:
+        sessionStorage.removeItem(this.storedEmailPath);
+        sessionStorage.removeItem(this.storedTokenPath);
+
+        localStorage.removeItem(this.storedEmailPath);
+        localStorage.removeItem(this.storedTokenPath);
+        break;
+      default:
+        localStorage.removeItem(this.storedEmailPath);
+        localStorage.removeItem(this.storedTokenPath);
+        break;
+    }
   }
 
   logout(){
@@ -130,5 +162,16 @@ export class AuthService {
   isUserBanned(): boolean {
     return this.isLoggedIn() && this.checkRole(this.storedEmail!, "user")
     && this.userService.isBanned(this.storedEmail!);
+  }
+
+  setPersistenceModel(model: string): void {
+    switch(model) {
+      case "LOCAL":
+        this.persistenceModel = PersistenceModel.LOCAL;
+        break;
+      case "SESSION":
+        this.persistenceModel = PersistenceModel.SESSION
+        break;
+    }
   }
 }
