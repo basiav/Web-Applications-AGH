@@ -17,8 +17,8 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
         console.error(`Error: while connecting to the database. \n${err}`);
     })
 
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useCreateIndex', true);
+// mongoose.set('useFindAndModify', false);
 
 module.exports = {
     mongoose
